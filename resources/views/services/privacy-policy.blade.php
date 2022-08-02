@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('pageTitle','Our Expertise')
+@section('pageTitle','Privacy Policy')
 @section('content')
 
 @stop

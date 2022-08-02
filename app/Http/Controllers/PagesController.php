@@ -23,10 +23,10 @@ class PagesController extends Controller
     }
 
     public function terms(){
-        return view('company.terms-and-conditions');
+        return view('services.terms-and-conditions');
     }
 
     public function privacy(){
-        return view('company.privacy-policy');
+        return view('services.privacy-policy');
     }
 }
