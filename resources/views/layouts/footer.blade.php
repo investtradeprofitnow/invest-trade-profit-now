@@ -11,7 +11,7 @@
 								<a href="{{route('about-us')}}" class="footer-links<?php echo Route::currentRouteName()=='about-us'?' links-active':''?>">About Us</a>
 							</p>
 							<p>
-							<a href="{{route('our-expertise')}}" class="footer-links<?php echo Route::currentRouteName()=='our-expertise'?' active':''?>">Our Expertise</a>
+								<a href="{{route('our-expertise')}}" class="footer-links<?php echo Route::currentRouteName()=='our-expertise'?' active':''?>">Our Expertise</a>
 							</p>
 						</div>
 						<div class="col-md-6 col-12">	

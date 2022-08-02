@@ -1,0 +1,38 @@
+.container{
+    width:50%;
+}
+
+.form{
+    border: 1px solid black;
+}
+
+h1{
+    color:#34bbe3;
+}
+
+.form-check-label a{
+    text-decoration: none;
+    color: #34bbe3;
+}
+
+.btn-register{
+    background-color: #34bbe3;
+    border-color: #34bbe3;
+    font-weight: bold;
+}
+
+.btn-register:hover{
+    background-color: #34bbe3;
+    border-color: #34bbe3;
+}
+
+.login-link a{
+    text-decoration: none;
+    color: #34bbe3;
+}
+
+@media screen and (max-width: 768px){
+    .container{
+        width:80%;
+    }
+}

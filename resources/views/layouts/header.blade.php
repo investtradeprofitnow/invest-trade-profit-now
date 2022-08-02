@@ -31,7 +31,6 @@
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" type="button" href="">My Profile</a></li>
                             <li><a class="dropdown-item" type="button" href="">My Strategies</a></li>
-                            <li><a class="dropdown-item" type="button" href="/addFeedback">Add Feedback</a></li>
                             <li><a class="dropdown-item" type="button" href="/logout">Logout</a></li>
                         </ul>
                     </div>

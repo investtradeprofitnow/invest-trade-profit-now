@@ -27,6 +27,7 @@ Route::get('/privacy-policy', [PagesController::class,'privacy'])->name('privacy
 Route::get('/login', [PagesController::class,'login'])->name('login');
 Route::get('/register', [PagesController::class,'register'])->name('register');
 
+Route::post('/displayOTP', [CustomersController::class,'displayOTP'])->name('displayOTP');
 Route::post('/addCustomer', [CustomersController::class,'addCustomer'])->name('addCustomer');
 Route::post('/checkCustomer', [CustomersController::class,'checkCustomer'])->name('checkCustomer');
 Route::get('/logout', [CustomersController::class,'logout'])->name('logout');

@@ -29,4 +29,12 @@ class PagesController extends Controller
     public function privacy(){
         return view('services.privacy-policy');
     }
+
+    public function login(){
+        return view('user.login');
+    }
+
+    public function register(){
+        return view('user.register');
+    }
 }
