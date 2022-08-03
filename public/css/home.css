@@ -225,3 +225,21 @@ footer{
     border-radius: 40px;
     font-size: 30px;
   }
+
+  .btn-outline, .btn-outline:hover{
+    border: 2px solid #c4dc6a;
+    padding: 5px 30px; 
+    border-radius: 30px;
+    color: #c4dc6a;
+    font-weight: 500;
+    background-color: transparent;
+}
+
+.btn-outline-secondary, .btn-outline-secondary:hover{
+    border: 2px solid #6c757d;
+    padding: 5px 30px; 
+    border-radius: 30px;
+    color: #6c757d;
+    font-weight: 500;
+    background-color: transparent;
+}

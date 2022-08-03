@@ -18,6 +18,11 @@ class CustomersController extends Controller
         {
             $user = Customers::where('email', $email)->first();
             if($user==null){
+                $customer = new Customers();
+                $customer->name = request('name');
+                $customer->mobile = request('mobile');
+                $customer->email = request('email');
+                $customer->password = password_hash(request("password"),PASSWORD_DEFAULT);
                 $otpMobile = new Otp();
                 $otpEmail = new Otp();
                 $otpMobile->type = request('mobile');
@@ -28,7 +33,7 @@ class CustomersController extends Controller
                 Otp::where('type', request('email'))->delete();
                 $otpMobile->save();
                 $otpEmail->save();
-                return view("user.register")->with("modal","yes");
+                return view('user.register',['customer'=>$customer]);
             }
             else{
                 return view("user.register")->with("error","User already exists.");
@@ -39,19 +44,31 @@ class CustomersController extends Controller
         }
     }
     public function addCustomer(){
-        $user = Customers::where('email', request('email'))->first();
-        if($user==null){
-            $customer = new Customers();
-            $customer->name = request('name');
-            $customer->mobile = request('mobile');
-            $customer->email = request('email');
-            $customer->password = password_hash(request("password"),PASSWORD_DEFAULT);
-            SESSION::put("email",request('email'));
-            $customer->save();
-            return redirect('/');
+        $mobile = request('mobile');
+        $otpMobile = request ('mobile-otp');
+        $email = request('email');
+        $otpEmail = request ('email-otp');
+        $rowEmail = Otp::where('type', '=', $email)->where('otp', '=', $otpEmail)->first();
+        $rowMobile = Otp::where('type', '=', $mobile)->where('otp', '=', $otpMobile)->first();
+        
+        $customer = new Customers();
+        $customer->name = request('name');
+        $customer->mobile = $mobile;
+        $customer->email = $email;
+        $customer->password = request('password');
+        $error="";
+        if($rowEmail==null){
+            $error.="Email OTP doesn't match. ";
+        }
+        if($rowMobile==null){
+            $error.="Mobile OTP doesn't match.";
+        }
+        if($error=="")
+        {   
+            return view('services.strategy-list');
         }
         else{
-            return view("user.register")->with("error","User already exists.");
+            return view("user.register",['customer'=>$customer])->with("error",$error);
         }
     }
 
