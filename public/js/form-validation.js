@@ -56,6 +56,20 @@ $('#login-form').validate({
     }   
 });
 
+$('#add-strategy-short-form').validate({
+    errorPlacement: function errorPlacement(error, element) {
+        error.insertAfter(element);
+    },
+    rules:{
+        name:{
+            alpha: true
+        }
+    },
+    submitHandler : function(form) {
+        form.submit();
+    }   
+});
+
 $.validator.addMethod("alpha", function (value, elem) {
         var re = /^[a-zA-Z ]+$/;
         return re.test(value);

@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('strategy_short', function (Blueprint $table) {
             $table->id();
-            $table->string('name',50)->unique()->nullable(false);
+            $table->string('name',50)->nullable(false);
             $table->string('description')->nullable(false);
+            $table->string('type')->nullable(false);
             $table->string('video')->nullable(false);
-            $table->string('created-by')->nullable(false);
-            $table->string('updated-by')->nullable(false);
+            $table->string('created_by')->nullable(false);
+            $table->string('updated_by')->nullable(false);
             $table->timestamps();
         });
     }
