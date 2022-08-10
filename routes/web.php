@@ -2,11 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Mail\NotifyMail;
 
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StrategyShortController;
+use App\Http\Controllers\StrategyBriefController;
+use App\Http\Controllers\FormController;
+use App\Http\Controllers\SendEmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,5 +41,24 @@ Route::get('/logout', [CustomersController::class,'logout'])->name('logout');
 
 Route::get('/admin/home', [AdminController::class,'home'])->name('admin-home');
 Route::get('/admin/strategy-short', [AdminController::class,'strategyShort'])->name('strategy-short');
+Route::get('/admin/strategy-brief', [AdminController::class,'strategyBrief'])->name('strategy-brief');
 
 Route::get('/admin/add-strategy-short', [StrategyShortController::class,'addStrategy'])->name('add-strategy-short');
+Route::post('/admin/save-strategy-short', [StrategyShortController::class,'saveStrategy'])->name('save-strategy-short');
+Route::get('/admin/edit-strategy-short', [StrategyShortController::class,'editStrategy'])->name('edit-strategy-short');
+Route::post('/admin/update-strategy-short', [StrategyShortController::class,'updateStrategy'])->name('update-strategy-short');
+Route::post('/admin/delete-strategy-short', [StrategyShortController::class,'deleteStrategy'])->name('delete-strategy-short');
+
+Route::get('/admin/add-strategy-brief', [StrategyBriefController::class,'addStrategy'])->name('add-strategy-brief');
+Route::post('/admin/save-strategy-brief', [StrategyBriefController::class,'saveStrategy'])->name('save-strategy-brief');
+Route::get('/admin/edit-strategy-brief', [StrategyBriefController::class,'editStrategy'])->name('edit-strategy-brief');
+Route::post('/admin/update-strategy-brief', [StrategyBriefController::class,'updateStrategy'])->name('update-strategy-brief');
+Route::post('/admin/delete-strategy-brief', [StrategyBriefController::class,'deleteStrategy'])->name('delete-strategy-brief');
+
+
+Route::get('/file-upload', function () {  
+    return view('form');  
+});  
+Route::post('/forms.store', [FormController::class, 'store'])->name('forms.store');
+
+Route::get('send-email', [SendEmailController::class, 'index']);

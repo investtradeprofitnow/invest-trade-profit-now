@@ -28,6 +28,14 @@
                 <input type="file" class="form-control form-control-sm" name="video" id="video" accept="video/*" required>
             </div>
             <div class="form-group mt-3">
+                <label for="brief" class="form-label">Brief Strategy:</label>
+                <select class="form-control" name="brief" id="brief">
+                    @foreach($brief as $strat)
+                        <option value="{{$strat->id}}">{{$strat->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group mt-3">
                 <input type="submit" class="btn btn-outline" value="Save Strategy"/>
             </div>
         </div>

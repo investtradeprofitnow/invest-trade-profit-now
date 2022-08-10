@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\StrategyShort;
+use App\Models\StrategyBrief;
 
 class StrategyShortController extends Controller
 {
     public function addStrategy(){
-        return view('admin.strategy-short.add-strategy');
+        $strategies=StrategyBrief::all();
+        return view('admin.strategy-short.add-strategy',['brief'=>$strategies]);
     }
 
     public function editStrategy(){
@@ -18,7 +20,8 @@ class StrategyShortController extends Controller
         $data->name = request('name');
         $data->description = request('desc');
         $data->video = request('video');
-        return view('admin.strategy-short.edit-strategy',['strategy'=>$data]);
+        $strategies=StrategyBrief::all();
+        return view('admin.strategy-short.edit-strategy',['strategy'=>$data],['brief'=>$strategies]);
     }
 
     public function saveStrategy(Request $request){
@@ -29,6 +32,7 @@ class StrategyShortController extends Controller
             $strategy->name = request('name');
             $strategy->description = request('desc');
             $strategy->type = request('type');
+            $strategy->strategy_brief_id = request('brief');
             $strategy->video = $fileName;
             $strategy->created_by = 'sddmsinvesttradeprofitnow@gmail.com';
             $strategy->updated_by = 'sddmsinvesttradeprofitnow@gmail.com';
@@ -44,6 +48,7 @@ class StrategyShortController extends Controller
         $strategy->name = request('name');
         $strategy->description = request('desc');
         $strategy->type = request('type');
+        $strategy->strategy_brief_id = request('brief');
         $strategy->updated_by = 'sddmsinvesttradeprofitnow@gmail.com';
         if($files=$request->file('video')){
             $fileName=$files->getClientOriginalName();  

@@ -88,6 +88,27 @@ class CustomersController extends Controller
         }
     }
 
+    public function checkAdminUser(){
+        $email = request("email");
+        $password = request("password");
+        $user = Customers::where("email", $email)->first();
+        if($user==null) {
+            return view("user.login")->with('error',"User does not exists. Please register first.");
+        }
+        else if (password_verify($password,$user->password)){
+            if($user->role="Admin"){
+                SESSION::put("email",$email);
+                return redirect("/admin/home");
+            }
+            else{
+                return view("user.login")->with('error',"Only Admin users can access this Website.");
+            }
+        }
+        else{
+            return view("user.login")->with('error',"Email id and Password doesn't match. Please try again");
+        }
+    }
+
     public function logout(){
         Session::forget("email");
         return redirect("/");

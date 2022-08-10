@@ -11,7 +11,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="strategyDropdown">
                 <li><a class="dropdown-item" href="{{route('strategy-short')}}">Short</a></li>
-                <li><a class="dropdown-item" href="#">Brief</a></li>
+                <li><a class="dropdown-item" href="{{route('strategy-brief')}}">Brief</a></li>
             </ul>
         </li>
         <li class="nav-item w-100">
