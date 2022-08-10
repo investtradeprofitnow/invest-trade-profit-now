@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Mail\NotifyMail;
-
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\AdminController;

@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Session;
 
 use Auth;
 
+use Mail;
+use App\Mail\OTPMail;
+
 use App\Models\Customers;
 use App\Models\Otp;
 
@@ -33,6 +36,7 @@ class CustomersController extends Controller
                 Otp::where('type', request('email'))->delete();
                 $otpMobile->save();
                 $otpEmail->save();
+                Mail::to(request('email'))->send(new OTPMail(request('name'),$otpEmail->otp));
                 return view('user.register',['customer'=>$customer]);
             }
             else{
