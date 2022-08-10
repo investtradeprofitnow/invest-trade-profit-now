@@ -43,6 +43,10 @@ Route::get('/admin/home', [AdminController::class,'home'])->name('admin-home');
 Route::get('/admin/strategy-short', [AdminController::class,'strategyShort'])->name('strategy-short');
 Route::get('/admin/strategy-brief', [AdminController::class,'strategyBrief'])->name('strategy-brief');
 
+Route::get('/admin/customer', [AdminController::class,'customer'])->name('customer');
+
+Route::post('/updateRole', [CustomersController::class,'updateRole'])->name('updateRole');
+
 Route::get('/admin/add-strategy-short', [StrategyShortController::class,'addStrategy'])->name('add-strategy-short');
 Route::post('/admin/save-strategy-short', [StrategyShortController::class,'saveStrategy'])->name('save-strategy-short');
 Route::get('/admin/edit-strategy-short', [StrategyShortController::class,'editStrategy'])->name('edit-strategy-short');
