@@ -7,21 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class OTPMail extends Mailable
+class SuccessMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $name;
-    public $otp;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($name,$otp)
+    public function __construct($name)
     {
         $this->name = $name;
-        $this->otp = $otp;
     }
 
     /**
@@ -31,6 +30,6 @@ class OTPMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Email Verification OTP Mail')->markdown('mails.otpMail');
+        return $this->subject('Welcome to Invest Trade Profit Now')->markdown('mails.successMail');
     }
 }

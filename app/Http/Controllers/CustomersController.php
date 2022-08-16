@@ -9,9 +9,11 @@ use Auth;
 
 use Mail;
 use App\Mail\OTPMail;
+use App\Mail\SuccessMail;
 
 use App\Models\Customers;
 use App\Models\Otp;
+use App\Models\StrategyShort;
 
 class CustomersController extends Controller
 {
@@ -54,22 +56,28 @@ class CustomersController extends Controller
         $otpEmail = request ('email-otp');
         $rowEmail = Otp::where('type', '=', $email)->where('otp', '=', $otpEmail)->first();
         $rowMobile = Otp::where('type', '=', $mobile)->where('otp', '=', $otpMobile)->first();
+        $error="";
         
         $customer = new Customers();
         $customer->name = request('name');
         $customer->mobile = $mobile;
         $customer->email = $email;
         $customer->password = request('password');
-        $error="";
+
         if($rowEmail==null){
             $error.="Email OTP doesn't match. ";
         }
         if($rowMobile==null){
             $error.="Mobile OTP doesn't match.";
         }
-        if($error=="")
-        {   
-            return view('services.strategy-list');
+        if($error==""){
+            Otp::where('type', request('mobile'))->delete();
+            Otp::where('type', request('email'))->delete();
+            $customer->save();
+            Mail::to($email)->send(new SuccessMail(request('name')));
+            Session::put("email",$email);
+            Session::put("role","Customer");
+            return redirect('/');
         }
         else{
             return view("user.register",['customer'=>$customer])->with("error",$error);
@@ -84,7 +92,7 @@ class CustomersController extends Controller
             return view("user.login")->with('error',"User does not exists. Please register first.");
         }
         else if (password_verify($password,$user->password)){
-            SESSION::put("email",$email);
+            Session::put("email",$email);
             return redirect("/");
         }
         else{
@@ -101,7 +109,7 @@ class CustomersController extends Controller
         }
         else if (password_verify($password,$user->password)){
             if($user->role="Admin"){
-                SESSION::put("email",$email);
+                Session::put("email",$email);
                 return redirect("/admin/home");
             }
             else{
@@ -115,6 +123,7 @@ class CustomersController extends Controller
 
     public function logout(){
         Session::forget("email");
+        Session::forget("role");
         return redirect("/");
     }
 

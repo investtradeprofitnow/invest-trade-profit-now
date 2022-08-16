@@ -243,3 +243,11 @@ footer{
     font-weight: 500;
     background-color: transparent;
 }
+
+.text-left{
+    text-align: left;
+}
+
+.text-right{
+    text-align: right;
+}
