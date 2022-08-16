@@ -1,7 +1,13 @@
 @extends('admin.layouts.app')
 @section('pageTitle', 'Home')
 @section('css')
-	<link href="{{asset('css/admin-home.css')}}" rel='stylesheet'>
+	<style type="text/css">
+		h1{
+			color: #34bbe2;
+			font-size: 7vw;
+			margin-top: 10vw;
+		}
+	</style>
 @stop
 @section('content')    
 <div class="p-2 active-cont">

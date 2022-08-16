@@ -19,9 +19,10 @@
 			@foreach($customers as $cust)
 				<tr>
 					@php
-						$index=$loop->index+1
+						$number=$loop->index+1;
+						$index=$cust->id;
 					@endphp
-					<td scope="row">{{$index}}</td>
+					<td scope="row">{{$number}}</td>
 					<td id="{{'name'.$index}}">{{$cust->name}}</td>
 					<td id="{{'role'.$index}}">{{$cust->role}}</td>
 					<td class="text-center">
@@ -43,23 +44,19 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<div class="form">
-					<?php
-					if(isset($error)){
-					?>
+				<div class="form p-4">
+					@if(isset($error))
 						<div class="error">{{$error}}</div>
-					<?php
-						}
-					?>
+					@endif
 					<form id="cust-role-form" method="post" action="/updateRole">
             			{{ csrf_field() }}
 						<div class="form-group mt-3">
-							<label for="name">Name:</label>
+							<label for="name"class="form-label">Name:</label>
 							<input type="text" class="form-control" name="name" id="name" readonly>
 						</div>
 						<div class="form-group mt-3">
-							<label for="role">Role:</label>
-							<select id="role" name="role">
+							<label for="role" class="form-label">Role:</label>
+							<select class="form-control" id="role" name="role">
 								<option value="Customer">Customer</option>
 								<option value="Admin">Admin</option>
 							</select>
