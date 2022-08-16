@@ -15,6 +15,7 @@
                 <textarea class="form-control" name="desc" id="desc" required>{{$strategy->description}}</textarea>
             </div>
             <div class="form-group mt-3">
+                {{$strategy->type}}
                 <label for="type" class="form-label">Type:</label>
                 <select class="form-control" name="type" id="type">
                     <option value="Intraday" {{$strategy->type=='Intraday'?'selected':''}}>Intraday</option>

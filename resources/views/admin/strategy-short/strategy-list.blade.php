@@ -24,7 +24,8 @@
 						$desc=$strategy->description;
 						$type=$strategy->type;
 						$video=$strategy->video;
-						$link='/admin/edit-strategy-short?id='.$index.'&name='.$name.'&desc='.$desc.'&type='.$type.'&video='.$video;
+						$strategy_brief_id=$strategy->strategy_brief_id;
+						$link='/admin/edit-strategy-short?id='.$index.'&name='.$name.'&desc='.$desc.'&type='.$type.'&video='.$video.'&strategy_brief_id='.$strategy_brief_id;
 					@endphp
 					<td scope="row">{{$number}}</td>
 					<td id="{{'name'.$index}}">{{$strategy->name}}</td>

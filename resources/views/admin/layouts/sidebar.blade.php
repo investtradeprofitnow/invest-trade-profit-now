@@ -1,7 +1,7 @@
 <nav class="navbar fixed-top navbar-sidebar navbar-expand d-flex flex-column align-item-start active-nav" id="sidebar">
     <ul class="navbar-nav d-flex flex-column w-100 ml-5">
         <li>
-            <a href="#" class="navbar-brand text-light mt-5">
+            <a href="{{route('admin-home')}}" class="navbar-brand text-light mt-5">
                 <img src="{{asset('images/logo.jpg')}}" width="80vw" height="80vw" alt="Logo"/>
             </a>
         </li>

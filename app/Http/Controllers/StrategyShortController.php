@@ -19,7 +19,9 @@ class StrategyShortController extends Controller
         $data->id = request('id');
         $data->name = request('name');
         $data->description = request('desc');
+        $data->type = request('type');
         $data->video = request('video');
+        $data->strategy_brief_id = request('strategy_brief_id');
         $strategies=StrategyBrief::all();
         return view('admin.strategy-short.edit-strategy',['strategy'=>$data],['brief'=>$strategies]);
     }
