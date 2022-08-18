@@ -30,6 +30,10 @@
                 <input type="file" class="form-control form-control-sm" name="video" id="video" accept="video/*">
             </div>
             <div class="form-group mt-3">
+                <label for="price">Price:</label>
+                <input type="text" class="form-control" name="price" id="price" value="{{$strategy->price}}" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required/>
+            </div>
+            <div class="form-group mt-3">
                 <label for="brief" class="form-label">Brief Strategy:</label>
                 <select class="form-control" name="brief" id="brief">
                     @foreach($brief as $strat)

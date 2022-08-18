@@ -26,7 +26,7 @@
                 @if(isset($error))
                     <div class="error">{{$error}}</div>
                 @endif
-                <form id="login-form" method="post" action="/checkAdminUser">
+                <form id="login-form" method="post" action="/admin/check-admin-user">
                     {{ csrf_field() }}
                     <div class="form-group mt-3">
                         <label for="email">Email:</label>

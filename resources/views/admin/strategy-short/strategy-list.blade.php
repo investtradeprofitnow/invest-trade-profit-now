@@ -11,6 +11,7 @@
 				<th scope="col">Description</th>
 				<th scope="col">Type</th>
 				<th scope="col">Video</th>
+				<th scope="col">Price</th>
 				<th scope="col">Operation</th>
 			</tr>
 		</thead>
@@ -24,14 +25,16 @@
 						$desc=$strategy->description;
 						$type=$strategy->type;
 						$video=$strategy->video;
+						$price=$strategy->price;
 						$strategy_brief_id=$strategy->strategy_brief_id;
-						$link='/admin/edit-strategy-short?id='.$index.'&name='.$name.'&desc='.$desc.'&type='.$type.'&video='.$video.'&strategy_brief_id='.$strategy_brief_id;
+						$link='/admin/edit-strategy-short?id='.$index.'&name='.$name.'&desc='.$desc.'&type='.$type.'&video='.$video.'&price='.$price.'&strategy_brief_id='.$strategy_brief_id;
 					@endphp
 					<td scope="row">{{$number}}</td>
 					<td id="{{'name'.$index}}">{{$strategy->name}}</td>
 					<td id="{{'desc'.$index}}">{{$strategy->description}}</td>
 					<td id="{{'type'.$index}}">{{$strategy->type}}</td>
 					<td id="{{'video'.$index}}">{{$strategy->video}}</td>
+					<td id="{{'video'.$index}}">{{$strategy->price}}</td>
 					<td class="text-center">
 						<a class="btn btn-outline" id="{{'edit'.$index}}" href="{{$link}}">
 							Edit

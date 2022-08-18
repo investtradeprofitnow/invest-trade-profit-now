@@ -3,25 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 use App\Models\StrategyBrief;
 
 class StrategyBriefController extends Controller
 {
     public function addStrategy(){
-        return view('admin.strategy-brief.add-strategy');
+        if((new AdminController)->checkSession()){
+            return view('admin.strategy-brief.add-strategy');
+        }
+        else{
+            return view('admin.login');
+        }
     }
 
     public function editStrategy(){
-        $data = new StrategyBrief();
-        $data->id = request('id');
-        $data->name = request('name');
-        $data->description = request('desc');
-        $data->video = request('video');
-        return view('admin.strategy-brief.edit-strategy',['strategy'=>$data]);
+        if((new AdminController)->checkSession()){
+            $strategy = new StrategyBrief();
+            $strategy->id = request('id');
+            $strategy->name = request('name');
+            $strategy->description = request('desc');
+            $strategy->type = request('type');
+            $strategy->video = request('video');
+            return view('admin.strategy-brief.edit-strategy',['strategy'=>$strategy]);
+        }
+        else{
+            return view('admin.login');
+        }
     }
 
     public function saveStrategy(Request $request){
+        $user = Session::get("email");
         if($files=$request->file('video')){  
             $fileName=$files->getClientOriginalName();  
             $files->move('strategy/brief',$fileName);  
@@ -30,21 +43,22 @@ class StrategyBriefController extends Controller
             $strategy->description = request('desc');
             $strategy->type = request('type');
             $strategy->video = $fileName;
-            $strategy->created_by = 'sddmsinvesttradeprofitnow@gmail.com';
-            $strategy->updated_by = 'sddmsinvesttradeprofitnow@gmail.com';
+            $strategy->created_by = $user;
+            $strategy->updated_by = $user;
             $strategy->save();
         }
         $strategies=StrategyBrief::all()->sortBy("updated_at");
         return view('admin.strategy-brief.strategy-list',['strategies'=>$strategies]);
     }
 
-    public function updateStrategy(Request $request){
+    public function updateStrategy(Request $request){   
+        $user = Session::get("email");
         $id=request('id');
         $strategy = StrategyBrief::find($id);
         $strategy->name = request('name');
         $strategy->description = request('desc');
         $strategy->type = request('type');
-        $strategy->updated_by = 'sddmsinvesttradeprofitnow@gmail.com';
+        $strategy->updated_by = $user;
         if($files=$request->file('video')){
             $fileName=$files->getClientOriginalName();  
             $files->move('strategy/brief',$fileName);

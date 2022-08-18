@@ -37,6 +37,7 @@ Route::post('/addCustomer', [CustomersController::class,'addCustomer'])->name('a
 Route::post('/checkCustomer', [CustomersController::class,'checkCustomer'])->name('checkCustomer');
 Route::get('/logout', [CustomersController::class,'logout'])->name('logout');
 
+Route::post('/admin/check-admin-user', [AdminController::class,'checkAdminUser'])->name('check-admin-user');
 Route::get('/admin/home', [AdminController::class,'home'])->name('admin-home');
 Route::get('/admin/strategy-short', [AdminController::class,'strategyShort'])->name('strategy-short');
 Route::get('/admin/strategy-brief', [AdminController::class,'strategyBrief'])->name('strategy-brief');
@@ -63,4 +64,4 @@ Route::get('/file-upload', function () {
 });  
 Route::post('/forms.store', [FormController::class, 'store'])->name('forms.store');
 
-Route::get('send-email', [SendEmailController::class, 'index']);
+Route::get('/send-email', [SendEmailController::class, 'index']);

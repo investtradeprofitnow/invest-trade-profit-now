@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('description')->nullable(false);
             $table->string('type')->nullable(false);
             $table->string('video')->nullable(false);
+            $table->string('price')->nullable(false);
             $table->unsignedBigInteger('strategy_brief_id')->nullable(false);
             $table->foreign('strategy_brief_id')->references('id')->on('strategy_brief');
             $table->string('created_by')->nullable(false);

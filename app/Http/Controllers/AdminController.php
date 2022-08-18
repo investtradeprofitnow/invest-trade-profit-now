@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Session;
 
 use App\Models\StrategyShort;
@@ -12,7 +13,12 @@ use App\Models\Customers;
 class AdminController extends Controller
 {
     public function home(){
-        return view('admin.index');
+        if($this->checkSession()){
+            return view('admin.index');
+        }
+        else{
+            return view('admin.login');
+        }
     }
 
     public function login(){
@@ -20,8 +26,10 @@ class AdminController extends Controller
     }
 
     public function customer(){
-        $customers=Customers::all()->sortBy("id");
-        return view('admin.customer',['customers'=>$customers]);
+        if($this->checkSession()){
+            $customers=Customers::all()->sortBy("id");
+            return view('admin.customer',['customers'=>$customers]);
+        }
     }
 
     public function checkAdminUser(){
@@ -47,12 +55,31 @@ class AdminController extends Controller
     }
 
     public function strategyShort(){
-        $strategies=StrategyShort::all()->sortBy("updated_at");
-        return view('admin.strategy-short.strategy-list',['strategies'=>$strategies]);
+        if($this->checkSession()){
+            $strategies=StrategyShort::all()->sortBy("updated_at");
+            return view('admin.strategy-short.strategy-list',['strategies'=>$strategies]);
+        }
+        else{
+            return view('admin.login');
+        }
     }
 
     public function strategyBrief(){
-        $strategies=StrategyBrief::all()->sortBy("updated_at");
-        return view('admin.strategy-brief.strategy-list',['strategies'=>$strategies]);
+        if($this->checkSession()){
+            $strategies=StrategyBrief::all()->sortBy("updated_at");
+            return view('admin.strategy-brief.strategy-list',['strategies'=>$strategies]);
+        }
+        else{
+            return view('admin.login');
+        }
+    }
+
+    public function checkSession(){
+        if(Session::get("email")!="" && Session::get("role")=="Admin"){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
