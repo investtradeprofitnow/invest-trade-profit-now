@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\StrategyShort;
+
 class PagesController extends Controller
 {
     public function index(){
@@ -39,6 +41,10 @@ class PagesController extends Controller
     }
 
     public function strategyList(){
-        return view('services.strategy-list');
+        $intradayList = StrategyShort::where('type', 'Intraday')->get();
+        $btstList = StrategyShort::where('type', 'BTST')->get();
+        $positionalList = StrategyShort::where('type', 'Positional')->get();
+        $investmentList = StrategyShort::where('type', 'Investment')->get();
+        return view('services.strategy-list',['intradayList'=>$intradayList, 'btstList'=>$btstList, 'positionalList'=> $positionalList, 'investmentList'=>$investmentList]);
     }
 }

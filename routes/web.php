@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StrategyShortController;
 use App\Http\Controllers\StrategyBriefController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\SendEmailController;
 
@@ -36,6 +37,10 @@ Route::post('/displayOTP', [CustomersController::class,'displayOTP'])->name('dis
 Route::post('/addCustomer', [CustomersController::class,'addCustomer'])->name('addCustomer');
 Route::post('/checkCustomer', [CustomersController::class,'checkCustomer'])->name('checkCustomer');
 Route::get('/logout', [CustomersController::class,'logout'])->name('logout');
+
+Route::get('/cart', [CartController::class,'cart'])->name('cart');
+Route::get('/add-to-cart/{id}', [CartController::class,'addToCart'])->name('add-to-cart');
+Route::get('/delete-from-cart/{id}', [CartController::class,'deleteFromCart'])->name('delete-from-cart');
 
 Route::post('/admin/check-admin-user', [AdminController::class,'checkAdminUser'])->name('check-admin-user');
 Route::get('/admin/home', [AdminController::class,'home'])->name('admin-home');
