@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\AdminController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -18,14 +20,9 @@ class StrategyBriefController extends Controller
         }
     }
 
-    public function editStrategy(){
+    public function editStrategy($id){
         if((new AdminController)->checkSession()){
-            $strategy = new StrategyBrief();
-            $strategy->id = request('id');
-            $strategy->name = request('name');
-            $strategy->description = request('desc');
-            $strategy->type = request('type');
-            $strategy->video = request('video');
+            $strategy = StrategyBrief::find($id);
             return view('admin.strategy-brief.edit-strategy',['strategy'=>$strategy]);
         }
         else{
@@ -33,7 +30,7 @@ class StrategyBriefController extends Controller
         }
     }
 
-    public function saveStrategy(Request $request){
+    public function saveStrategy(Request $request){   
         $user = Session::get("email");
         if($files=$request->file('video')){  
             $fileName=$files->getClientOriginalName();  
@@ -72,8 +69,7 @@ class StrategyBriefController extends Controller
         return view('admin.strategy-brief.strategy-list',['strategies'=>$strategies]);
     }
 
-    public function deleteStrategy(){
-        $id=request('strategy-id');
+    public function deleteStrategy($id){
         $strategy = StrategyBrief::find($id);
         $strategy->delete();
         $strategies=StrategyBrief::all()->sortBy("updated_at");

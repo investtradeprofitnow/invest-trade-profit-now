@@ -20,14 +20,7 @@
 				<tr>
 					@php
 						$number=$loop->index+1;
-						$index=$strategy->id;
-						$name=$strategy->name;
-						$desc=$strategy->description;
-						$type=$strategy->type;
-						$video=$strategy->video;
-						$price=$strategy->price;
-						$strategy_brief_id=$strategy->strategy_brief_id;
-						$link='/admin/edit-strategy-short?id='.$index.'&name='.$name.'&desc='.$desc.'&type='.$type.'&video='.$video.'&price='.$price.'&strategy_brief_id='.$strategy_brief_id;
+						$index=$strategy->id;						
 					@endphp
 					<td scope="row">{{$number}}</td>
 					<td id="{{'name'.$index}}">{{$strategy->name}}</td>
@@ -36,7 +29,7 @@
 					<td id="{{'video'.$index}}">{{$strategy->video}}</td>
 					<td id="{{'video'.$index}}">{{$strategy->price}}</td>
 					<td class="text-center">
-						<a class="btn btn-outline" id="{{'edit'.$index}}" href="{{$link}}">
+						<a class="btn btn-outline" id="{{'edit'.$index}}" href="{{route('edit-strategy-short',$index)}}">
 							Edit
 						</a>
 						<button type="button" class="btn btn-delete" id="{{'delete'.$index}}" data-bs-toggle="modal" data-bs-target="#deleteModal">
@@ -60,16 +53,10 @@
 			</div>
 			<div class="modal-body">
 				<div class="text"></div>
-				<form id="delete-form" method="post" action="/admin/delete-strategy-short">
-            		{{ csrf_field() }}
-					<div class="form-group mt-3">
-						<input type="hidden" name="strategy-id" id="strategy-id">
-					</div>
-				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-				<input type="submit" class="btn btn-outline" id="delete" value="Delete Strategy"/>
+				<a role="button" class="btn btn-outline" id="delete">Delete Strategy</a>
 			</div>
 		</div>
 	</div>
@@ -83,11 +70,9 @@
 			$type=$("#type"+$row).html();
 			$text="Do you wish to delete "+$name+" of type "+$type+"?";
 			$(".text").html($text);
+			$action="/admin/delete-strategy-short/"+$row;
+            $("#delete").attr("href",$action);
 			$("#strategy-id").val($row);
-		});
-
-		$("#delete").click(function(){
-			$("#delete-form").submit();
 		});
 	</script>
 @stop

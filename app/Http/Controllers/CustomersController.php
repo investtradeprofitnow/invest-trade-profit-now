@@ -106,8 +106,7 @@ class CustomersController extends Controller
         return redirect("/");
     }
 
-    public function updateRole(){
-        $id = request("cust-id");
+    public function updateRole($id){
         $customer = Customers::find($id);
         $customer->role = request("role");
         $customer->update();

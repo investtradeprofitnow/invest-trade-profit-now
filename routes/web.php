@@ -42,6 +42,7 @@ Route::get('/cart', [CartController::class,'cart'])->name('cart');
 Route::get('/add-to-cart/{id}', [CartController::class,'addToCart'])->name('add-to-cart');
 Route::get('/delete-from-cart/{id}', [CartController::class,'deleteFromCart'])->name('delete-from-cart');
 
+Route::get('/admin/login', [AdminController::class,'login'])->name('admin-login');
 Route::post('/admin/check-admin-user', [AdminController::class,'checkAdminUser'])->name('check-admin-user');
 Route::get('/admin/home', [AdminController::class,'home'])->name('admin-home');
 Route::get('/admin/strategy-short', [AdminController::class,'strategyShort'])->name('strategy-short');
@@ -49,19 +50,19 @@ Route::get('/admin/strategy-brief', [AdminController::class,'strategyBrief'])->n
 
 Route::get('/admin/customer', [AdminController::class,'customer'])->name('customer');
 
-Route::post('/updateRole', [CustomersController::class,'updateRole'])->name('updateRole');
+Route::get('/admin/updateRole/{id}', [CustomersController::class,'updateRole'])->name('updateRole');
 
 Route::get('/admin/add-strategy-short', [StrategyShortController::class,'addStrategy'])->name('add-strategy-short');
 Route::post('/admin/save-strategy-short', [StrategyShortController::class,'saveStrategy'])->name('save-strategy-short');
-Route::get('/admin/edit-strategy-short', [StrategyShortController::class,'editStrategy'])->name('edit-strategy-short');
+Route::get('/admin/edit-strategy-short/{id}', [StrategyShortController::class,'editStrategy'])->name('edit-strategy-short');
 Route::post('/admin/update-strategy-short', [StrategyShortController::class,'updateStrategy'])->name('update-strategy-short');
-Route::post('/admin/delete-strategy-short', [StrategyShortController::class,'deleteStrategy'])->name('delete-strategy-short');
+Route::get('/admin/delete-strategy-short/{id}', [StrategyShortController::class,'deleteStrategy'])->name('delete-strategy-short');
 
 Route::get('/admin/add-strategy-brief', [StrategyBriefController::class,'addStrategy'])->name('add-strategy-brief');
 Route::post('/admin/save-strategy-brief', [StrategyBriefController::class,'saveStrategy'])->name('save-strategy-brief');
-Route::get('/admin/edit-strategy-brief', [StrategyBriefController::class,'editStrategy'])->name('edit-strategy-brief');
+Route::get('/admin/edit-strategy-brief/{id}', [StrategyBriefController::class,'editStrategy'])->name('edit-strategy-brief');
 Route::post('/admin/update-strategy-brief', [StrategyBriefController::class,'updateStrategy'])->name('update-strategy-brief');
-Route::post('/admin/delete-strategy-brief', [StrategyBriefController::class,'deleteStrategy'])->name('delete-strategy-brief');
+Route::get('/admin/delete-strategy-brief/{id}', [StrategyBriefController::class,'deleteStrategy'])->name('delete-strategy-brief');
 
 
 Route::get('/file-upload', function () {  

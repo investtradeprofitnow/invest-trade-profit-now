@@ -48,7 +48,7 @@
 					@if(isset($error))
 						<div class="error">{{$error}}</div>
 					@endif
-					<form id="cust-role-form" method="post" action="/updateRole">
+					<form id="cust-role-form" method="get">
             			{{ csrf_field() }}
 						<div class="form-group mt-3">
 							<label for="name"class="form-label">Name:</label>
@@ -60,9 +60,6 @@
 								<option value="Customer">Customer</option>
 								<option value="Admin">Admin</option>
 							</select>
-						</div>
-						<div class="form-group mt-3">
-							<input type="hidden" name="cust-id" id="cust-id">
 						</div>
 					</form>
 				</div>
@@ -83,6 +80,8 @@
 			$role=$("#role"+$row).html();
 			$id=$("#cust-id"+$row).val();
 			$("#role option[value='"+$role+"']").attr("selected","selected");
+			$action="/admin/updateRole/"+$row;
+            $("#cust-role-form").attr("action",$action);
 			$("#name").val($name);
 			$("#cust-id").val($id);
 		});

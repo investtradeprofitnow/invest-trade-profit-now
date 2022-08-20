@@ -22,16 +22,9 @@ class StrategyShortController extends Controller
         }
     }
 
-    public function editStrategy(){
+    public function editStrategy($id){
         if((new AdminController)->checkSession()){
-            $strategy = new StrategyShort();
-            $strategy->id = request('id');
-            $strategy->name = request('name');
-            $strategy->description = request('desc');
-            $strategy->type = request('type');
-            $strategy->video = request('video');
-            $strategy->price = request('price');
-            $strategy->strategy_brief_id = request('strategy_brief_id');
+            $strategy = StrategyShort::find($id);
             $strategies=StrategyBrief::all();
             return view('admin.strategy-short.edit-strategy',['strategy'=>$strategy],['brief'=>$strategies]);
         }
@@ -83,8 +76,7 @@ class StrategyShortController extends Controller
         return view('admin.strategy-short.strategy-list',['strategies'=>$strategies]);
     }
 
-    public function deleteStrategy(){
-        $id=request('strategy-id');
+    public function deleteStrategy($id){
         $strategy = StrategyShort::find($id);
         $strategy->delete();
         $strategies=StrategyShort::all()->sortBy("updated_at");
