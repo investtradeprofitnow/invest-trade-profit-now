@@ -38,31 +38,25 @@ class CustomersController extends Controller
                 Otp::where('type', request('email'))->delete();
                 $otpMobile->save();
                 $otpEmail->save();
+                Session::put("customer",$customer);
                 Mail::to(request('email'))->send(new OTPMail(request('name'),$otpEmail->otp));
-                return view('user.register',['customer'=>$customer]);
+                return redirect('/register');
             }
             else{
-                return view("user.register")->with("error","User already exists.");
+                Session::forget("customer");
+                return redirect("/register")->with("error","User already exists.");
             }
-        }        
-        else{
-            return view("user.register")->with("error","User already exists.");
         }
     }
     public function addCustomer(){
-        $mobile = request('mobile');
+        $customer = Session::get("customer");
+        $mobile = $customer['mobile'];
         $otpMobile = request ('mobile-otp');
-        $email = request('email');
+        $email = $customer['email'];
         $otpEmail = request ('email-otp');
         $rowEmail = Otp::where('type', '=', $email)->where('otp', '=', $otpEmail)->first();
         $rowMobile = Otp::where('type', '=', $mobile)->where('otp', '=', $otpMobile)->first();
         $error="";
-        
-        $customer = new Customers();
-        $customer->name = request('name');
-        $customer->mobile = $mobile;
-        $customer->email = $email;
-        $customer->password = request('password');
 
         if($rowEmail==null){
             $error.="Email OTP doesn't match. ";
@@ -73,14 +67,10 @@ class CustomersController extends Controller
         if($error==""){
             Otp::where('type', request('mobile'))->delete();
             Otp::where('type', request('email'))->delete();
-            $customer->save();
-            Mail::to($email)->send(new SuccessMail(request('name')));
-            Session::put("email",$email);
-            Session::put("role","Customer");
-            return redirect('/');
+            return redirect('/strategy-list');
         }
         else{
-            return view("user.register",['customer'=>$customer])->with("error",$error);
+            return redirect("/register")->with("error",$error);
         }
     }
 

@@ -50,6 +50,9 @@
                         <td>{{$total}}</td>
                 </tbody>
             </table>
+            <div class="text-right">				
+                <a class="btn btn-success px-3 py-2 mb-5" href="{{route('login')}}" style="border-radius: 25px;">Proceed To Pay</a>
+            </div>
         @endif
     </div>
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">

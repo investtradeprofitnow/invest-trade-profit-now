@@ -26,6 +26,24 @@
         h4, h5, h6{
             font-weight: bold;
         }
+
+        /* h4{
+            font-size: 150% !important;
+        }
+
+        h5{
+            font-size: 125% !important;
+        }
+
+        h6{
+            font-size: 100% !important;
+        } */
+
+        @media only screen and (max-width: 767px){
+            img{
+                width: 60%;
+            }
+        }
     </style>
 @stop
 @section('content')
@@ -68,15 +86,14 @@
                                     <h5 class="my-2">{{$intraday->name}}</h5>
                                     <h6 class="text-left">Description of the Strategy:</h6>
                                     <p class="text-left">{{$intraday->description}}</p>
-                                    <h4>Price: &#8377;{{$intraday->price}}</h4>
-                                    <br/>
+                                    <h4 class="mb-3">Price: &#8377;{{$intraday->price}}</h4>
                                     @if(isset($strategyList[$id]))
                                         <a href="{{route('delete-from-cart',$id)}}" role="button">
-                                            <img src="{{asset('images/delete-cart-icon.jpg')}}" width="200" alt="Cart"/>
+                                            <img src="{{asset('images/delete-cart-icon.jpg')}}" width="50%" alt="Cart"/>
                                         </a>
                                     @else
                                         <a href="{{route('add-to-cart',$id)}}" role="button">
-                                            <img src="{{asset('images/add-cart-icon.png')}}" width="150" alt="Cart"/>
+                                            <img src="{{asset('images/add-cart-icon.png')}}" width="50%" alt="Cart"/>
                                         </a>
                                     @endif
                                 </div>                      

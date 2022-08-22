@@ -5,15 +5,15 @@
 @stop
 @section('content')
 <div class="container">
-    @if(isset($customer))
+    @if(session("customer"))
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script>
             $(function(){
                 $('#otpModal').modal('show');
             });
         </script>
-    @elseif(isset($error))
-        <div class="error">{{$error}}</div>
+    @elseif(session("error"))
+        <div class="error">{{session("error")}}</div>
     @endif
     <h1 class="mb-3 text-center"><strong><i>Register</i></strong></h1>
     <div class="form p-4">
@@ -61,8 +61,8 @@
             </div>
             <div class="modal-body">
                 <div class="form p-4">
-                    @if(isset($error))
-                        <div class="error">{{$error}}</div>
+                    @if(session("error"))
+                        <div class="error">{{session("error")}}</div>
                     @endif
 					<form id="otp-form" method="post" action="/addCustomer">
             			{{ csrf_field() }}
@@ -87,7 +87,7 @@
             </div>
             <div class="modal-footer">
 				<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-				<input type="submit" class="btn btn-outline" id="register" value="Register"/>
+				<input type="submit" class="btn btn-outline" id="register" value="Verify OTP"/>
 			</div>
         </div>
     </div>
