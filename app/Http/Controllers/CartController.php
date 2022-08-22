@@ -24,7 +24,8 @@ class CartController extends Controller
             $cartStrategies[$id] = [
                 "name" => $strategy->name,
                 "type" => $strategy->type,
-                "price" => $strategy->price
+                "price" => $strategy->price,
+                "brief_id" => $strategy->strategy_brief_id
             ];
             Session::put('cartStrategies', $cartStrategies);
             return redirect()->back()->with('success','Strategy added successfully');

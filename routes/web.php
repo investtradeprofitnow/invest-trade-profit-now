@@ -34,8 +34,10 @@ Route::get('/login', [PagesController::class,'login'])->name('login');
 Route::get('/register', [PagesController::class,'register'])->name('register');
 
 Route::post('/displayOTP', [CustomersController::class,'displayOTP'])->name('displayOTP');
-Route::post('/addCustomer', [CustomersController::class,'addCustomer'])->name('addCustomer');
+Route::post('/display-strategies', [CustomersController::class,'displayStrategies'])->name('display-strategies');
+Route::get('/save-customer', [CustomersController::class,'saveCustomer'])->name('save-customer');
 Route::post('/checkCustomer', [CustomersController::class,'checkCustomer'])->name('checkCustomer');
+Route::get('/user-strategies', [CustomersController::class,'userStrategies'])->name('user-strategies');
 Route::get('/logout', [CustomersController::class,'logout'])->name('logout');
 
 Route::get('/cart', [CartController::class,'cart'])->name('cart');

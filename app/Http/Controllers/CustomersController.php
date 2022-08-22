@@ -14,6 +14,8 @@ use App\Mail\SuccessMail;
 use App\Models\Customers;
 use App\Models\Otp;
 use App\Models\StrategyShort;
+use App\Models\StrategyBrief;
+use App\Models\UserStrategy;
 
 class CustomersController extends Controller
 {
@@ -27,7 +29,7 @@ class CustomersController extends Controller
                 $customer->name = request('name');
                 $customer->mobile = request('mobile');
                 $customer->email = request('email');
-                $customer->password = password_hash(request("password"),PASSWORD_DEFAULT);
+                $customer->password = password_hash(request('password'),PASSWORD_DEFAULT);
                 $otpMobile = new Otp();
                 $otpEmail = new Otp();
                 $otpMobile->type = request('mobile');
@@ -48,7 +50,7 @@ class CustomersController extends Controller
             }
         }
     }
-    public function addCustomer(){
+    public function displayStrategies(){
         $customer = Session::get("customer");
         $mobile = $customer['mobile'];
         $otpMobile = request ('mobile-otp');
@@ -74,7 +76,32 @@ class CustomersController extends Controller
         }
     }
 
-    public function checkCustomer(Request $request){
+    public function saveCustomer(){
+        $customerSession = Session::get("customer");
+        $customer = new Customers();
+        $customer->name = $customerSession['name'];
+        $customer->mobile = $customerSession['mobile'];
+        $customer->email = $customerSession['email'];
+        $customer->password = $customerSession['password'];
+        $customer->save();
+        $cust_id=$customer->id;
+        if($cust_id>0){
+            $strategyList = Session::get('cartStrategies',[]);
+            foreach($strategyList as $key=>$strategy){
+                $userStrategy = new UserStrategy();                
+                $userStrategy->user_id = $cust_id;
+                $userStrategy->strategy_id = $strategy["brief_id"];
+                $userStrategy->save();
+            }
+            Session::put("email",$customerSession['email']);
+            Session::put("role","Customer");
+            Session::forget("cartStrategies");
+            Session::forget("customer");
+            return redirect("/");
+        }
+    }
+
+    public function checkCustomer(){
         $email = request("email");
         $password = request("password");
         $user = Customers::where("email", $email)->first();
@@ -88,6 +115,23 @@ class CustomersController extends Controller
         else{
             return view("user.login")->with('error',"Email id and Password doesn't match. Please try again");
         }
+    }
+
+    public function userStrategies(){
+        $email=Session::get("email");
+        $id=Customers::where("email",$email)->value("id");
+        $strategiesId=UserStrategy::where("user_id",$id)->pluck("strategy_id");
+        $strategies = array();
+        for($i=0;$i<count($strategiesId);$i++){
+            $strategy = StrategyBrief::where('id', $strategiesId[$i])->first();
+            $strategies[$i] = $strategy;
+        }
+        dd($strategies);
+        // $intradayList = StrategyShort::where('type', 'Intraday')->get();
+        // $btstList = StrategyShort::where('type', 'BTST')->get();
+        // $positionalList = StrategyShort::where('type', 'Positional')->get();
+        // $investmentList = StrategyShort::where('type', 'Investment')->get();
+        // return view('services.strategy-list',['intradayList'=>$intradayList, 'btstList'=>$btstList, 'positionalList'=> $positionalList, 'investmentList'=>$investmentList]);
     }
 
     public function logout(){
