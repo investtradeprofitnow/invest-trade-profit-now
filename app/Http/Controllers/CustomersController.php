@@ -93,6 +93,7 @@ class CustomersController extends Controller
                 $userStrategy->strategy_id = $strategy["brief_id"];
                 $userStrategy->save();
             }
+            Mail::to($customerSession['email'])->send(new SuccessMail($customerSession['name']));
             Session::put("email",$customerSession['email']);
             Session::put("role","Customer");
             Session::forget("cartStrategies");
@@ -120,18 +121,34 @@ class CustomersController extends Controller
     public function userStrategies(){
         $email=Session::get("email");
         $id=Customers::where("email",$email)->value("id");
-        $strategiesId=UserStrategy::where("user_id",$id)->pluck("strategy_id");
-        $strategies = array();
-        for($i=0;$i<count($strategiesId);$i++){
-            $strategy = StrategyBrief::where('id', $strategiesId[$i])->first();
-            $strategies[$i] = $strategy;
+        $data = UserStrategy::join('strategy_brief','user_strategy.strategy_id','=','strategy_brief.id')->where("user_strategy.user_id","=",$id)->get(["strategy_brief.name","strategy_brief.description","strategy_brief.type","strategy_brief.video"]);
+        
+        $intradayList = array();
+        $btstList = array();
+        $positionalList = array();
+        $investmentList = array();
+        $intraId=0;
+        $btst_id=0;
+        $pos_id=0;
+        $invest_id=0;
+
+        for($i=0;$i<count($data);$i++){
+            $type = $data[$i]->type;
+            if($type=="Intraday"){
+                $intradayList[$intraId++]=$data[$i];
+            }
+            else if($type=="BTST"){
+                $btstList[$btst_id++]=$data[$i];
+            }
+            else if($type=="Positional"){
+                $positionalList[$pos_id++]=$data[$i];
+            }
+            else if($type=="Investment"){
+                $investmentList[$invest_id++]=$data[$i];
+            }
         }
-        dd($strategies);
-        // $intradayList = StrategyShort::where('type', 'Intraday')->get();
-        // $btstList = StrategyShort::where('type', 'BTST')->get();
-        // $positionalList = StrategyShort::where('type', 'Positional')->get();
-        // $investmentList = StrategyShort::where('type', 'Investment')->get();
-        // return view('services.strategy-list',['intradayList'=>$intradayList, 'btstList'=>$btstList, 'positionalList'=> $positionalList, 'investmentList'=>$investmentList]);
+        
+        return view('user.user-strategy-list',['intradayList'=>$intradayList, 'btstList'=>$btstList, 'positionalList'=> $positionalList, 'investmentList'=>$investmentList]);
     }
 
     public function logout(){
