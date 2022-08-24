@@ -70,6 +70,54 @@ $('#add-strategy-short-form').validate({
     }   
 });
 
+$('#reset-password-form').validate({
+    errorPlacement: function errorPlacement(error, element) {
+        error.insertAfter(element);
+    },
+    rules:{
+        email: {
+            email: true
+        }
+    },
+    messages:{
+        email: {
+            email: "Please enter a Valid Email Id"
+        }
+    },
+    submitHandler : function(form) {
+        form.submit();
+    }   
+});
+
+$('#change-password-form').validate({
+    errorPlacement: function errorPlacement(error, element) {
+        error.insertAfter(element);
+    },
+    rules:{
+        email: {
+            email: true
+        },
+        password: {
+            checkPassword: true
+        },
+        cnfm_password: {
+            checkPassword: true,
+            equalTo: "#password"
+        }
+    },
+    messages:{
+        email: {
+            email: "Please enter a Valid Email Id"
+        },
+        cnfm_password: {
+            equalTo: "The passwords do not match"
+        }
+    },
+    submitHandler : function(form) {
+        form.submit();
+    }   
+});
+
 $.validator.addMethod("alpha", function (value, elem) {
         var re = /^[a-zA-Z ]+$/;
         return re.test(value);
@@ -98,7 +146,7 @@ $.validator.addMethod('validMobile', function (value, elem) {
 $.validator.addMethod('checkPassword', function (value, elem) {
         hasFocus = document.activeElement === elem;
         if (hasFocus === false) {
-            var re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+            var re = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$/;
             return re.test(value);
         }
         return true;

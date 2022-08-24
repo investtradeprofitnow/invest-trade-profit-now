@@ -4,24 +4,45 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 use Auth;
+use Config;
 
 use Mail;
 use App\Mail\OTPMail;
 use App\Mail\SuccessMail;
+use App\Mail\ResetPasswordMail;
+use App\Mail\ChangePasswordMail;
 
 use App\Models\Customers;
 use App\Models\Otp;
 use App\Models\StrategyShort;
 use App\Models\StrategyBrief;
 use App\Models\UserStrategy;
+use App\Models\ResetPassword;
 
 class CustomersController extends Controller
 {
     public function displayOTP(){
         $email = request('email');
-        if($email!=null || $email!="")
+        $name = request('name');
+        $mobile = request('mobile');
+        $password = request('password');
+        $error ="";
+        if($name=="" || !preg_match ("/^[a-zA-Z ]+$/",$name)){
+            $error = "Name should contain only Capital, Small Letters and Spaces Allowed";
+        }
+        if($mobile="" || strlen($mobile)!=10 || !preg_match("",$mobile)){
+            $error = $error."<br/> Mobile Number must be 10 digits";
+        }
+        if($email=="" || !preg_match("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/",$email)){
+            $error = $error."<br/> Please enter a vaild email address";
+        }
+        if($password==null || !preg_match('/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{8,20}$/',$password)){
+            $error = $error."<br/> Password should be 8-20 Characters, atleast one Capital and one Small Letter, one numberic and special characters";
+        }
+        if($error=="")
         {
             $user = Customers::where('email', $email)->first();
             if($user==null){
@@ -45,9 +66,11 @@ class CustomersController extends Controller
                 return redirect('/register');
             }
             else{
-                Session::forget("customer");
-                return redirect("/register")->with("error","User already exists.");
+                $error="User already exists.";
             }
+        }
+        else{
+            return redirect("/register")->with("error",$error);
         }
     }
     public function displayStrategies(){
@@ -146,9 +169,67 @@ class CustomersController extends Controller
             else if($type=="Investment"){
                 $investmentList[$invest_id++]=$data[$i];
             }
-        }
-        
+        }        
         return view('user.user-strategy-list',['intradayList'=>$intradayList, 'btstList'=>$btstList, 'positionalList'=> $positionalList, 'investmentList'=>$investmentList]);
+    }
+
+    public function sendPasswordLink(){
+        $email = request("email");
+        $user = Customers::where('email', $email)->first();
+        if($user==null){
+            return redirect('/display-reset-password')->with("error","User already exists");
+        }
+        else{
+            $token = Str::random(20);
+            $resetPassword = new ResetPassword();
+            $resetPassword->email = $email;
+            $resetPassword->token = $token;
+            $resetPassword->save();
+            $link=env("APP_URL")."/reset-password/$token";
+            Mail::to($email)->send(new ResetPasswordMail($user->name,$link));
+            return redirect('/display-reset-password')->with("success","Reset password link has been sent to the email id");
+        }
+    }
+    public function displayResetPassword(){
+        return view("user.forgotPassword");
+    }
+
+    public function resetPassword($token){
+        $resetPassword = ResetPassword::where("token",$token)->first();
+        if($resetPassword!=null){
+            Session::put("emailChange",$resetPassword->email);
+            $resetPassword->delete();
+            return view("user.changePassword");
+        }
+    }
+
+    public function displayChangePassword(){
+        return view("user.changePassword");
+    }
+
+    public function changePassword(){
+        $email = request('email');
+        $password = request('password');
+        $cnfm_password = request('cnfm_password');
+        $error="";
+        if($password==null || !preg_match('/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{8,20}$/',$password)){
+            $error = $error."<br/> Password should be 8-20 Characters, atleast one Capital and one Small Letter, one numberic and special characters";
+        }
+        else if($cnfm_password==null || !preg_match('/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{8,20}$/',$cnfm_password)){
+            $error = $error."<br/> Confirm Password should be 8-20 Characters, atleast one Capital and one Small Letter, one numberic and special characters";
+        }
+        else if($password!=$cnfm_password){
+            $error = $error."<br/> Both the passwords do not match";
+        }
+        else{
+            $customer = Customers::where('email', $email)->first();
+            $customer->password = password_hash($password,PASSWORD_DEFAULT);
+            $customer->update();
+            Session::forget("emailChange");
+            Mail::to($email)->send(new ChangePasswordMail($customer->name));
+            return redirect("/display-change-password")->with("success","Your password has been changed successfully");
+        }
+        return redirect()->back()->with("error",$error);
     }
 
     public function logout(){

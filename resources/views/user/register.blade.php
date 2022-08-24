@@ -5,6 +5,7 @@
 @stop
 @section('content')
 <div class="container">
+    <h1 class="mb-3 text-center"><strong><i>Register</i></strong></h1>
     @if(session("customer"))
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script>
@@ -15,7 +16,6 @@
     @elseif(session("error"))
         <div class="error">{{session("error")}}</div>
     @endif
-    <h1 class="mb-3 text-center"><strong><i>Register</i></strong></h1>
     <div class="form p-4">
         <form id="register-form" method="post" action="/displayOTP">
             {{ csrf_field() }}

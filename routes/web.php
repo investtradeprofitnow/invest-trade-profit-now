@@ -38,6 +38,11 @@ Route::post('/display-strategies', [CustomersController::class,'displayStrategie
 Route::get('/save-customer', [CustomersController::class,'saveCustomer'])->name('save-customer');
 Route::post('/checkCustomer', [CustomersController::class,'checkCustomer'])->name('checkCustomer');
 Route::get('/user-strategies', [CustomersController::class,'userStrategies'])->name('user-strategies');
+Route::get('/display-reset-password', [CustomersController::class, 'displayResetPassword'])->name('display-reset-password');
+Route::post('/send-password-link', [CustomersController::class,'sendPasswordLink'])->name('send-password-link');
+Route::get('/reset-password/{token}', [CustomersController::class,'resetPassword'])->name('reset-password');
+Route::get('/display-change-password', [CustomersController::class,'displayChangePassword'])->name('display-change-password');
+Route::post('/change-password', [CustomersController::class,'changePassword'])->name('change-password');
 Route::get('/logout', [CustomersController::class,'logout'])->name('logout');
 
 Route::get('/cart', [CartController::class,'cart'])->name('cart');

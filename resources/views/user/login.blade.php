@@ -20,17 +20,15 @@
                 <label for="password">Password:</label>
                 <input type="password" class="form-control" name="password" id="password" minlength=8 maxlength=20 required>
             </div>
-            <div class="form-check mt-3">
-                <input class="form-check-input" type="checkbox" name="remember" id="remember">
-                <label class="form-check-label" for="remember">Remember Me</label><br/>
-            </div>
             <div class="form-group mt-3">
                 <button type="submit" class="btn btn-primary btn-register">Login</button>
             </div>
         </form>
     </div>
-    <div class="login-link text-center my-3">
+    <div class="login-link text-center my-5">
         <strong>
+            <a href="{{route('display-reset-password')}}">Forgot Password</a>
+            <br/><br/>
             Don't Have An Account?
             <a href="{{route('register')}}">Register Here</a>
         </strong>
