@@ -177,7 +177,7 @@ class CustomersController extends Controller
         $email = request("email");
         $user = Customers::where('email', $email)->first();
         if($user==null){
-            return redirect('/display-reset-password')->with("error","User already exists");
+            return redirect('/display-reset-password')->with("error","User does not exists. Please register first.");
         }
         else{
             $token = Str::random(20);
