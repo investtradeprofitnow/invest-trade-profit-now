@@ -33,7 +33,7 @@ class CustomersController extends Controller
         if($name=="" || !preg_match ("/^[a-zA-Z ]+$/",$name)){
             $error = "Name should contain only Capital, Small Letters and Spaces Allowed";
         }
-        if($mobile="" || strlen($mobile)!=10 || !preg_match("",$mobile)){
+        if($mobile=="" || strlen($mobile)!=10 || !preg_match("/^[0-9]*$/",$mobile)){
             $error = $error."<br/> Mobile Number must be 10 digits";
         }
         if($email=="" || !preg_match("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/",$email)){
@@ -51,6 +51,7 @@ class CustomersController extends Controller
                 $customer->mobile = request('mobile');
                 $customer->email = request('email');
                 $customer->password = password_hash(request('password'),PASSWORD_DEFAULT);
+                $customer->photo = strtoupper(request('name')[0]).".png";
                 $otpMobile = new Otp();
                 $otpEmail = new Otp();
                 $otpMobile->type = request('mobile');
@@ -100,12 +101,7 @@ class CustomersController extends Controller
     }
 
     public function saveCustomer(){
-        $customerSession = Session::get("customer");
-        $customer = new Customers();
-        $customer->name = $customerSession['name'];
-        $customer->mobile = $customerSession['mobile'];
-        $customer->email = $customerSession['email'];
-        $customer->password = $customerSession['password'];
+        $customer = Session::get("customer");
         $customer->save();
         $cust_id=$customer->id;
         if($cust_id>0){
@@ -116,8 +112,8 @@ class CustomersController extends Controller
                 $userStrategy->strategy_id = $strategy["brief_id"];
                 $userStrategy->save();
             }
-            Mail::to($customerSession['email'])->send(new SuccessMail($customerSession['name']));
-            Session::put("email",$customerSession['email']);
+            Mail::to($customer['email'])->send(new SuccessMail($customer['name']));
+            Session::put("email",$customer['email']);
             Session::put("role","Customer");
             Session::forget("cartStrategies");
             Session::forget("customer");
@@ -181,10 +177,18 @@ class CustomersController extends Controller
         }
         else{
             $token = Str::random(20);
-            $resetPassword = new ResetPassword();
-            $resetPassword->email = $email;
-            $resetPassword->token = $token;
-            $resetPassword->save();
+            $resetPassword=resetPassword::where('email', $email)->first();
+            if($resetPassword==null){
+                $resetPassword = new ResetPassword();
+                $resetPassword->email = $email;
+                $resetPassword->token = $token;
+                $resetPassword->save();
+            }
+            else{
+                $resetPassword->token = $token;
+                $resetPassword->update();
+            }
+            
             $link=env("APP_URL")."/reset-password/$token";
             Mail::to($email)->send(new ResetPasswordMail($user->name,$link));
             return redirect('/display-reset-password')->with("success","Reset password link has been sent to the email id");

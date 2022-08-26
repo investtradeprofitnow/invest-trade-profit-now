@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('mobile',10)->nullable(false);
             $table->string('email',80)->nullable(false);
             $table->string('password',100)->nullable(false);
+            $table->string('photo',100)->nullable(false);
             $table->string('role',8)->nullable(false)->default("Customer");
             $table->timestamps();
         });
