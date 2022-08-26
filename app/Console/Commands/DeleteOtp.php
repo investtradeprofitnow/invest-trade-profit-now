@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
+use \DateTime;
+
 use App\Models\Otp;
 use App\Models\ResetPassword;
 
@@ -14,20 +16,14 @@ class DeleteOtp extends Command
      *
      * @var string
      */
-    protected $signature = 'delete:otp';
+    protected $signature = 'DeleteOtp:check';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Delete OTPs before 10 minutes';
-
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
+    protected $description = 'This is a cron job to delete all OTPs before 10 mins';
 
     /**
      * Create a new command instance.
@@ -39,36 +35,39 @@ class DeleteOtp extends Command
         parent::__construct();
     }
 
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
     public function handle()
     {
-        \Log::info("Scheduler is working fine!");
-        
-        $verifyOTP = Otp::all();
-        $resetOTP = ResetPassword::all();
-        $now = new DateTime();
+        \Log::info("OTP Delete Scheduler is working fine");
 
-        // For Registration 
+        $now = new DateTime();
+        
+        //Registration Verification OTPs
+        $verifyOTP = OTP::all();
         foreach($verifyOTP as $otp){
-            $created = new DateTime($otp->created_at);
-            $diff = $now->diff($created);
-            $minutes = $diff->h * 60 + $diff->i;
-            echo $minutes;
+            $diff = $now->diff($otp->created_at);
+            $minutes = $diff->h * 60;
+            $minutes += $diff->i;
             if($minutes>10){
-                Otp::findOrFail($otp->id)->delete();
+                OTP::findOrFail($otp->id)->delete();
             }
         }
-        \Log::info("Registration OTPs delete");
+        \Log::info("Registration Verification OTPs");
 
-        // For Reset
-        foreach($reset as $otp){
-            $created = new DateTime($otp->created_at);
-            $diff = $now->diff($created);
-            $minutes = $diff->h * 60 + $diff->i;
-            echo $minutes;
+        //Forgot Password OTPs delete
+        $resetOtp = ResetPassword::all();
+        foreach($resetOtp as $otp){
+            $diff = $now->diff($otp->created_at);
+            $minutes = $diff->h * 60;
+            $minutes += $diff->i;
             if($minutes>10){
                 ResetPassword::findOrFail($otp->id)->delete();
             }
         }
-        \Log::info("Reset Password OTPs delete");        
+        \Log::info("Reset Password OTPs");
     }
 }
