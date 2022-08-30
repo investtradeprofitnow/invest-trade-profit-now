@@ -1,0 +1,148 @@
+#generic_price_table .generic_content .generic_head_price{
+    background-color: #edfdfd;
+}
+  
+#generic_price_table .generic_content .generic_head_price .generic_head_content .head_bg{
+    border-color: #d1fbfb rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #d1fbfb;
+    border-style: solid;
+    border-width: 90px 1411px 23px 399px;
+    position: absolute;
+}
+  
+#generic_price_table .generic_content .generic_feature_list ul li span{
+    font-weight: bold;
+    font-size: 35px;
+}
+
+#generic_price_table .generic_content.active .generic_head_price .generic_head_content .head_bg,
+#generic_price_table .generic_content:hover .generic_head_price .generic_head_content .head_bg{
+  border-color: #c4dc6a rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #c4dc6a;
+}
+
+.active{
+    color: black !important;
+}
+
+#generic_price_table{
+    margin: 50px 0 50px 0;
+}
+  
+#generic_price_table .generic_content{
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    border-radius: 20px;
+}
+  
+#generic_price_table .generic_content .generic_head_price {
+    margin: 0 0 20px 0;
+}
+  
+#generic_price_table .generic_content .generic_head_price .generic_head_content{
+    margin: 0 0 50px 0;
+}
+  
+#generic_price_table .generic_content .generic_head_price .generic_head_content .head{
+    padding-top: 20px;
+    position: relative;
+    z-index: 1;
+}
+  
+#generic_price_table .generic_content .generic_head_price .generic_head_content .head span{
+    font-size: 50px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+}
+  
+ #generic_price_table .generic_content .generic_head_price .generic_price_tag{
+    padding: 0 0 20px;
+}
+  
+#generic_price_table .generic_content .generic_head_price .generic_price_tag .price{
+    display: block;
+    font-weight: 400;
+}
+  
+#generic_price_table .generic_content .generic_head_price .generic_price_tag .price .sign{
+    display: inline-block;
+    font-size: 28px;
+    vertical-align: middle;
+}
+  
+#generic_price_table .generic_content .generic_head_price .generic_price_tag .price .currency{
+    font-size: 60px;
+    letter-spacing: -2px;
+    line-height: 60px;
+    padding: 0;
+    vertical-align: middle;
+}
+  
+#generic_price_table .generic_content .generic_head_price .generic_price_tag .price{
+    display: inline-block;
+    font-size: 24px;
+    font-weight: 400;
+    vertical-align: bottom;
+}
+  
+#generic_price_table .generic_content .generic_head_price .generic_price_tag{
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    vertical-align: bottom;
+}
+  
+#generic_price_table .generic_content .generic_feature_list ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+  
+#generic_price_table .generic_content .generic_feature_list ul li{
+    font-size: 18px;
+    padding: 15px 0;
+    transition: all 0.3s ease-in-out 0s;
+}
+  
+#generic_price_table .generic_content .generic_feature_list ul li .fa{
+    padding: 0 10px;
+}
+
+.red{
+    color: red;
+}
+  
+#generic_price_table .generic_content,
+#generic_price_table .generic_content:hover,
+#generic_price_table .generic_content .generic_head_price .generic_head_content .head_bg,
+#generic_price_table .generic_content:hover .generic_head_price .generic_head_content .head_bg,
+#generic_price_table .generic_content .generic_head_price .generic_head_content .head h2,
+#generic_price_table .generic_content:hover .generic_head_price .generic_head_content .head h2,
+#generic_price_table .generic_content .price,
+#generic_price_table .generic_content:hover .price{
+    transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    -ms-transition: all 0.3s ease-in-out 0s;
+    -o-transition: all 0.3s ease-in-out 0s;
+    -webkit-transition: all 0.3s ease-in-out 0s;
+ }
+  
+@media (max-width: 767px){
+    #generic_price_table .generic_content{
+      margin-bottom:75px;
+    }    
+}
+
+/* @media (min-width: 768px) and (max-width: 991px){
+    #generic_price_table .col-md-4{
+        float:left;
+        width:50%;
+    }
+    
+    #generic_price_table .generic_content{
+        margin-bottom:75px;
+    }
+} */
+

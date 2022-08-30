@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('email',80)->nullable(false);
             $table->string('password',100)->nullable(false);
             $table->string('photo',100)->nullable(false);
+            $table->integer('plan')->nullable(false);
+            $table->date('start_date')->nullable(false);
+            $table->date('end_date')->nullable(false);
             $table->string('role',8)->nullable(false)->default("Customer");
             $table->timestamps();
         });

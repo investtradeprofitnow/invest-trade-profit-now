@@ -24,6 +24,10 @@ class PagesController extends Controller
         return view('company.contact-us');
     }
 
+    public function pricing(){
+        return view('company.pricing');
+    }
+
     public function terms(){
         return view('support.terms-and-conditions');
     }

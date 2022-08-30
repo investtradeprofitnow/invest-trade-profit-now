@@ -74,7 +74,7 @@ class CustomersController extends Controller
             return redirect("/register")->with("error",$error);
         }
     }
-    public function displayStrategies(){
+    public function verifyOtp(){
         $customer = Session::get("customer");
         $mobile = $customer['mobile'];
         $otpMobile = request ('mobile-otp');
@@ -93,29 +93,54 @@ class CustomersController extends Controller
         if($error==""){
             Otp::where('type', request('mobile'))->delete();
             Otp::where('type', request('email'))->delete();
-            return redirect('/strategy-list');
+            if(Session::get("plan")!=null){
+                return redirect('/save-customer');
+            }
+            else{
+                return redirect('/pricing');
+            }
         }
         else{
             return redirect("/register")->with("error",$error);
         }
     }
 
+    public function savePlan($id)
+    {
+        Session::put("plan",$id);
+        if(Session::get("customer")!=null){
+            return redirect("/save-customer");
+        }
+        else{
+            return redirect("/register");
+        }
+    }
+
     public function saveCustomer(){
         $customer = Session::get("customer");
+        $plan = Session::get("plan");
+        $start_date = date("y-m-d");
+        $end_date;
+        switch($plan){
+            case 1:
+                $end_date = date("y-m-d", strtotime("+1 year"));
+                break;
+            case 2:
+                $end_date = date("y-m-d", strtotime("+2 years"));
+                break;
+            case 3:
+                $end_date = date("y-m-d", strtotime("+5 year"));
+                break;
+        }
+        $customer->start_date = $start_date;
+        $customer->end_date = $end_date;
+        $customer->plan = $plan;
         $customer->save();
         $cust_id=$customer->id;
         if($cust_id>0){
-            $strategyList = Session::get('cartStrategies',[]);
-            foreach($strategyList as $key=>$strategy){
-                $userStrategy = new UserStrategy();                
-                $userStrategy->user_id = $cust_id;
-                $userStrategy->strategy_id = $strategy["brief_id"];
-                $userStrategy->save();
-            }
             Mail::to($customer['email'])->send(new SuccessMail($customer['name']));
             Session::put("email",$customer['email']);
             Session::put("role","Customer");
-            Session::forget("cartStrategies");
             Session::forget("customer");
             return redirect("/");
         }
@@ -234,6 +259,12 @@ class CustomersController extends Controller
             return redirect("/display-change-password")->with("success","Your password has been changed successfully");
         }
         return redirect()->back()->with("error",$error);
+    }
+
+    public function profile(){
+        $email = Session::get("email");
+        $customer = Customers::where('email', $email)->first();
+        return view("user.profile",["customers"=>$customer]);
     }
 
     public function logout(){

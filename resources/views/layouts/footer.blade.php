@@ -17,6 +17,9 @@
 						<div class="col-md-6 col-12">	
 							<p>
 								<a href="{{route('contact-us')}}" class="footer-links<?php echo Route::currentRouteName()=='contact-us'?' links-active':''?>">Contact Us</a>
+							</p>	
+							<p>
+								<a href="{{route('pricing')}}" class="footer-links<?php echo Route::currentRouteName()=='pricing'?' links-active':''?>">Pricing</a>
 							</p>
 						</div>
 					</div>

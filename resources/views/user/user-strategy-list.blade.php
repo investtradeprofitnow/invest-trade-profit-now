@@ -70,6 +70,8 @@
                         @endforeach
                     </div>
                 </div>
+            @else
+                <h5 class="pt-4">There are no Strategies in this category</h5>
             @endif
         </div>
         <div class="tab-pane fade" id="btst" role="tabpanel" aria-labelledby="btst-tab">
@@ -97,6 +99,8 @@
                         @endforeach
                     </div>
                 </div>
+            @else
+                <h5 class="pt-4">There are no Strategies in this category</h5>
             @endif
         </div>
         <div class="tab-pane fade" id="positional" role="tabpanel" aria-labelledby="positional-tab">
@@ -124,6 +128,8 @@
                         @endforeach
                     </div>
                 </div>
+            @else
+                <h5 class="pt-4">There are no Strategies in this category</h5>
             @endif
         </div>
         <div class="tab-pane fade" id="investment" role="tabpanel" aria-labelledby="investment-tab">
@@ -151,6 +157,8 @@
                         @endforeach
                     </div>
                 </div>
+            @else
+                <h5 class="pt-4">There are no Strategies in this category</h5>
             @endif
         </div>
     </div>

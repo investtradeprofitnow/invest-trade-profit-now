@@ -29,12 +29,13 @@ Route::get('/contact-us', [PagesController::class,'contact'])->name('contact-us'
 Route::get('/terms-and-conditions', [PagesController::class,'terms'])->name('terms-and-conditions');
 Route::get('/privacy-policy', [PagesController::class,'privacy'])->name('privacy-policy');
 Route::get('/strategy-list', [PagesController::class,'strategyList'])->name('strategy-list');
-
 Route::get('/login', [PagesController::class,'login'])->name('login');
 Route::get('/register', [PagesController::class,'register'])->name('register');
+Route::get('/pricing', [PagesController::class,'pricing'])->name('pricing');
 
 Route::post('/displayOTP', [CustomersController::class,'displayOTP'])->name('displayOTP');
-Route::post('/display-strategies', [CustomersController::class,'displayStrategies'])->name('display-strategies');
+Route::post('/verify-otp', [CustomersController::class,'verifyOtp'])->name('verify-otp');
+Route::get('/save-plan/{id}', [CustomersController::class,'savePlan'])->name('save-plan');
 Route::get('/save-customer', [CustomersController::class,'saveCustomer'])->name('save-customer');
 Route::post('/checkCustomer', [CustomersController::class,'checkCustomer'])->name('checkCustomer');
 Route::get('/user-strategies', [CustomersController::class,'userStrategies'])->name('user-strategies');
@@ -43,6 +44,7 @@ Route::post('/send-password-link', [CustomersController::class,'sendPasswordLink
 Route::get('/reset-password/{token}', [CustomersController::class,'resetPassword'])->name('reset-password');
 Route::get('/display-change-password', [CustomersController::class,'displayChangePassword'])->name('display-change-password');
 Route::post('/change-password', [CustomersController::class,'changePassword'])->name('change-password');
+Route::get('/profile', [CustomersController::class,'profile'])->name('profile');
 Route::get('/logout', [CustomersController::class,'logout'])->name('logout');
 
 Route::get('/cart', [CartController::class,'cart'])->name('cart');
@@ -54,8 +56,9 @@ Route::post('/admin/check-admin-user', [AdminController::class,'checkAdminUser']
 Route::get('/admin/home', [AdminController::class,'home'])->name('admin-home');
 Route::get('/admin/strategy-short', [AdminController::class,'strategyShort'])->name('strategy-short');
 Route::get('/admin/strategy-brief', [AdminController::class,'strategyBrief'])->name('strategy-brief');
-
 Route::get('/admin/customer', [AdminController::class,'customer'])->name('customer');
+Route::get('/admin/logout', [AdminController::class,'logout'])->name('admin-logout');
+
 
 Route::get('/admin/updateRole/{id}', [CustomersController::class,'updateRole'])->name('updateRole');
 

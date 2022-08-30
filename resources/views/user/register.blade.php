@@ -64,7 +64,7 @@
                     @if(session("error"))
                         <div class="error">{{session("error")}}</div>
                     @endif
-					<form id="otp-form" method="post" action="{{route('display-strategies')}}">
+					<form id="otp-form" method="post" action="{{route('verify-otp')}}">
             			{{ csrf_field() }}
 						<div class="form-group mt-3">
 							<label for="name">Mobile OTP:</label>
