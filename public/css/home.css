@@ -3,7 +3,7 @@ body{
 }
 
 .nav-link{
-    font-size: 1.5vw;
+    font-size: 2vw;
     font-weight: bolder;
     color: black !important;
 }
@@ -228,8 +228,8 @@ footer{
 
   .btn-outline, .btn-outline:hover{
     border: 2px solid #c4dc6a;
-    padding: 5px 30px; 
-    border-radius: 30px;
+    padding: 5px 20px; 
+    border-radius: 20px;
     color: #c4dc6a;
     font-weight: 500;
     background-color: transparent;
@@ -237,8 +237,8 @@ footer{
 
 .btn-outline-secondary, .btn-outline-secondary:hover{
     border: 2px solid #6c757d;
-    padding: 5px 30px; 
-    border-radius: 30px;
+    padding: 5px 20px; 
+    border-radius: 20px;
     color: #6c757d;
     font-weight: 500;
     background-color: transparent;
@@ -259,4 +259,24 @@ footer{
 
 .text-right{
     text-align: right;
+}
+
+.float-right{
+    float: right;
+}
+
+.heading{
+    background: linear-gradient(#34bbe2, #c4dc6a);
+}
+
+.heading h1{
+    font-size: 70px !important;
+    font-weight: 900;
+    color: white;
+}
+
+@media only screen and (max-width: 992px){
+    .nav-link{
+        font-size: 1rem;
+    }
 }
