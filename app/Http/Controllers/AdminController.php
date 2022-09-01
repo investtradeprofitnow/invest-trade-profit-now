@@ -13,7 +13,7 @@ use App\Models\Customers;
 class AdminController extends Controller
 {
     public function home(){
-        if($this->checkSession()){
+        if($this->checkAdminSession()){
             return view('admin.index');
         }
         else{
@@ -26,7 +26,7 @@ class AdminController extends Controller
     }
 
     public function customer(){
-        if($this->checkSession()){
+        if($this->checkAdminSession()){
             $customers=Customers::all()->sortBy("id");
             return view('admin.customer',['customers'=>$customers]);
         }
@@ -55,7 +55,7 @@ class AdminController extends Controller
     }
 
     public function strategyShort(){
-        if($this->checkSession()){
+        if($this->checkAdminSession()){
             $strategies=StrategyShort::all()->sortBy("updated_at");
             return view('admin.strategy-short.strategy-list',['strategies'=>$strategies]);
         }
@@ -65,7 +65,7 @@ class AdminController extends Controller
     }
 
     public function strategyBrief(){
-        if($this->checkSession()){
+        if($this->checkAdminSession()){
             $strategies=StrategyBrief::all()->sortBy("updated_at");
             return view('admin.strategy-brief.strategy-list',['strategies'=>$strategies]);
         }
@@ -74,7 +74,7 @@ class AdminController extends Controller
         }
     }
 
-    public function checkSession(){
+    public function checkAdminSession(){
         if(Session::get("email")!="" && Session::get("role")=="Admin"){
             return true;
         }
