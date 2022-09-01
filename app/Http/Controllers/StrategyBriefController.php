@@ -12,7 +12,7 @@ use App\Models\StrategyBrief;
 class StrategyBriefController extends Controller
 {
     public function addStrategy(){
-        if((new AdminController)->checkSession()){
+        if((new AdminController)->checkAdminSession()){
             return view('admin.strategy-brief.add-strategy');
         }
         else{
@@ -21,7 +21,7 @@ class StrategyBriefController extends Controller
     }
 
     public function editStrategy($id){
-        if((new AdminController)->checkSession()){
+        if((new AdminController)->checkAdminSession()){
             $strategy = StrategyBrief::find($id);
             return view('admin.strategy-brief.edit-strategy',['strategy'=>$strategy]);
         }

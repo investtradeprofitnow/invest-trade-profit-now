@@ -27,17 +27,9 @@
             font-weight: bold;
         }
 
-        /* h4{
-            font-size: 150% !important;
+        .red{
+            color: red;
         }
-
-        h5{
-            font-size: 125% !important;
-        }
-
-        h6{
-            font-size: 100% !important;
-        } */
 
         @media only screen and (max-width: 767px){
             img{
@@ -79,14 +71,15 @@
                                         $end = strlen($videoName)-1;
                                         $type = substr($videoName,$index,$end);
                                         $id = $intraday->id;
+                                            $price = number_format($intraday->price * $disc);
                                     @endphp
                                     <video width="100%" height="auto" controls>
-                                        <source src="{{asset('strategy/short/'.$videoName)}}" type="{{'video/'.$type}}">
+                                        <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
                                     </video>
                                     <h5 class="my-2">{{$intraday->name}}</h5>
                                     <h6 class="text-left">Description of the Strategy:</h6>
                                     <p class="text-left">{{$intraday->description}}</p>
-                                    <h4 class="mb-3">Price: &#8377;{{$intraday->price}}</h4>
+                                    <h4 class="mb-3">Price: &#8377;<s>{{$intraday->price}}</s><span class="red">  {{$price}}</span></h4>
                                     @if(isset($strategyList[$id]))
                                         <a href="{{route('delete-from-cart',$id)}}" role="button">
                                             <img src="{{asset('images/delete-cart-icon.jpg')}}" width="50%" alt="Cart"/>
@@ -118,14 +111,15 @@
                                         $end = strlen($videoName)-1;
                                         $type = substr($videoName,$index,$end);
                                         $id = $btst->id;
+                                            $price = number_format($btst->price * $disc);
                                     @endphp
                                     <video width="100%" height="auto" controls>
-                                        <source src="{{asset('strategy/short/'.$videoName)}}" type="{{'video/'.$type}}">
+                                        <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
                                     </video>
                                     <h5 class="my-2">{{$btst->name}}</h5>
                                     <h6 class="text-left">Description of the Strategy:</h6>
-                                    <p class="text-left">{{$btst->description}}</p>
-                                    <h4>Price: &#8377;{{$btst->price}}</h4>
+                                    <p class="text-left">{{$btst->description}}</p>                                    
+                                    <h4 class="mb-3">Price: &#8377;<s>{{$btst->price}}</s><span class="red">  {{$price}}</span></h4>
                                     <br/>
                                     @if(isset($strategyList[$id]))
                                         <a href="{{route('delete-from-cart',$id)}}" role="button">
@@ -158,14 +152,15 @@
                                         $end = strlen($videoName)-1;
                                         $type = substr($videoName,$index,$end);
                                         $id = $positional->id;
+                                            $price = number_format($positional->price * $disc);
                                     @endphp
                                     <video width="100%" height="auto" controls>
-                                        <source src="{{asset('strategy/short/'.$videoName)}}" type="{{'video/'.$type}}">
+                                        <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
                                     </video>
                                     <h5 class="my-2">{{$positional->name}}</h5>
                                     <h6 class="text-left">Description of the Strategy:</h6>
                                     <p class="text-left">{{$positional->description}}</p>
-                                    <h4>Price: &#8377;{{$positional->price}}</h4>
+                                    <h4 class="mb-3">Price: &#8377;<s>{{$positional->price}}</s><span class="red">  {{$price}}</span></h4>
                                     <br/>
                                     @if(isset($strategyList[$id]))
                                         <a href="{{route('delete-from-cart',$id)}}" role="button">
@@ -200,12 +195,12 @@
                                         $id = $investment->id;
                                     @endphp
                                     <video width="100%" height="auto" controls>
-                                        <source src="{{asset('strategy/short/'.$videoName)}}" type="{{'video/'.$type}}">
+                                        <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
                                     </video>
                                     <h5 class="my-2">{{$investment->name}}</h5>
                                     <h6 class="text-left">Description of the Strategy:</h6>
                                     <p class="text-left">{{$investment->description}}</p>
-                                    <h4>Price: &#8377;{{$investment->price}}</h4>
+                                    <h4 class="mb-3">Price: &#8377;<s>{{$investment->price}}</s><span class="red">  {{$price}}</span></h4>
                                     <br/>
                                     @if(isset($strategyList[$id]))
                                         <a href="{{route('delete-from-cart',$id)}}" role="button">

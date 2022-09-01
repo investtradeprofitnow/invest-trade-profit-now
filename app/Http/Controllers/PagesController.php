@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Session;
+
 use App\Models\StrategyShort;
+use App\Models\Customers;
 
 class PagesController extends Controller
 {
@@ -44,11 +47,12 @@ class PagesController extends Controller
         return view('user.register');
     }
 
-    public function strategyList(){
-        $intradayList = StrategyShort::where('type', 'Intraday')->get();
-        $btstList = StrategyShort::where('type', 'BTST')->get();
-        $positionalList = StrategyShort::where('type', 'Positional')->get();
-        $investmentList = StrategyShort::where('type', 'Investment')->get();
-        return view('services.strategy-list',['intradayList'=>$intradayList, 'btstList'=>$btstList, 'positionalList'=> $positionalList, 'investmentList'=>$investmentList]);
+    public function checkSession(){
+        if(Session::get("email")){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

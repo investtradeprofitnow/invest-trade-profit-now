@@ -28,7 +28,6 @@ Route::get('/our-expertise', [PagesController::class,'expertise'])->name('our-ex
 Route::get('/contact-us', [PagesController::class,'contact'])->name('contact-us');
 Route::get('/terms-and-conditions', [PagesController::class,'terms'])->name('terms-and-conditions');
 Route::get('/privacy-policy', [PagesController::class,'privacy'])->name('privacy-policy');
-Route::get('/strategy-list', [PagesController::class,'strategyList'])->name('strategy-list');
 Route::get('/login', [PagesController::class,'login'])->name('login');
 Route::get('/register', [PagesController::class,'register'])->name('register');
 Route::get('/pricing', [PagesController::class,'pricing'])->name('pricing');
@@ -47,7 +46,9 @@ Route::post('/change-password', [CustomersController::class,'changePassword'])->
 Route::get('/profile', [CustomersController::class,'profile'])->name('profile');
 Route::get('/logout', [CustomersController::class,'logout'])->name('logout');
 
+Route::get('/strategy-list', [CartController::class,'strategyList'])->name('strategy-list');
 Route::get('/cart', [CartController::class,'cart'])->name('cart');
+Route::get('/save-strategies', [CartController::class,'saveStrategies'])->name('save-strategies');
 Route::get('/add-to-cart/{id}', [CartController::class,'addToCart'])->name('add-to-cart');
 Route::get('/delete-from-cart/{id}', [CartController::class,'deleteFromCart'])->name('delete-from-cart');
 
@@ -58,7 +59,6 @@ Route::get('/admin/strategy-short', [AdminController::class,'strategyShort'])->n
 Route::get('/admin/strategy-brief', [AdminController::class,'strategyBrief'])->name('strategy-brief');
 Route::get('/admin/customer', [AdminController::class,'customer'])->name('customer');
 Route::get('/admin/logout', [AdminController::class,'logout'])->name('admin-logout');
-
 
 Route::get('/admin/updateRole/{id}', [CustomersController::class,'updateRole'])->name('updateRole');
 

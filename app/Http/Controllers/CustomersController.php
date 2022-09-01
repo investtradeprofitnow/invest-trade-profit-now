@@ -141,6 +141,7 @@ class CustomersController extends Controller
             Mail::to($customer['email'])->send(new SuccessMail($customer['name']));
             Session::put("email",$customer['email']);
             Session::put("role","Customer");
+            $plan = Session::put("plan",$plan);
             Session::forget("customer");
             return redirect("/");
         }
@@ -155,6 +156,7 @@ class CustomersController extends Controller
         }
         else if (password_verify($password,$user->password)){
             Session::put("email",$email);
+            Session::put("plan",$user->plan);
             return redirect("/");
         }
         else{
@@ -270,6 +272,7 @@ class CustomersController extends Controller
     public function logout(){
         Session::forget("email");
         Session::forget("role");
+        Session::forget("plan");
         return redirect("/");
     }
 
