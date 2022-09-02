@@ -28,7 +28,7 @@ class PagesController extends Controller
     }
 
     public function pricing(){
-        return view('company.pricing');
+        return view('services.pricing');
     }
 
     public function terms(){

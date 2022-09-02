@@ -265,8 +265,59 @@ class CustomersController extends Controller
 
     public function profile(){
         $email = Session::get("email");
+        $customer = Customers::where('email', $email)->first(); 
+        return view("user.profile",["customer"=>$customer]);
+    }
+
+    public function updateDetails($column){
+        $email = Session::get("email");
         $customer = Customers::where('email', $email)->first();
-        return view("user.profile",["customers"=>$customer]);
+        $value=request($column);
+        $customer->$column = $value;
+        $customer->update();
+        return redirect("/profile");
+    }
+
+    public function verifyEmail(){
+        $value = request('email');
+        $data = Customers::where('email', $value)->first();
+        if($data!=null){
+            return redirect("/profile")->with("error","Account with this email id already exists.");
+        }
+        Otp::where('type', $value)->delete();
+        $otpEmail = new Otp();
+        $otpEmail->type = $value;
+        $otpEmail->otp = random_int(100000, 999999);
+        $otpEmail->save();
+        Session::put("emailOtpModal","yes");
+        Session::put("updateEmail",$value);
+        Mail::to($value)->send(new OTPMail(request('emailName'),$otpEmail->otp));
+        return redirect("/profile");
+    }
+
+    public function verifyEmailOtp(){
+        $email = Session::get("email");
+        $updateEmail = Session::get("updateEmail");
+        $otpEmail = request ('email-otp');
+        $rowEmail = Otp::where('type', $updateEmail)->where('otp', $otpEmail)->first();
+        $error="";
+        if($rowEmail==null){
+            $error.="Email OTP doesn't match. ";
+        }
+        if($error==""){
+            $customer = Customers::where('email', $email)->first();
+            if($customer!=null){
+                $customer->email = $updateEmail;
+                $customer->update();
+                Session::forget("emailOtpModal");
+                Session::forget("updateEmail");
+                Session::put("email",$updateEmail);
+                return redirect("/profile");
+            }
+        }
+        else{
+            return redirect("/profile")->with("error",$error);
+        }
     }
 
     public function logout(){

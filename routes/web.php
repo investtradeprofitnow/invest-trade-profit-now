@@ -44,6 +44,9 @@ Route::get('/reset-password/{token}', [CustomersController::class,'resetPassword
 Route::get('/display-change-password', [CustomersController::class,'displayChangePassword'])->name('display-change-password');
 Route::post('/change-password', [CustomersController::class,'changePassword'])->name('change-password');
 Route::get('/profile', [CustomersController::class,'profile'])->name('profile');
+Route::post('/update-details/{column}', [CustomersController::class,'updateDetails'])->name('update-details');
+Route::post('/verify-email', [CustomersController::class,'verifyEmail'])->name('verify-email');
+Route::post('/verify-email-otp', [CustomersController::class,'verifyEmailOtp'])->name('verify-email-otp');
 Route::get('/logout', [CustomersController::class,'logout'])->name('logout');
 
 Route::get('/strategy-list', [CartController::class,'strategyList'])->name('strategy-list');
