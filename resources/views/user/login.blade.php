@@ -8,7 +8,7 @@
     <h1 class="mb-3 text-center"><strong><i>Login</i></strong></h1>
     <div class="form p-4">            
         @if(isset($error))
-            <div class="error">{{$error}}</div>
+            <div class="error mb-3">{{$error}}</div>
         @endif
         <form id="login-form" method="post" action="/checkCustomer">
             {{ csrf_field() }}

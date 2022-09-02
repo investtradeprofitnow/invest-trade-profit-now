@@ -9,7 +9,7 @@
         @if(session("success"))
             <div class="success">{{session("success")}}</div>
         @elseif(session("error"))
-            <div class="error">{{session("error")}}</div>
+            <div class="error mb-3">{{session("error")}}</div>
         @endif
         <div class="form p-4 mb-5">
             <form id="change-password-form" method="post" action="{{route('change-password')}}">

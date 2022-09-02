@@ -46,7 +46,7 @@
 			<div class="modal-body">
 				<div class="form p-4">
 					@if(isset($error))
-						<div class="error">{{$error}}</div>
+						<div class="error mb-3">{{$error}}</div>
 					@endif
 					<form id="cust-role-form" method="get">
             			{{ csrf_field() }}

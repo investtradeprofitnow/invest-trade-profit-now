@@ -14,7 +14,7 @@
             });
         </script>
     @elseif(session("error"))
-        <div class="error">{{session("error")}}</div>
+        <div class="error mb-3">{{session("error")}}</div>
     @endif
     <div class="form p-4">
         <form id="register-form" method="post" action="/displayOTP">
@@ -62,7 +62,7 @@
             <div class="modal-body">
                 <div class="form p-4">
                     @if(session("error"))
-                        <div class="error">{{session("error")}}</div>
+                        <div class="error mb-3">{{session("error")}}</div>
                     @endif
 					<form id="otp-form" method="post" action="{{route('verify-otp')}}">
             			{{ csrf_field() }}
