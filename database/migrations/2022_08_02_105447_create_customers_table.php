@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('mobile',10)->nullable(false);
             $table->string('email',80)->nullable(false);
             $table->string('password',100)->nullable(false);
-            $table->string('photo',100)->nullable(false);
+            $table->string('photo',100)->nullable(true);
             $table->integer('plan')->nullable(false);
             $table->date('start_date')->nullable(false);
             $table->date('end_date')->nullable(false);

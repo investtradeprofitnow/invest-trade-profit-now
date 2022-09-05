@@ -51,7 +51,7 @@ class CustomersController extends Controller
                 $customer->mobile = request('mobile');
                 $customer->email = request('email');
                 $customer->password = password_hash(request('password'),PASSWORD_DEFAULT);
-                $customer->photo = strtoupper(request('name')[0]).".png";
+                $customer->photo = null;
                 $otpMobile = new Otp();
                 $otpEmail = new Otp();
                 $otpMobile->type = request('mobile');
@@ -267,7 +267,12 @@ class CustomersController extends Controller
     public function profile(){
         $email = Session::get("email");
         $customer = Customers::where('email', $email)->first(); 
-        return view("user.profile",["customer"=>$customer]);
+        $photo = $customer->photo;
+        if(is_null($photo) || empty($photo)){
+            $customer->photo = strtoupper($customer->name[0]).".png";
+            $photo=null;
+        }
+        return view("user.profile",["customer"=>$customer, "photo"=>$photo]);
     }
 
     public function updateDetails($column){
@@ -361,6 +366,25 @@ class CustomersController extends Controller
         else{
             return redirect("/profile")->with("otpError",$error);
         }
+    }
+
+    public function changePhoto(Request $request){
+        $email=Session::get("email");
+        $photo=$request->file('cust-photo');
+        $name=$photo->getClientOriginalName(); 
+        $photo->move('images/customer-images',$name); 
+        $customer = Customers::where('email', $email)->first();
+        $customer->photo=$name;
+        $customer->update();
+        return redirect("/profile");
+    }
+
+    public function deletePhoto(){
+        $email=Session::get("email");
+        $customer = Customers::where('email', $email)->first();
+        $customer->photo=null;
+        $customer->update();
+        return redirect("/profile");
     }
 
     public function logout(){

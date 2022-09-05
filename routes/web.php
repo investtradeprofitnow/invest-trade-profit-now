@@ -49,6 +49,8 @@ Route::post('/verify-email', [CustomersController::class,'verifyEmail'])->name('
 Route::post('/verify-email-otp', [CustomersController::class,'verifyEmailOtp'])->name('verify-email-otp');
 Route::post('/verify-mobile', [CustomersController::class,'verifyMobile'])->name('verify-mobile');
 Route::post('/verify-mobile-otp', [CustomersController::class,'verifyMobileOtp'])->name('verify-mobile-otp');
+Route::post("/change-photo", [CustomersController::class,'changePhoto'])->name('change-photo');
+Route::get("/delete-photo", [CustomersController::class,'deletePhoto'])->name('delete-photo');
 Route::get('/logout', [CustomersController::class,'logout'])->name('logout');
 
 Route::get('/strategy-list', [CartController::class,'strategyList'])->name('strategy-list');
