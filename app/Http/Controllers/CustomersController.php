@@ -239,18 +239,19 @@ class CustomersController extends Controller
     }
 
     public function changePassword(){
-        $email = request('email');
+        $email = request('email')!=null?request('email'):session("email");
+
         $password = request('password');
         $cnfm_password = request('cnfm_password');
         $error="";
         if($password==null || !preg_match('/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{8,20}$/',$password)){
-            $error = $error."<br/> Password should be 8-20 Characters, atleast one Capital and one Small Letter, one numberic and special characters";
+            $error = "Password should be 8-20 Characters, atleast one Capital and one Small Letter, one numberic and special characters";
         }
         else if($cnfm_password==null || !preg_match('/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{8,20}$/',$cnfm_password)){
-            $error = $error."<br/> Confirm Password should be 8-20 Characters, atleast one Capital and one Small Letter, one numberic and special characters";
+            $error = "Confirm Password should be 8-20 Characters, atleast one Capital and one Small Letter, one numberic and special characters";
         }
         else if($password!=$cnfm_password){
-            $error = $error."<br/> Both the passwords do not match";
+            $error = "Both the passwords do not match";
         }
         else{
             $customer = Customers::where('email', $email)->first();

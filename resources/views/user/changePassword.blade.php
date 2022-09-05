@@ -7,17 +7,19 @@
     <div class="container">        
         <h1 class="mb-3 text-center"><strong><i>Change Password</i></strong></h1>
         @if(session("success"))
-            <div class="success">{{session("success")}}</div>
+            <div class="success mb-3">{{session("success")}}</div>
         @elseif(session("error"))
             <div class="error mb-3">{{session("error")}}</div>
         @endif
         <div class="form p-4 mb-5">
             <form id="change-password-form" method="post" action="{{route('change-password')}}">
                 {{ csrf_field() }}
-                <div class="form-group mt-3">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" name="email" id="email" value="{{session('emailChange')}}" readonly required>
-                </div>
+                @if(session("emailChange"))
+                    <div class="form-group mt-3">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" name="email" id="email" value="{{session('emailChange')}}" readonly required>
+                    </div>
+                @endif
                 <div class="form-group mt-3">
                     <label for="password">Password:</label>
                     <input type="password" class="form-control" name="password" id="password" minlength=8 maxlength=20 required>
