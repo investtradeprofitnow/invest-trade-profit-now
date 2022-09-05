@@ -60,8 +60,8 @@
             </div>
             <div class="modal-body">
                 <div class="form p-4">
-                    @if(session("error"))
-                        <div class="error mb-3">{{session("error")}}</div>
+                    @if(session("otpError"))
+                        <div class="error mb-3">{{session("otpError")}}</div>
                     @endif
 					<form id="otp-email-form" method="post" action="{{route('verify-email-otp')}}">
             			{{ csrf_field() }}
@@ -75,6 +75,61 @@
             <div class="modal-footer">
 				<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
 				<input type="submit" class="btn btn-outline" id="verify-email-otp" value="Verify OTP"/>
+			</div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updateMobileModal" tabindex="-1" aria-labelledby="updateMobileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateMobileModalLabel">Update Mobile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form p-4">
+                    <form id="mobile-form" method="post" action="{{route('verify-mobile')}}">
+                        {{ csrf_field() }}
+                        <div class="form-group mt-3">
+                            <label for="name"class="form-label">Mobile:</label>
+                            <input type="text" class="form-control" name="mobile" id="mobile" maxlength=10 oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-outline" id="updateMobileDb" value="Update Mobile"/>
+            </div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="otpMobileModal" tabindex="-1" aria-labelledby="otpMobileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+				<h5 class="modal-title" id="otpMobileModal">Verify Mobile OTP</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form p-4">
+                    @if(session("otpError"))
+                        <div class="error mb-3">{{session("otpError")}}</div>
+                    @endif
+					<form id="otp-mobile-form" method="post" action="{{route('verify-mobile-otp')}}">
+            			{{ csrf_field() }}
+						<div class="form-group mt-3">
+							<label for="name">Mobile OTP:</label>
+							<input type="text" class="form-control" name="mobile-otp" id="mobile-otp" maxlength="6" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required>
+                        </div>
+					</form>
+				</div>
+            </div>
+            <div class="modal-footer">
+				<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+				<input type="submit" class="btn btn-outline" id="verify-mobile-otp" value="Verify OTP"/>
 			</div>
         </div>
     </div>

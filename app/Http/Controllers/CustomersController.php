@@ -282,7 +282,7 @@ class CustomersController extends Controller
         $value = request('email');
         $data = Customers::where('email', $value)->first();
         if($data!=null){
-            return redirect("/profile")->with("error","Account with this email id already exists.");
+            return redirect("/profile")->with("otpError","Account with this email id already exists.");
         }
         Otp::where('type', $value)->delete();
         $otpEmail = new Otp();
@@ -305,6 +305,7 @@ class CustomersController extends Controller
             $error.="Email OTP doesn't match. ";
         }
         if($error==""){
+            $rowEmail->delete();
             $customer = Customers::where('email', $email)->first();
             if($customer!=null){
                 $customer->email = $updateEmail;
@@ -316,7 +317,48 @@ class CustomersController extends Controller
             }
         }
         else{
-            return redirect("/profile")->with("error",$error);
+            return redirect("/profile")->with("otpError",$error);
+        }
+    }
+
+    public function verifyMobile(){
+        $value = request('mobile');
+        $data = Customers::where('mobile', $value)->first();
+        if($data!=null){
+            return redirect("/profile")->with("otpError","Account with this mobile number already exists.");
+        }
+        Otp::where('type', $value)->delete();
+        $otpEmail = new Otp();
+        $otpEmail->type = $value;
+        $otpEmail->otp = random_int(100000, 999999);
+        $otpEmail->save();
+        Session::put("mobileOtpModal","yes");
+        Session::put("updateMobile",$value);
+        return redirect("/profile");
+    }
+
+    public function verifyMobileOtp(){
+        $email = Session::get("email");
+        $updateMobile = Session::get("updateMobile");
+        $otpMobile = request ('mobile-otp');
+        $rowMobile = Otp::where('type', $updateMobile)->where('otp', $otpMobile)->first();
+        $error="";
+        if($rowMobile==null){
+            $error.="Mobile OTP doesn't match. ";
+        }
+        if($error==""){
+            $rowMobile->delete();
+            $customer = Customers::where('email', $email)->first();
+            if($customer!=null){
+                $customer->mobile = $updateMobile;
+                $customer->update();
+                Session::forget("mobileOtpModal");
+                Session::forget("updateMobile");
+                return redirect("/profile");
+            }
+        }
+        else{
+            return redirect("/profile")->with("otpError",$error);
         }
     }
 

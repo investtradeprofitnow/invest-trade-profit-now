@@ -11,6 +11,13 @@
                 $('#otpEmailModal').modal('show');
             });
         </script>
+    @elseif(session('mobileOtpModal')=="yes")
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script>
+            $(function(){
+                $('#otpMobileModal').modal('show');
+            });
+        </script>
     @endif
     <div class="container">
         <h1 class="mb-3 text-center"><strong><i>Profile</i></strong></h1>
@@ -44,6 +51,19 @@
                     </div>
                 </div>
             </div>
+            <div class="row mb-4">
+                <div class="col-8">
+                    <div class="form-group">
+                        <label for="name">Mobile:</label><br/>
+                        <span id="cust_mobile">{{$customer->mobile}}</span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group mt-3">
+                        <button class="btn btn-primary btn-outline float-right" data-bs-toggle="modal" data-bs-target="#updateMobileModal" id="updateMobile">Edit</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     @include('user.updateModals')
@@ -69,6 +89,14 @@
 
         $("#verify-email-otp").click(function(){
             $("#otp-email-form").submit();
+        });
+
+        $("#updateMobileDb").click(function(){
+            $("#mobile-form").submit();
+        });
+
+        $("#verify-mobile-otp").click(function(){
+            $("#otp-mobile-form").submit();
         });
     </script>
 @stop
