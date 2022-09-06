@@ -1,10 +1,6 @@
 @extends('layouts.app')
 @section('pageTitle','Home')
 @section('content')
-<button type="button" class="btn btn-floating btn-lg" id="btn-back-to-top">
-	<i class="fa fa-solid fa-angle-up"></i>
-</button>
-
 <!-- Slide Tags Start -->
 <div id="carousel-tags" class="carousel slide" data-bs-ride="carousel">
 	<div class="carousel-inner">
@@ -32,10 +28,10 @@
 <div class="container py-5">
 	<h1 class="mb-3 text-center section-title">What We Do...</h1>
 	<ul class="what-we-do">
-		<li><i class="fa fa-solid fa-arrow-right"></i>We provide Strategies To Our Clients for Trading and Investment and charge for each kind of Strategy</li>
-		<li><i class="fa fa-solid fa-arrow-right"></i>We have Strategies for Index as well as Stocks (Nifty, Bank Nifty and Shares</li>
-		<li><i class="fa fa-solid fa-arrow-right"></i>We provide strategies with capital requirement, lot size, stop loss and target thereby helping them with defined methodology to earn consistent profits</li>
-		<li><i class="fa fa-solid fa-arrow-right"></i>We work on numerous strategies to fine tune in this market</li>
+		<li><i class="fa fa-solid fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;We provide Strategies To Our Clients for Trading and Investment and charge for each kind of Strategy</li>
+		<li><i class="fa fa-solid fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;We have Strategies for Index as well as Stocks (Nifty, Bank Nifty and Shares</li>
+		<li><i class="fa fa-solid fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;We provide strategies with capital requirement, lot size, stop loss and target thereby helping them with defined methodology to earn consistent profits</li>
+		<li><i class="fa fa-solid fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;We work on numerous strategies to fine tune in this market</li>
 	</ul>
 </div>
 <!-- What We Do End -->

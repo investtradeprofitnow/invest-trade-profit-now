@@ -36,7 +36,7 @@
                 <input type="password" class="form-control" name="password" id="password" minlength=8 maxlength=20 required>
             </div>
             <div class="form-check mt-3">
-                <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                <input class="form-check-input" type="checkbox" name="remember" id="remember" required>
                 <label class="form-check-label" for="remember">I agree to the <a href="{{route('terms-and-conditions')}}">Terms and Conditions</a></label><br/>
             </div>
             <div class="form-group mt-3">
