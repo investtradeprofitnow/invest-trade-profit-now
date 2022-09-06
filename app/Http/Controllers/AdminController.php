@@ -37,7 +37,7 @@ class AdminController extends Controller
         $password = request("password");
         $user = Customers::where("email", $email)->first();
         if($user==null) {
-            return view("user.login")->with('error',"User does not exists. Please register first.");
+            return view("admin.login")->with('error',"User does not exists. Please register first.");
         }
         else if (password_verify($password,$user->password)){
             if($user->role="Admin"){
@@ -46,11 +46,11 @@ class AdminController extends Controller
                 return redirect("/admin/home");
             }
             else{
-                return view("user.login")->with('error',"Only Admin users can access this Website.");
+                return view("admin.login")->with('error',"Only Admin users can access this Website.");
             }
         }
         else{
-            return view("user.login")->with('error',"Email id and Password doesn't match. Please try again");
+            return view("admin.login")->with('error',"Email id and Password doesn't match. Please try again");
         }
     }
 
