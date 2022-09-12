@@ -30,6 +30,6 @@ class ChangePasswordMail extends Mailable
      */
     public function build()
     {
-        return $this->subject("Password Changed")->markdown('mails.change-password-mail');
+        return $this->subject("Password Changed")->from(env("MAIL_USERNAME"),env("MAIL_FROM_NAME"))->markdown('mails.change-password-mail');
     }
 }

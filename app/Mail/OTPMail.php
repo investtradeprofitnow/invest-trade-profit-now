@@ -31,6 +31,6 @@ class OTPMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Email Verification OTP Mail')->markdown('mails.otpMail');
+        return $this->subject('Email Verification OTP Mail')->from(env("MAIL_USERNAME"),env("MAIL_FROM_NAME"))->markdown('mails.otpMail');
     }
 }

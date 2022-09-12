@@ -32,6 +32,6 @@ class ResetPasswordMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Reset Password Verification Link')->markdown('mails.reset-password-mail');
+        return $this->subject('Reset Password Verification Link')->from(env("MAIL_USERNAME"),env("MAIL_FROM_NAME"))->markdown('mails.reset-password-mail');
     }
 }
