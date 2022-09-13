@@ -68,6 +68,8 @@ class CustomersController extends Controller
             }
             else{
                 $error="User already exists.";
+                Session::forget("customer");
+                return redirect("/register")->with("error",$error);
             }
         }
         else{

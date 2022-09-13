@@ -10,6 +10,7 @@ use App\Http\Controllers\StrategyBriefController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\SendEmailController;
+use App\Http\Controllers\SMSController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,3 +89,4 @@ Route::get('/file-upload', function () {
 Route::post('/forms.store', [FormController::class, 'store'])->name('forms.store');
 
 Route::get('/send-email', [SendEmailController::class, 'index']);
+Route::get('/sms', [SMSController::class, 'sendSMS']);
