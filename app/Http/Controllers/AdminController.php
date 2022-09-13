@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\StrategyShort;
 use App\Models\StrategyBrief;
 use App\Models\Customers;
+use App\Models\Offers;
 
 class AdminController extends Controller
 {
@@ -72,6 +73,22 @@ class AdminController extends Controller
         else{
             return view('admin.login');
         }
+    }
+
+    public function offers(){
+        if($this->checkAdminSession()){
+            $offers=Offers::all()->sortBy("updated_at");
+            return view('admin.offers.offers-list',['offers'=>$offers]);
+        }
+        else{
+            return view('admin.login');
+        }
+    }
+
+    public function logout(){
+        Session::forget("email");
+        Session::forget("role");
+        return redirect("/login");
     }
 
     public function checkAdminSession(){

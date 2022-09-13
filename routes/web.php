@@ -8,7 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StrategyShortController;
 use App\Http\Controllers\StrategyBriefController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\FormController;
+use App\Http\Controllers\OffersController;
 use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\SMSController;
 
@@ -66,6 +66,7 @@ Route::get('/admin/home', [AdminController::class,'home'])->name('admin-home');
 Route::get('/admin/strategy-short', [AdminController::class,'strategyShort'])->name('strategy-short');
 Route::get('/admin/strategy-brief', [AdminController::class,'strategyBrief'])->name('strategy-brief');
 Route::get('/admin/customer', [AdminController::class,'customer'])->name('customer');
+Route::get('/admin/offers', [AdminController::class,'offers'])->name('offers');
 Route::get('/admin/logout', [AdminController::class,'logout'])->name('admin-logout');
 
 Route::get('/admin/updateRole/{id}', [CustomersController::class,'updateRole'])->name('updateRole');
@@ -82,11 +83,11 @@ Route::get('/admin/edit-strategy-brief/{id}', [StrategyBriefController::class,'e
 Route::post('/admin/update-strategy-brief', [StrategyBriefController::class,'updateStrategy'])->name('update-strategy-brief');
 Route::get('/admin/delete-strategy-brief/{id}', [StrategyBriefController::class,'deleteStrategy'])->name('delete-strategy-brief');
 
-
-Route::get('/file-upload', function () {  
-    return view('form');  
-});  
-Route::post('/forms.store', [FormController::class, 'store'])->name('forms.store');
+Route::get('/admin/add-offer', [OffersController::class,'addOffer'])->name('add-offer');
+Route::post('/admin/save-offer', [OffersController::class,'saveOffer'])->name('save-offer');
+Route::get('/admin/edit-offer/{id}', [OffersController::class,'editOffer'])->name('edit-offer');
+Route::post('/admin/update-offer', [OffersController::class,'updateOffer'])->name('update-offer');
+Route::get('/admin/delete-offer/{id}', [OffersController::class,'deleteOffer'])->name('delete-offer');
 
 Route::get('/send-email', [SendEmailController::class, 'index']);
 Route::get('/sms', [SMSController::class, 'sendSMS']);
