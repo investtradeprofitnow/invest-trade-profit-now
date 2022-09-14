@@ -21,6 +21,9 @@
             <a href="{{route('offers')}}" class="nav-link pl-4">Offers</a>
         </li>
         <li class="nav-item w-100">
+            <a href="{{route('coupons')}}" class="nav-link pl-4">Coupons</a>
+        </li>
+        <li class="nav-item w-100">
             <a href="{{route('admin-logout')}}" class="nav-link pl-4">Logout</a>
         </li>
     </ul>

@@ -9,6 +9,7 @@ use App\Http\Controllers\StrategyShortController;
 use App\Http\Controllers\StrategyBriefController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OffersController;
+use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\SMSController;
 
@@ -67,6 +68,7 @@ Route::get('/admin/strategy-short', [AdminController::class,'strategyShort'])->n
 Route::get('/admin/strategy-brief', [AdminController::class,'strategyBrief'])->name('strategy-brief');
 Route::get('/admin/customer', [AdminController::class,'customer'])->name('customer');
 Route::get('/admin/offers', [AdminController::class,'offers'])->name('offers');
+Route::get('/admin/coupons', [AdminController::class,'coupons'])->name('coupons');
 Route::get('/admin/logout', [AdminController::class,'logout'])->name('admin-logout');
 
 Route::get('/admin/updateRole/{id}', [CustomersController::class,'updateRole'])->name('updateRole');
@@ -88,6 +90,12 @@ Route::post('/admin/save-offer', [OffersController::class,'saveOffer'])->name('s
 Route::get('/admin/edit-offer/{id}', [OffersController::class,'editOffer'])->name('edit-offer');
 Route::post('/admin/update-offer', [OffersController::class,'updateOffer'])->name('update-offer');
 Route::get('/admin/delete-offer/{id}', [OffersController::class,'deleteOffer'])->name('delete-offer');
+
+Route::get('/admin/add-coupon', [CouponsController::class,'addCoupon'])->name('add-coupon');
+Route::post('/admin/save-coupon', [CouponsController::class,'saveCoupon'])->name('save-coupon');
+Route::get('/admin/edit-coupon/{id}', [CouponsController::class,'editCoupon'])->name('edit-coupon');
+Route::post('/admin/update-coupon', [CouponsController::class,'updateCoupon'])->name('update-coupon');
+Route::get('/admin/delete-coupon/{id}', [CouponsController::class,'deleteCoupon'])->name('delete-coupon');
 
 Route::get('/send-email', [SendEmailController::class, 'index']);
 Route::get('/sms', [SMSController::class, 'sendSMS']);
