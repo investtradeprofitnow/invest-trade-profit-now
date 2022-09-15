@@ -63,6 +63,7 @@ class CustomersController extends Controller
                 $otpMobile->save();
                 $otpEmail->save();
                 Session::put("customer",$customer);
+                Session::put("otpModal","yes");
                 Mail::to(request('email'))->send(new OTPMail(request('name'),$otpEmail->otp));
                 return redirect('/register');
             }
@@ -93,8 +94,9 @@ class CustomersController extends Controller
             $error.="Mobile OTP doesn't match.";
         }
         if($error==""){
-            Otp::where('type', request('mobile'))->delete();
-            Otp::where('type', request('email'))->delete();
+            $rowEmail->delete();
+            $rowMobile->delete();
+            Session::forget("otpModal");
             if(Session::get("plan")!=null){
                 return redirect('/save-customer');
             }
@@ -116,6 +118,15 @@ class CustomersController extends Controller
         else{
             return redirect("/register");
         }
+    }
+    
+    public function updatePlan($id)
+    {
+        $email = Session::get("email");
+        $customer = Customers::where("email",$email)->first();
+        $customer->plan = $id;
+        $customer->update();
+        return redirect ("/strategy-list");
     }
 
     public function saveCustomer(){
