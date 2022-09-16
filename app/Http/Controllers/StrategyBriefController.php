@@ -44,8 +44,7 @@ class StrategyBriefController extends Controller
             $strategy->updated_by = $user;
             $strategy->save();
         }
-        $strategies=StrategyBrief::all()->sortBy("updated_at");
-        return view('admin.strategy-brief.strategy-list',['strategies'=>$strategies]);
+        return redirect("/admin/strategy-brief");
     }
 
     public function updateStrategy(Request $request){   
@@ -65,14 +64,12 @@ class StrategyBriefController extends Controller
         else{
             $strategy->update();
         }
-        $strategies=StrategyBrief::all()->sortBy("updated_at");
-        return view('admin.strategy-brief.strategy-list',['strategies'=>$strategies]);
+        return redirect("/admin/strategy-brief");
     }
 
     public function deleteStrategy($id){
         $strategy = StrategyBrief::find($id);
         $strategy->delete();
-        $strategies=StrategyBrief::all()->sortBy("updated_at");
-        return view('admin.strategy-brief.strategy-list',['strategies'=>$strategies]);
+        return redirect("/admin/strategy-brief");
     }
 }

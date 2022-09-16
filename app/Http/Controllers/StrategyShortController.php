@@ -49,8 +49,7 @@ class StrategyShortController extends Controller
             $strategy->updated_by = $user;
             $strategy->save();
         }
-        $strategies=StrategyShort::all()->sortBy("updated_at");
-        return view('admin.strategy-short.strategy-list',['strategies'=>$strategies]);
+        return redirect("/admin/strategy-short");
     }
 
     public function updateStrategy(Request $request){   
@@ -72,14 +71,12 @@ class StrategyShortController extends Controller
         else{
             $strategy->update();
         }
-        $strategies=StrategyShort::all()->sortBy("updated_at");
-        return view('admin.strategy-short.strategy-list',['strategies'=>$strategies]);
+        return redirect("/admin/strategy-short");
     }
 
     public function deleteStrategy($id){
         $strategy = StrategyShort::find($id);
         $strategy->delete();
-        $strategies=StrategyShort::all()->sortBy("updated_at");
-        return view('admin.strategy-short.strategy-list',['strategies'=>$strategies]);
+        return redirect("/admin/strategy-short");
     }
 }
