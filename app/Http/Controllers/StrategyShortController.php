@@ -37,13 +37,14 @@ class StrategyShortController extends Controller
         $user = Session::get("email");
         if($files=$request->file('video')){  
             $fileName=$files->getClientOriginalName();  
-            $files->move('strategy/short',$fileName);  
+            $files->move('strategy/short',$fileName);
+            $idType = explode(" ",request("brief"));
             $strategy = new StrategyShort();
             $strategy->name = request('name');
             $strategy->description = request('desc');
-            $strategy->type = request('type');
+            $strategy->type = $idType[1];
             $strategy->price = request('price');
-            $strategy->strategy_brief_id = request('brief');
+            $strategy->strategy_brief_id = $idType[0];
             $strategy->video = $fileName;
             $strategy->created_by = $user;
             $strategy->updated_by = $user;
