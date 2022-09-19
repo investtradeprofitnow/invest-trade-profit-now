@@ -58,7 +58,7 @@ class AdminController extends Controller
 
     public function strategyShort(){
         if($this->checkAdminSession()){
-            $strategies=StrategyShort::all()->sortBy("updated_at");
+            $strategies=StrategyShort::all()->sortByDesc("updated_at");
             return view("admin.strategy-short.strategy-list",["strategies"=>$strategies]);
         }
         else{
@@ -68,7 +68,7 @@ class AdminController extends Controller
 
     public function strategyBrief(){
         if($this->checkAdminSession()){
-            $strategies=StrategyBrief::all()->sortBy("updated_at");
+            $strategies=StrategyBrief::all()->sortByDesc("updated_at");
             return view("admin.strategy-brief.strategy-list",["strategies"=>$strategies]);
         }
         else{
@@ -78,7 +78,7 @@ class AdminController extends Controller
 
     public function offers(){
         if($this->checkAdminSession()){
-            $offers=Offers::all()->sortBy("updated_at");
+            $offers=Offers::all()->sortByDesc("updated_at");
             return view("admin.offers.offers-list",["offers"=>$offers]);
         }
         else{
@@ -88,7 +88,7 @@ class AdminController extends Controller
 
     public function coupons(){
         if($this->checkAdminSession()){
-            $coupons=Coupons::all()->sortBy("updated_at");
+            $coupons=Coupons::all()->sortByDesc("updated_at");
             return view("admin.coupons.coupons-list",["coupons"=>$coupons]);
         }
         else{
