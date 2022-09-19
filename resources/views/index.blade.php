@@ -6,17 +6,17 @@
 	<div class="carousel-inner">
 		<div class="carousel-item active">
 			<div class="text-center">
-				<h1 class="tags-home text-center">Unable To Earn Consistently From Market???​​</h1>
+				<h1 class="tags-home text-center">Want to learn how to make consistent profits from markets​​</h1>
 			</div>
 		</div>
 		<div class="carousel-item">
 			<div class="text-center">
-				<h1 class="tags-home text-center">Want To Earn More Profits???​​</h1>
+				<h1 class="tags-home text-center">Want to become an independent trader/investor​​</h1>
 			</div>
 		</div>
 		<div class="carousel-item">
 			<div class="text-center">
-				<h1 class="tags-home text-center">Join Us and Enter A Journey of Profitable Growth​</h1>
+				<h1 class="tags-home text-center">Register now and start your profitable journey today​</h1>
 				<p><a class="create-btn" href="{{route('register')}}">Create Account</a></p>
 			</div>
 		</div>
@@ -28,10 +28,10 @@
 <div class="container py-5">
 	<h1 class="mb-3 text-center section-title">What We Do...</h1>
 	<ul class="what-we-do">
-		<li><i class="fa fa-solid fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;We provide Strategies To Our Clients for Trading and Investment and charge for each kind of Strategy</li>
-		<li><i class="fa fa-solid fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;We have Strategies for Index as well as Stocks (Nifty, Bank Nifty and Shares</li>
-		<li><i class="fa fa-solid fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;We provide strategies with capital requirement, lot size, stop loss and target thereby helping them with defined methodology to earn consistent profits</li>
-		<li><i class="fa fa-solid fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;We work on numerous strategies to fine tune in this market</li>
+		<li><i class="fa fa-solid fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;We provide strategies to our clients for helping them learn on how to become independent in markets.</li>
+		<li><i class="fa fa-solid fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;We provide intraday as well as positional trading strategies./li>
+		<li><i class="fa fa-solid fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;We provide strategies to identify short term and long term investment opportunities in markets</li>
+		<li><i class="fa fa-solid fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;We provide strategies for buying as well as selling in index as well as stock options.</li>
 	</ul>
 </div>
 <!-- What We Do End -->
@@ -76,10 +76,7 @@
 <div class="about-us container pb-5">
 	<h1 class="mb-3 text-center section-title">About Us</h1>
 	<h4>
-		We, Haresh and Sanket Shah started this venture in 2019 from our home with a purpose to help people earn and help change their attitude towards indian markets and investments.
-	</h4>
-	<h4 class="pt-3">
-		We started with 2 and now are more than 10 of us and growing strong. We might be a small team but our aim is very high to help people to trade and invest in the right way.
+		We started our journey in the market as small time retailers and have gathered enough experience and knowledge to start this wonderful venture with a purpose to help our fellow retailers earn with the strategies bringing consistent profit and help change their attitude towards markets and investments.
 	</h4>
 </div>
 <!-- About Us End -->
@@ -115,4 +112,17 @@
 	</div>
 </div>
 <!-- Why ITPN End -->
+
+<div class="why-itpn container pb-5">
+	<div class="row">
+		<div class="col-12">
+			<h5 class="mb-3"><b>Disclaimer:</b></h5>
+			<h6><b>KIND ATTENTION TO ALL PARTICIPANTS:</b></h6>
+			<p>
+				<b>Disclaimer from Admin/Owner of our website:</b><br/>
+				This website and its content including all strategies are only for educational purposes and the admin / owner of the website is in no way responsible for any financial or other loss of any of the participants. Do consult your financial advisor before taking any trades or taking any investment decisions. This website and its admin / owner do not provide any recommendations / advice / tips. This disclaimer / disclosure / terms and conditions is applicable to all users of the content of the website in whatsoever case or manner.
+			</p>
+		</div>
+	</div>
+</div>
 @stop

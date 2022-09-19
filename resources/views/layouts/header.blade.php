@@ -12,11 +12,11 @@
                     <li class="nav-item" >
                         <a class="nav-link<?php echo Route::currentRouteName()=='home'?' active':''?>" href="{{route('home')}}">Home</a>
                     </li>
-                    <li class="nav-item" id="about-us">
-                        <a class="nav-link<?php echo Route::currentRouteName()=='about-us'?' active':''?>" href="{{route('about-us')}}">About Us</a>
+                    <li class="nav-item" id="contact-us">
+                        <a class="nav-link<?php echo Route::currentRouteName()=='contact-us'?' active':''?>" href="{{route('contact-us')}}">Contact Us</a>
                     </li>
-                    <li class="nav-item" id="our-expertise">
-                        <a class="nav-link<?php echo Route::currentRouteName()=='our-expertise'?' active':''?>" href="{{route('our-expertise')}}">Our Expertise</a>
+                    <li class="nav-item" id="pricing">
+                        <a class="nav-link<?php echo Route::currentRouteName()=='pricing'?' active':''?>" href="{{route('pricing')}}">Pricing</a>
                     </li>
                 </ul>
                 @if(!Session::has("email"))
