@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Session;
 use App\Models\StrategyShort;
 use App\Models\Customers;
 use App\Models\UserStrategy;
+use App\Models\Offers;
+use App\Models\Coupons;
+use App\Models\UserCoupon;
+use App\Models\Orders;
+
+
+use Mail;
+use App\Mail\OrderMail;
 
 class CartController extends Controller
 {
@@ -16,46 +24,82 @@ class CartController extends Controller
         if((new PagesController)->checkSession()){
             $email = Session::get("email");
             $plan = Session::get("plan");
+            if($plan==null){
+                $customer=Customers::where("email",$email)->first();
+                Session::put("plan",$customer->plan);
+            }
+            if(Session::get("id")==null){
+                $customer=Customers::where("email",$email)->first();
+                Session::put("id",$customer->id);
+            }
+            $disc = 1;
             switch($plan){
-                case 1:
+                case 2:
                     $disc=0.90;
                     break;
-                case 2:
+                case 3:
                     $disc=0.75;
                     break;
-                case 3:
+                case 4:
                     $disc=0.50;
                     break;
             }
-            $cust_id=Customers::where("email",$email)->value("id");
-            $userStrategies = UserStrategy::where("user_id",$cust_id)->pluck("strategy_id");
+            $custId = Session::get("id");
+            $userStrategies = UserStrategy::where("user_id",$custId)->pluck("strategy_id");
             $data = StrategyShort::whereNotIn("strategy_brief_id",$userStrategies)->get();
-            
+            $offers = Session::get("offers");
+            if($offers==null || count($offers)==0){
+                $offers=Offers::whereNotIn("strategy_id",$userStrategies)->get();
+                Session::put("offers",$offers);
+            }
             $intradayList = array();
             $btstList = array();
             $positionalList = array();
             $investmentList = array();
             $intraId=0;
-            $btst_id=0;
-            $pos_id=0;
-            $invest_id=0;
-
+            $btstId=0;
+            $posId=0;
+            $investId=0;
+            $index=0;
             for($i=0;$i<count($data);$i++){
                 $type = $data[$i]->type;
+                $price = $data[$i]->price;
+                if($plan>1){
+                    $offer = $offers->where("strategy_id",$data[$i]->id);
+                    if (sizeof($offer)>0){
+                        $price1 = $price * $disc;
+                        $discount = $offer[$index]->discount;
+                        $typeDisc = $offer[$index]->type;                     
+                        if($typeDisc=="percent"){
+                            $price2=((100-$discount)*$price/100);
+                        }
+                        else{
+                            $price2=$price-$discount;
+                        }
+                        $data[$i]->updated_price = $price1 < $price2 ? $price1 : $price2;
+                        $index++;
+                    }
+                    else{
+                        $data[$i]->updated_price = $price * $disc;
+                    }
+                }
+                else{
+                    $data[$i]->updated_price = $price;
+                }
                 if($type=="Intraday"){
                     $intradayList[$intraId++]=$data[$i];
                 }
                 else if($type=="BTST"){
-                    $btstList[$btst_id++]=$data[$i];
+                    $btstList[$btstId++]=$data[$i];
                 }
                 else if($type=="Positional"){
-                    $positionalList[$pos_id++]=$data[$i];
+                    $positionalList[$posId++]=$data[$i];
                 }
                 else if($type=="Investment"){
-                    $investmentList[$invest_id++]=$data[$i];
+                    $investmentList[$investId++]=$data[$i];
                 }
             }
-            return view('services.strategy-list',['intradayList'=>$intradayList, 'btstList'=>$btstList, 'positionalList'=> $positionalList, 'investmentList'=>$investmentList, "disc"=>$disc, "userStrategies"=>$userStrategies, "disc"=>$disc]);
+            return view('services.strategy-list',['intradayList'=>$intradayList, 'btstList'=>$btstList, 'positionalList'=> $positionalList, 'investmentList'=>$investmentList]);
         }
         else{
             return redirect("/login");
@@ -63,32 +107,59 @@ class CartController extends Controller
     }
 
     public function cart(){
-        return view("services.cart");
+        $custId = Session::get("id");
+        $userCoupons = UserCoupon::where("user_id",$custId)->pluck("coupon_id");
+        $coupons = Coupons::whereNotIn("id",$userCoupons)->get();
+        return view("services.cart",["coupons"=>$coupons]);
     }
 
     public function addToCart($id){
         $strategy = StrategyShort::findOrFail($id);
         $cartStrategies = Session::get('cartStrategies',[]);
+        $offers = Session::get("offers");
         if(isset($cartStrategies[$id])){
             return redirect()->back()->with('error','Strategy already added');
         }
         else{
             $plan = Session::get("plan");
+            $price = $strategy->price;
+            $disc=1;
             switch($plan){
-                case 1:
+                case 2:
                     $disc=0.90;
                     break;
-                case 2:
+                case 3:
                     $disc=0.75;
                     break;
-                case 3:
+                case 4:
                     $disc=0.50;
                     break;
+            }
+            if($plan>1){
+                $offer = $offers->where("strategy_id",$id);
+                if(sizeof($offer)){
+                    $price1 = $price * $disc;
+                    $discount = $offer[0]->discount;
+                    $typeDisc = $offer[0]->type;
+                    if($typeDisc=="percent"){
+                        $price2=((100-$discount)*$price/100);
+                    }
+                    else{
+                        $price2=$price-$discount;
+                    }
+                    $updated_price = $price1 < $price2 ? $price1 : $price2;
+                }
+                else{
+                    $updated_price = $price * $disc;
+                }
+            }
+            else{                
+                $updated_price=null;
             }
             $cartStrategies[$id] = [
                 "name" => $strategy->name,
                 "type" => $strategy->type,
-                "price" => round($strategy->price * $disc),
+                "price" => $updated_price!=null?floor($updated_price):$strategy->price,
                 "brief_id" => $strategy->strategy_brief_id
             ];
             Session::put('cartStrategies', $cartStrategies);
@@ -103,16 +174,52 @@ class CartController extends Controller
         return redirect()->back()->with('success','Strategy deleted successfully');
     }
 
-    public function saveStrategies(){
+    public function saveStrategies($amount, $couponId){
+        if($couponId=="null"){
+            $couponId=null;
+            $couponCode=null;
+        }
+        
         $email=Session::get("email");
-        $cust_id=Customers::where("email",$email)->value("id");
+        $customer = Customers::where("email",$email)->first();
+        $custId=$customer->id;
         $cartStrategies = Session::get('cartStrategies',[]);
+        $strategies = [];
+        $index=0;
         foreach($cartStrategies as $key=>$strategy){
             $userStrategy = new UserStrategy();                
-            $userStrategy->user_id = $cust_id;
+            $userStrategy->user_id = $custId;
             $userStrategy->strategy_id = $strategy["brief_id"];
             $userStrategy->save();
+            $strategies[$index] = $strategy["name"];
+            $index++;
         }
+        if($couponId!=null){
+            $userCoupon = new UserCoupon();
+            $userCoupon->user_id = $custId;
+            $userCoupon->coupon_id = $couponId;
+            $userCoupon->save();
+            $couponCode = Coupons::where("id",$couponId)->value("code");
+        }        
+
+        $order = new Orders();
+        $order->user_id = $custId;
+        $order->strategy_names = json_encode($strategies);
+        $order->amount = $amount;
+        $order->coupon = $couponId;
+        $order->save();
+        
+        Session::forget('cartStrategies');
+        Session::forget("plan");
+        Session::forget("id");
+        Session::forget("offers");
+
+        Mail::to($email)->send(new OrderMail($customer->name,str_pad($order->id,8,"0",STR_PAD_LEFT),$order->created_at->format("d-M-Y"),$strategies,$amount,$couponCode));
+
         return redirect("/user-strategies");
+    }
+
+    public function saveOrderDetails(){        
+        
     }
 }

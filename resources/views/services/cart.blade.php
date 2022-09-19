@@ -5,6 +5,34 @@
         h1{
             color: #34bbe3;
         }
+
+        .btn-success{
+            border-radius: 25px;
+        }
+
+        .coupon-table{
+            width: 50%;
+        }
+        
+        .coupon-table td{
+            padding-top: 25px;
+        }
+
+        #discRow td{
+            color: red;
+        }
+        
+        @media (min-width: 769px) and (max-width: 992px){
+            .coupon-table{
+                width:80%;
+            }
+        }
+
+        @media screen and (max-width: 768px){
+            .coupon-table{
+                width:100%;
+            }
+        }
     </style>
 @stop
 @section('content')
@@ -12,7 +40,7 @@
         <a href="{{route('strategy-list')}}" class="btn btn-outline mb-4" role="button">Back To Strategy List</a>
         @if(session("cartStrategies"))
             <h1 class="mb-3 text-center section-title">Strategy List</h1>	
-            <table class="table mx-auto text-center" width="50%">
+            <table class="table mx-auto text-center">
                 <thead>
                     <tr>
                         <th scope="col">Sr. No.</th>
@@ -45,16 +73,41 @@
                             <td id="{{'video'.$index}}">{{$value['price']}}</td>
                         </tr>
                     @endforeach
+                    <tr id="discRow">
+                        
+                    </tr>
                     <tr>
                         <td colspan=4 class="text-right">Total Amount</td>
-                        <td>{{$total}}</td>
+                        <td id="total">{{$total}}</td>
+                        <input type="hidden" id="totalAmt" value="{{$total}}"/>
+                        <input type="hidden" id="coupon-id" name="coupon-id"/>
+                    </tr>
                 </tbody>
             </table>
-            <div class="text-right">				
-                <a class="btn btn-success px-3 py-2 mb-5" href="{{route('save-strategies')}}" style="border-radius: 25px;">Proceed To Pay</a>
+            <div class="text-right">
+                <a role="button" class="btn btn-success px-3 py-2 mb-5" href="" id="order">Proceed To Pay</a>
             </div>
         @endif
+
+        @if(count($coupons)>0)
+            <h4 class="section-title">Available Coupons</h4>
+            <table class="table coupon-table">
+                @foreach($coupons as $coupon)
+                    <tr>
+                        <td width="60%">
+                            <b>{{$coupon->code}}</b><br/>
+                            {{$coupon->description}}
+                        </td>
+                        <td>
+                            <button class="btn btn-success" id="btn{{$coupon->id}}" onclick="calculateDiscount({{$coupon->discount}}, '{{$coupon->type}}', {{$coupon->id}})">Apply Coupon</button>
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+        @endif
     </div>
+
+    
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -89,5 +142,26 @@
 		$("#delete").click(function(){
 			$("#delete-form").submit();
 		});
+
+        function calculateDiscount($discount, $type, $id){
+            $total = $("#totalAmt").val();
+            $updated_amount=0;
+            if($type=="percent"){
+                $discount = Math.ceil(($discount*$total)/100);
+            }
+            $updated_amount = $total - $discount;
+            $text = "<td colspan='4' class='text-right'>Discount</td>"+
+                        "<td>"+$discount+"</td>";
+            $("#discRow").html($text);
+            $("#total").html($updated_amount);
+            $("#coupon-id").val($id);
+        }
+
+        $("#order").click(function(){
+            $amount=$("#total").html();
+            $couponId=$("#coupon-id").val()==""?null:$("#coupon-id").val();
+            $action="/save-strategies/"+$amount+"/"+$couponId;
+            $("#order").attr("href",$action);
+        });
 	</script>
 @stop

@@ -11,6 +11,7 @@ use Mail;
 use App\Mail\OTPMail;
 use App\Mail\SuccessMail;
 use App\Mail\ChangePasswordMail;
+use App\Mail\OrderMail;
 
 use App\Models\Otp;
 use App\Models\ResetPassword;
@@ -32,6 +33,6 @@ class SendEmailController extends Controller
         //     }
         // }
         
-        Mail::to("sddmsinvesttradeprofitnow@gmail.com")->send(new ChangePasswordMail("Karishma"));
+        Mail::to("sddmsinvesttradeprofitnow@gmail.com")->send(new OrderMail("Karishma","00000001","16-09-2022",["Strategy 1","Strategy 2"],999,"WELCOME30"));
     }
 }

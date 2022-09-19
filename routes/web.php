@@ -37,6 +37,7 @@ Route::get('/pricing', [PagesController::class,'pricing'])->name('pricing');
 Route::post('/displayOTP', [CustomersController::class,'displayOTP'])->name('displayOTP');
 Route::post('/verify-otp', [CustomersController::class,'verifyOtp'])->name('verify-otp');
 Route::get('/save-plan/{id}', [CustomersController::class,'savePlan'])->name('save-plan');
+Route::get('/update-plan/{id}', [CustomersController::class,'updatePlan'])->name('update-plan');
 Route::get('/save-customer', [CustomersController::class,'saveCustomer'])->name('save-customer');
 Route::post('/checkCustomer', [CustomersController::class,'checkCustomer'])->name('checkCustomer');
 Route::get('/user-strategies', [CustomersController::class,'userStrategies'])->name('user-strategies');
@@ -57,9 +58,10 @@ Route::get('/logout', [CustomersController::class,'logout'])->name('logout');
 
 Route::get('/strategy-list', [CartController::class,'strategyList'])->name('strategy-list');
 Route::get('/cart', [CartController::class,'cart'])->name('cart');
-Route::get('/save-strategies', [CartController::class,'saveStrategies'])->name('save-strategies');
+Route::get('/save-strategies/{amount}/{coupon}', [CartController::class,'saveStrategies'])->name('save-strategies');
 Route::get('/add-to-cart/{id}', [CartController::class,'addToCart'])->name('add-to-cart');
-Route::get('/delete-from-cart/{id}', [CartController::class,'deleteFromCart'])->name('delete-from-cart');
+Route::get('/delete-from-cart/{strategy}', [CartController::class,'deleteFromCart'])->name('delete-from-cart');
+Route::get('/save-order-details', [CartController::class,'saveOrderDetails'])->name('save-order-details');
 
 Route::get('/admin/login', [AdminController::class,'login'])->name('admin-login');
 Route::post('/admin/check-admin-user', [AdminController::class,'checkAdminUser'])->name('check-admin-user');
