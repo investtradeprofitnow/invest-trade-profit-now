@@ -106,7 +106,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="content active border">
+                    <div class="content active_pr border">
                         <div class="head_price">
                             <div class="head_content">
                                 <div class="head_bg"></div>
@@ -144,8 +144,8 @@
 @section("js")
     <script type="text/javascript">
         $(".content").click(function(){
-            $(".content").removeClass("active");
-            $(this).addClass("active");
+            $(".content").removeClass("active_pr");
+            $(this).addClass("active_pr");
         });
     </script>
 @stop

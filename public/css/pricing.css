@@ -18,13 +18,9 @@
     font-size: 20px;
 }
 
-#price_table .content.active .head_price .head_content .head_bg,
+#price_table .content.active_pr .head_price .head_content .head_bg,
 #price_table .content:hover .head_price .head_content .head_bg{
   border-color: #c4dc6a rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #c4dc6a;
-}
-
-.active{
-    color: black !important;
 }
 
 #price_table{
