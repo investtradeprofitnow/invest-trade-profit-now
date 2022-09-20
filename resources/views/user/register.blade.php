@@ -93,13 +93,7 @@
     </div>
 </div>
 @stop
-
 @section('js')
     <script src="{{asset('js/jquery.validate.js')}}"></script>
     <script src="{{asset('js/form-validation.js')}}"></script>
-    <script style="text/javascript">
-        $("#register").click(function(){
-            $("#otp-form").submit();
-        });
-    </script>
 @stop
