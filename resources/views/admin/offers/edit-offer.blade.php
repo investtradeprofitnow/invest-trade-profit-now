@@ -1,9 +1,18 @@
-@extends('admin.layouts.app')
-@section('pageTitle', 'Edit Strategy')
-@section('content')
+@extends("admin.layouts.app")
+@section("pageTitle", "Edit Strategy")
+@section("content")
     <div class="p-2 active-cont">
 	    <h1 class="mb-3 text-center section-title">Edit Strategy</h1>
         <div class="form p-4 mx-auto" style="width: 70%">
+            @if($errors->any())
+                <div class="alert alert-danger mt-3">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form id="edit-offer-form" method="post" action="/admin/update-offer">
             {{ csrf_field() }}
             <div class="form-group">
@@ -40,10 +49,10 @@
         </div>
     </div>
 @stop
-@section('js')
+@section("js")
     <script type="text/javascript">
         $("#submit").click(function(){
-            $("#strategy_name").val($('#strategy_id').find(":selected").text());
+            $("#strategy_name").val($("#strategy_id").find(":selected").text());
         });
     </script>
 @stop

@@ -16,15 +16,22 @@ class OffersController extends Controller
         if((new AdminController)->checkAdminSession()){
             $existStrategies = Offers::pluck("strategy_id");
             $strategies = StrategyShort::whereNotIn("id",$existStrategies)->get();
-            return view('admin.offers.add-offer',['strategies'=>$strategies]);
+            return view("admin.offers.add-offer",["strategies"=>$strategies]);
         }
         else{
-            return view('admin.login');
+            return redirect("/admin/login");
         }
     }
 
-    public function saveOffer(){
+    public function saveOffer(Request $request){
         if((new AdminController)->checkAdminSession()){
+            $this->validate($request, [
+                "strategy_id" => "required|numeric",
+                "strategy_name" => "required",
+                "desc" => "required",
+                "discount" => "required|numeric",
+                "type" => "required|in:percent,rupees"
+            ]);
             $offer = new Offers();
             $offer->strategy_id = request("strategy_id");
             $offer->strategy_name = request("strategy_name");
@@ -35,7 +42,7 @@ class OffersController extends Controller
             return redirect("/admin/offers");
         }
         else{
-            return view('admin.login');
+            return redirect("/admin/login");
         }
     }
 
@@ -43,16 +50,24 @@ class OffersController extends Controller
         if((new AdminController)->checkAdminSession()){
             $offer = Offers::find($id);
             $strategies = StrategyShort::all();
-            return view('admin.offers.edit-offer',['offer'=>$offer],['strategies'=>$strategies]);
+            return view("admin.offers.edit-offer",["offer"=>$offer],["strategies"=>$strategies]);
         }
         else{
-            return view('admin.login');
+            return redirect("/admin/login");
         }
     }
 
-    public function updateOffer(){
+    public function updateOffer(Request $request){
         if((new AdminController)->checkAdminSession()){
-            $id = request('id');
+            $this->validate($request, [
+                "id" => "required|numeric",
+                "strategy_id" => "required|numeric",
+                "strategy_name" => "required",
+                "desc" => "required",
+                "discount" => "required|numeric",
+                "type" => "required|in:percent,rupees"
+            ]);
+            $id = request("id");
             $offer = Offers::find($id);
             $offer->strategy_id = request("strategy_id");
             $offer->strategy_name = request("strategy_name");
@@ -63,7 +78,7 @@ class OffersController extends Controller
             return redirect("/admin/offers");
         }
         else{
-            return view('admin.login');
+            return redirect("/admin/login");
         }
         
     }
