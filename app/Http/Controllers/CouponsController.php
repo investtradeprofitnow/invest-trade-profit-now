@@ -14,14 +14,20 @@ class CouponsController extends Controller
             return view("admin.coupons.add-coupon");
         }
         else{
-            return view("admin.login");
+            return redirect("/admin/home");
         }
     }
 
-    public function saveCoupon(){
+    public function saveCoupon(Request $request){
         if((new AdminController)->checkAdminSession()){
+            $this->validate($request, [
+                "code" => "required|alpha_num",
+                "desc" => "required",
+                "discount" => "required|numeric",
+                "type" => "required|in:percent,rupees"
+            ]);
             $coupon = new Coupons();
-            $coupon->code = request("code");
+            $coupon->code = strtoupper(request("code"));
             $coupon->description = request("desc");
             $coupon->discount = request("discount");
             $coupon->type = request("type");
@@ -29,7 +35,7 @@ class CouponsController extends Controller
             return redirect("/admin/coupons");
         }
         else{
-            return view("admin.login");
+            return redirect("/admin/home");
         }
     }
 
@@ -39,12 +45,19 @@ class CouponsController extends Controller
             return view("admin.coupons.edit-coupon",["coupon"=>$coupon]);
         }
         else{
-            return view("admin.login");
+            return redirect("/admin/home");
         }
     }
 
-    public function updateCoupon(){
+    public function updateCoupon(Request $request){
         if((new AdminController)->checkAdminSession()){
+            $this->validate($request, [
+                "id" => "required|numeric",
+                "code" => "required|alpha_num",
+                "desc" => "required",
+                "discount" => "required|numeric",
+                "type" => "required|in:percent,rupees"
+            ]);
             $id = request("id");
             $coupon = Coupons::find($id);
             $coupon->code = request("code");
@@ -55,7 +68,7 @@ class CouponsController extends Controller
             return redirect("/admin/coupons");
         }
         else{
-            return view("admin.login");
+            return redirect("/admin/home");
         }
     }
 
