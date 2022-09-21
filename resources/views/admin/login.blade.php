@@ -15,7 +15,7 @@
     <body>
         <nav class="navbar navbar-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/admin/home">
+                <a class="navbar-brand" href="{{route('admin-home')}}">
                     <img src="{{asset('images/logo.jpg')}}" alt="" width="80vw" height="80vw">
                 </a>
             </div>
@@ -26,7 +26,7 @@
                 @if(session()->has("error"))
                     <div class="error mb-3">{!!session()->get("error")!!}</div>
                 @endif
-                <form id="login-form" method="post" action="/admin/check-admin-user">
+                <form id="login-form" method="post" action="{{route('check-admin-user')}}">
                     {{ csrf_field() }}
                     <div class="form-group mt-3">
                         <label for="email">Email:</label>

@@ -35,7 +35,7 @@ Route::get("/login", [PagesController::class,"login"])->name("login");
 Route::get("/register", [PagesController::class,"register"])->name("register");
 Route::get("/pricing", [PagesController::class,"pricing"])->name("pricing");
 
-Route::post("/displayOTP", [CustomersController::class,"displayOTP"])->name("displayOTP");
+Route::post("/display-otp", [CustomersController::class,"displayOTP"])->name("display-otp");
 Route::post("/verify-otp", [CustomersController::class,"verifyOtp"])->name("verify-otp");
 Route::get("/save-plan/{id}", [CustomersController::class,"savePlan"])->name("save-plan");
 Route::get("/update-plan/{id}", [CustomersController::class,"updatePlan"])->name("update-plan");

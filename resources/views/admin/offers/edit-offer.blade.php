@@ -13,7 +13,7 @@
                     </ul>
                 </div>
             @endif
-            <form id="edit-offer-form" method="post" action="/admin/update-offer">
+            <form id="edit-offer-form" method="post" action="{{route('update-offer')}}">
             {{ csrf_field() }}
             <div class="form-group">
                 <input type="hidden" name="id" value="{{$offer->id}}"/>

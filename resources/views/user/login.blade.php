@@ -10,7 +10,7 @@
         @if(isset($error))
             <div class="error mb-3">{{$error}}</div>
         @endif
-        <form id="login-form" method="post" action="/checkCustomer">
+        <form id="login-form" method="post" action="{{route('checkCustomer')}}">
             {{ csrf_field() }}
             <div class="form-group mt-3">
                 <label for="email">Email:</label>

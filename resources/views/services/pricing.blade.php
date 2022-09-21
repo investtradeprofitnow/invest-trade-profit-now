@@ -33,11 +33,11 @@
                             </ul>
                         </div>
                         @if(session("customer"))
-                            <a class="btn btn-outline mb-4" href="/save-plan/2">Pay Now</a>
+                            <a class="btn btn-outline mb-4" href="{{route('save-plan',1)}}">Pay Now</a>
                         @elseif(session("email"))
-                            <a class="btn btn-outline mb-4" href="/update-plan/2">Change Plan</a>
+                            <a class="btn btn-outline mb-4" href="{{route('update-plan',1)}}">Change Plan</a>
                         @else
-                            <a class="btn btn-outline mb-4" href="/save-plan/2">Register</a>
+                            <a class="btn btn-outline mb-4" href="{{route('save-plan',1)}}">Register</a>
                         @endif
                     </div>
                 </div>
@@ -65,11 +65,11 @@
                             </ul>
                         </div>
                         @if(session("customer"))
-                            <a class="btn btn-outline mb-4" href="/save-plan/2">Pay Now</a>
+                            <a class="btn btn-outline mb-4" href="{{route('save-plan',2)}}">Pay Now</a>
                         @elseif(session("email"))
-                            <a class="btn btn-outline mb-4" href="/update-plan/2">Change Plan</a>
+                            <a class="btn btn-outline mb-4" href="{{route('update-plan',2)}}">Change Plan</a>
                         @else
-                            <a class="btn btn-outline mb-4" href="/save-plan/2">Register</a>
+                            <a class="btn btn-outline mb-4" href="{{route('save-plan',2)}}">Register</a>
                         @endif
                     </div>
                 </div>
@@ -97,11 +97,11 @@
                             </ul>
                         </div>
                         @if(session("customer"))
-                            <a class="btn btn-outline mb-4" href="/save-plan/3">Pay Now</a>
+                            <a class="btn btn-outline mb-4" href="{{route('save-plan',3)}}">Pay Now</a>
                         @elseif(session("email"))
-                            <a class="btn btn-outline mb-4" href="/update-plan/3">Change Plan</a>
+                            <a class="btn btn-outline mb-4" href="{{route('update-plan',3)}}">Change Plan</a>
                         @else
-                            <a class="btn btn-outline mb-4" href="/save-plan/3">Register</a>
+                            <a class="btn btn-outline mb-4" href="{{route('save-plan',3)}}">Register</a>
                         @endif
                     </div>
                 </div>
@@ -129,11 +129,11 @@
                             </ul>
                         </div>
                         @if(session("customer"))
-                            <a class="btn btn-outline mb-4" href="/save-plan/4">Pay Now</a>
+                            <a class="btn btn-outline mb-4" href="{{route('save-plan',4)}}">Pay Now</a>
                         @elseif(session("email"))
-                            <a class="btn btn-outline mb-4" href="/update-plan/4">Change Plan</a>
+                            <a class="btn btn-outline mb-4" href="{{route('update-plan',4)}}">Change Plan</a>
                         @else
-                            <a class="btn btn-outline mb-4" href="/save-plan/4">Register</a>
+                            <a class="btn btn-outline mb-4" href="{{route('save-plan',4)}}">Register</a>
                         @endif
                     </div>
                 </div>

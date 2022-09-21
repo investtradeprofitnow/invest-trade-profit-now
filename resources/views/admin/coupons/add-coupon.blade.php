@@ -13,7 +13,7 @@
                     </ul>
                 </div>
             @endif
-            <form id="add-coupon-form" method="post" action="/admin/save-coupon">
+            <form id="add-coupon-form" method="post" action="{{route('save-coupon')}}">
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="code">Coupon Code:</label>

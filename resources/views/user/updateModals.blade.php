@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <div class="form p-4">
-                    <form id="name-form" method="post" action="/update-details/name">
+                    <form id="name-form" method="post" action="{{route('update-details','name')}}">
                         {{ csrf_field() }}
                         <div class="form-group mt-3">
                             <label for="name"class="form-label">Name:</label>
@@ -33,7 +33,7 @@
             </div>
             <div class="modal-body">
                 <div class="form p-4">
-                    <form id="email-form" method="post" action="/verify-email">
+                    <form id="email-form" method="post" action="{{route('verify-email')}}">
                         {{ csrf_field() }}
                         <div class="form-group mt-3">
                             <label for="name"class="form-label">Email:</label>

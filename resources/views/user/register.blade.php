@@ -17,7 +17,7 @@
         <div class="error mb-3">{{session("error")}}</div>
     @endif
     <div class="form p-4">
-        <form id="register-form" method="post" action="/displayOTP">
+        <form id="register-form" method="post" action="{{route('display-otp')}}">
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="name">Name:</label>
