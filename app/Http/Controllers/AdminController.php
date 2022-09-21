@@ -19,7 +19,7 @@ class AdminController extends Controller
             return view("admin.index");
         }
         else{
-            return view("admin.login");
+            return redirect ("/admin/login");
         }
     }
 
@@ -37,23 +37,33 @@ class AdminController extends Controller
     public function checkAdminUser(){
         $email = request("email");
         $password = request("password");
-        $user = Customers::where("email", $email)->first();
-        if($user==null) {
-            return view("admin.login")->with("error","User does not exists. Please register first.");
+        $error=null;
+        if($email=="" || !preg_match("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/",$email)){
+            $error = $error."Please enter a valid email address";
         }
-        else if (password_verify($password,$user->password)){
-            if($user->role="Admin"){
-                Session::put("email",$email);
-                Session::put("role","Admin");
-                return redirect("/admin/home");
+        else if($password==null || !preg_match("/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{8,20}$/",$password)){
+            $error = $error."Password should be 8-20 Characters, atleast one Capital and one Small Letter, one numberic and special characters";
+        }
+        if($error==null){
+            $user = Customers::where("email", $email)->first();
+            if($user==null) {
+                $error="User does not exists. Please register first.";
+            }
+            else if (password_verify($password,$user->password)){
+                if($user->role="Admin"){
+                    Session::put("email",$email);
+                    Session::put("role","Admin");
+                    return redirect("/admin/home");
+                }
+                else{
+                    $error="Only Admin users can access this Website.";
+                }
             }
             else{
-                return view("admin.login")->with("error","Only Admin users can access this Website.");
+                $error="Email id and Password doesn't match. Please try again.";
             }
         }
-        else{
-            return view("admin.login")->with("error","Email id and Password doesn't match. Please try again");
-        }
+        return redirect()->back()->with("error",$error);
     }
 
     public function strategyShort(){
@@ -62,7 +72,7 @@ class AdminController extends Controller
             return view("admin.strategy-short.strategy-list",["strategies"=>$strategies]);
         }
         else{
-            return view("admin.login");
+            return redirect("/admin/login");
         }
     }
 
@@ -72,7 +82,7 @@ class AdminController extends Controller
             return view("admin.strategy-brief.strategy-list",["strategies"=>$strategies]);
         }
         else{
-            return view("admin.login");
+            return redirect("/admin/login");
         }
     }
 
@@ -82,7 +92,7 @@ class AdminController extends Controller
             return view("admin.offers.offers-list",["offers"=>$offers]);
         }
         else{
-            return view("admin.login");
+            return redirect("/admin/login");
         }
     }
 
@@ -92,14 +102,14 @@ class AdminController extends Controller
             return view("admin.coupons.coupons-list",["coupons"=>$coupons]);
         }
         else{
-            return view("admin.login");
+            return redirect("/admin/login");
         }
     }
 
     public function logout(){
         Session::forget("email");
         Session::forget("role");
-        return redirect("/login");
+        return redirect("/admin/login");
     }
 
     public function checkAdminSession(){
