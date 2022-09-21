@@ -1,8 +1,11 @@
-@extends('admin.layouts.app')
-@section('pageTitle', 'Strategy List')
-@section('content')
+@extends("admin.layouts.app")
+@section("pageTitle", "Strategy List")
+@section("content")
 <div class="p-2 active-cont mt-5">
-	<h1 class="mb-3 text-center section-title">Strategy List (Short)</h1>	
+	<h1 class="mb-3 text-center section-title">Strategy List (Short)</h1>
+	@if(session()->has("error"))
+        <div class="error mb-3">{!!session()->get("error")!!}</div>
+    @endif
 	<table class="table mx-auto text-center">
 		<thead>
 			<tr>
@@ -27,7 +30,7 @@
 					<td id="{{'desc'.$index}}">{{$strategy->description}}</td>
 					<td id="{{'type'.$index}}">{{$strategy->type}}</td>
 					<td id="{{'video'.$index}}">{{$strategy->video}}</td>
-					<td id="{{'video'.$index}}">{{$strategy->price}}</td>
+					<td id="{{'price'.$index}}">{{$strategy->price}}</td>
 					<td class="text-center">
 						<a class="btn btn-outline" id="{{'edit'.$index}}" href="{{route('edit-strategy-short',$index)}}">
 							Edit
@@ -62,7 +65,7 @@
 	</div>
 </div>
 @stop
-@section('js')
+@section("js")
 	<script type="text/javascript">
 		$(".btn-delete").click(function(){
 			$row=this.id.substring(6,7);

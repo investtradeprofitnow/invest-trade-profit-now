@@ -14,11 +14,44 @@ class StrategyShortController extends Controller
 {
     public function addStrategy(){
         if((new AdminController)->checkAdminSession()){
-            $strategies=StrategyBrief::all();
-            return view('admin.strategy-short.add-strategy',['brief'=>$strategies]);
+            $existStrategies = StrategyShort::pluck("strategy_brief_id");
+            $strategies = StrategyBrief::whereNotIn("id",$existStrategies)->get();
+            if(count($strategies)>0){
+                return view("admin.strategy-short.add-strategy",["brief"=>$strategies]);
+            }
+            else{
+                return redirect()->back()->with("error","All the Brief Strategies have been linked.");
+            }
         }
         else{
-            return view('admin.login');
+            return redirect("/admin/login");
+        }
+    }
+
+    public function saveStrategy(Request $request){   
+        $this->validate($request, [
+            "name" => "required|max:50",
+            "description" => "required",
+            "price" => "required|numeric",
+            "brief" => "required",
+            "video" => "required"
+        ]);
+        $email = Session::get("email");
+        if($files=$request->file("video")){  
+            $fileName=$files->getClientOriginalName();  
+            $files->move("strategy/short",$fileName);
+            $idType = explode(" ",request("brief"));
+            $strategy = new StrategyShort();
+            $strategy->name = request("name");
+            $strategy->description = request("description");
+            $strategy->type = $idType[1];
+            $strategy->price = request("price");
+            $strategy->strategy_brief_id = $idType[0];
+            $strategy->video = $fileName;
+            $strategy->created_by = $email;
+            $strategy->updated_by = $email;
+            $strategy->save();
+            return redirect("/admin/strategy-short");
         }
     }
 
@@ -26,46 +59,34 @@ class StrategyShortController extends Controller
         if((new AdminController)->checkAdminSession()){
             $strategy = StrategyShort::find($id);
             $strategies=StrategyBrief::all();
-            return view('admin.strategy-short.edit-strategy',['strategy'=>$strategy],['brief'=>$strategies]);
+            return view("admin.strategy-short.edit-strategy",["strategy"=>$strategy],["brief"=>$strategies]);
         }
         else{
-            return view('admin.login');
+            return redirect("/admin/login");
         }
     }
 
-    public function saveStrategy(Request $request){   
-        $user = Session::get("email");
-        if($files=$request->file('video')){  
-            $fileName=$files->getClientOriginalName();  
-            $files->move('strategy/short',$fileName);
-            $idType = explode(" ",request("brief"));
-            $strategy = new StrategyShort();
-            $strategy->name = request('name');
-            $strategy->description = request('desc');
-            $strategy->type = $idType[1];
-            $strategy->price = request('price');
-            $strategy->strategy_brief_id = $idType[0];
-            $strategy->video = $fileName;
-            $strategy->created_by = $user;
-            $strategy->updated_by = $user;
-            $strategy->save();
-        }
-        return redirect("/admin/strategy-short");
-    }
-
-    public function updateStrategy(Request $request){   
-        $user = Session::get("email");
-        $id=request('id');
+    public function updateStrategy(Request $request){      
+        $this->validate($request, [
+            "id" => "required|numeric",
+            "name" => "required|max:50",
+            "description" => "required",
+            "price" => "required|numeric",
+            "brief" => "required",
+        ]);
+        $email = Session::get("email");
+        $id=request("id");
         $strategy = StrategyShort::find($id);
-        $strategy->name = request('name');
-        $strategy->description = request('desc');
-        $strategy->type = request('type');
-        $strategy->price = request('price');
-        $strategy->strategy_brief_id = request('brief');
-        $strategy->updated_by = $user;
-        if($files=$request->file('video')){
+        $idType = explode(" ",request("brief"));
+        $strategy->name = request("name");
+        $strategy->description = request("description");
+        $strategy->type = $idType[1];
+        $strategy->price = request("price");
+        $strategy->strategy_brief_id = $idType[0];
+        $strategy->updated_by = $email;
+        if($files=$request->file("video")){
             $fileName=$files->getClientOriginalName();  
-            $files->move('strategy/short',$fileName);
+            $files->move("strategy/short",$fileName);
             $strategy->video = $fileName;
             $strategy->update();            
         }

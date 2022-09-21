@@ -1,18 +1,27 @@
-@extends('admin.layouts.app')
-@section('pageTitle', 'Add Strategy')
-@section('content')
+@extends("admin.layouts.app")
+@section("pageTitle", "Add Strategy")
+@section("content")
     <div class="p-2 active-cont">
 	    <h1 class="mb-3 text-center section-title">Add Strategy</h1>
         <div class="form p-4 mx-auto" style="width: 70%">
-            <form id="add-strategy-short-form" method="post" action="/admin/save-strategy-short" enctype="multipart/form-data">
+            <form id="add-strategy-short-form" method="post" action="{{route('save-strategy-short')}}" enctype="multipart/form-data">
             {{ csrf_field() }}
+            @if($errors->any())
+                <div class="alert alert-danger mt-3">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="form-group">
                 <label for="name">Name:</label>
                 <input type="text" class="form-control" name="name" id="name" maxlength="50" required>
             </div>
             <div class="form-group mt-3">
-                <label for="desc">Description:</label>
-                <textarea class="form-control" name="desc" id="desc" required></textarea>
+                <label for="description">Description:</label>
+                <textarea class="form-control" name="description" id="description" required></textarea>
             </div>
             
             <div class="form-group mt-3">
@@ -21,7 +30,7 @@
             </div>
             <div class="form-group mt-3">
                 <label for="price">Price:</label>
-                <input type="text" class="form-control" name="price" id="price" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required/>
+                <input type="text" class="form-control" name="price" id="price" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"required/>
             </div>
             <div class="form-group mt-3">
                 <label for="brief" class="form-label">Brief Strategy:</label>
