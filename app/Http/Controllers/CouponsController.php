@@ -21,9 +21,9 @@ class CouponsController extends Controller
     public function saveCoupon(Request $request){
         if((new AdminController)->checkAdminSession()){
             $this->validate($request, [
-                "code" => "required|alpha_num",
+                "code" => "required|alpha_num|max:20",
                 "desc" => "required",
-                "discount" => "required|numeric",
+                "discount" => "required|numeric|max_digits:4",
                 "type" => "required|in:percent,rupees"
             ]);
             $coupon = new Coupons();
@@ -53,9 +53,9 @@ class CouponsController extends Controller
         if((new AdminController)->checkAdminSession()){
             $this->validate($request, [
                 "id" => "required|numeric",
-                "code" => "required|alpha_num",
+                "code" => "required|alpha_num|max:20",
                 "desc" => "required",
-                "discount" => "required|numeric",
+                "discount" => "required|numeric|max_digits:4",
                 "type" => "required|in:percent,rupees"
             ]);
             $id = request("id");
