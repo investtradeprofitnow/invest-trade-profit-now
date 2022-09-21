@@ -128,9 +128,6 @@ $("#contact-form").validate({
         },
         email: {
             email: true
-        },
-        query: {
-            required: true
         }
     },
     messages:{
