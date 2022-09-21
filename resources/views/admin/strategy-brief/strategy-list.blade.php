@@ -1,6 +1,6 @@
-@extends('admin.layouts.app')
-@section('pageTitle', 'Strategy List')
-@section('content')
+@extends("admin.layouts.app")
+@section("pageTitle", "Strategy List")
+@section("content")
 <div class="p-2 active-cont mt-5">
 	<h1 class="mb-3 text-center section-title">Strategy List (Brief)</h1>	
 	<table class="table mx-auto text-center">
@@ -60,7 +60,7 @@
 	</div>
 </div>
 @stop
-@section('js')
+@section("js")
 	<script type="text/javascript">
 		$(".btn-delete").click(function(){
 			$row=this.id.substring(6,7);
