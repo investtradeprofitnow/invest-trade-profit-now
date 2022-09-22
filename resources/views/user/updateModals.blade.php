@@ -7,7 +7,16 @@
             </div>
             <div class="modal-body">
                 <div class="form p-4">
-                    <form id="name-form" method="post" action="{{route('update-details','name')}}">
+                    @if($errors->any())
+                        <div class="alert alert-danger mt-3">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form id="name-form" method="post" action="{{route('update-name')}}">
                         {{ csrf_field() }}
                         <div class="form-group mt-3">
                             <label for="name"class="form-label">Name:</label>
@@ -33,6 +42,9 @@
             </div>
             <div class="modal-body">
                 <div class="form p-4">
+                    @if(session("otpError"))
+                        <div class="error mb-3">{{session("otpError")}}</div>
+                    @endif
                     <form id="email-form" method="post" action="{{route('verify-email')}}">
                         {{ csrf_field() }}
                         <div class="form-group mt-3">
@@ -60,7 +72,15 @@
             </div>
             <div class="modal-body">
                 <div class="form p-4">
-                    @if(session("otpError"))
+                    @if($errors->any())
+                        <div class="alert alert-danger mt-3">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @elseif(session("otpError"))
                         <div class="error mb-3">{{session("otpError")}}</div>
                     @endif
 					<form id="otp-email-form" method="post" action="{{route('verify-email-otp')}}">
@@ -89,6 +109,17 @@
             </div>
             <div class="modal-body">
                 <div class="form p-4">
+                    @if($errors->any())
+                        <div class="alert alert-danger mt-3">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @elseif(session("otpError"))
+                        <div class="error mb-3">{{session("otpError")}}</div>
+                    @endif
                     <form id="mobile-form" method="post" action="{{route('verify-mobile')}}">
                         {{ csrf_field() }}
                         <div class="form-group mt-3">
