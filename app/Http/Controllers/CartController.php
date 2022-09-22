@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Session;
 
 use App\Models\StrategyShort;
@@ -99,7 +97,7 @@ class CartController extends Controller
                     $investmentList[$investId++]=$data[$i];
                 }
             }
-            return view('services.strategy-list',['intradayList'=>$intradayList, 'btstList'=>$btstList, 'positionalList'=> $positionalList, 'investmentList'=>$investmentList]);
+            return view("services.strategy-list",["intradayList"=>$intradayList, "btstList"=>$btstList, "positionalList"=> $positionalList, "investmentList"=>$investmentList]);
         }
         else{
             return redirect("/login");
@@ -115,10 +113,10 @@ class CartController extends Controller
 
     public function addToCart($id){
         $strategy = StrategyShort::findOrFail($id);
-        $cartStrategies = Session::get('cartStrategies',[]);
+        $cartStrategies = Session::get("cartStrategies",[]);
         $offers = Session::get("offers");
         if(isset($cartStrategies[$id])){
-            return redirect()->back()->with('error','Strategy already added');
+            return redirect()->back()->with("error","Strategy already added");
         }
         else{
             $plan = Session::get("plan");
@@ -162,16 +160,16 @@ class CartController extends Controller
                 "price" => $updated_price!=null?floor($updated_price):$strategy->price,
                 "brief_id" => $strategy->strategy_brief_id
             ];
-            Session::put('cartStrategies', $cartStrategies);
-            return redirect()->back()->with('success','Strategy added successfully');
+            Session::put("cartStrategies", $cartStrategies);
+            return redirect()->back()->with("success","Strategy added successfully");
         }
     }
 
     public function deleteFromCart($id){
-        $cartStrategies = Session::get('cartStrategies',[]);
+        $cartStrategies = Session::get("cartStrategies",[]);
         unset($cartStrategies[$id]);
-        Session::put('cartStrategies', $cartStrategies);
-        return redirect()->back()->with('success','Strategy deleted successfully');
+        Session::put("cartStrategies", $cartStrategies);
+        return redirect()->back()->with("success","Strategy deleted successfully");
     }
 
     public function saveStrategies($amount, $couponId){
@@ -183,7 +181,7 @@ class CartController extends Controller
         $email=Session::get("email");
         $customer = Customers::where("email",$email)->first();
         $custId=$customer->id;
-        $cartStrategies = Session::get('cartStrategies',[]);
+        $cartStrategies = Session::get("cartStrategies",[]);
         $strategies = [];
         $index=0;
         foreach($cartStrategies as $key=>$strategy){
@@ -209,17 +207,12 @@ class CartController extends Controller
         $order->coupon = $couponId;
         $order->save();
         
-        Session::forget('cartStrategies');
+        Session::forget("cartStrategies");
         Session::forget("plan");
         Session::forget("id");
         Session::forget("offers");
 
         Mail::to($email)->send(new OrderMail($customer->name,str_pad($order->id,8,"0",STR_PAD_LEFT),$order->created_at->format("d-M-Y"),$strategies,$amount,$couponCode));
-
         return redirect("/user-strategies");
-    }
-
-    public function saveOrderDetails(){        
-        
     }
 }
