@@ -1,14 +1,14 @@
-@extends('layouts.app')
-@section('pageTitle', 'Login')
-@section('css')
+@extends("layouts.app")
+@section("pageTitle", "Login")
+@section("css")
     <link href="{{asset('css/register.css')}}" rel="stylesheet">
 @stop
-@section('content')
+@section("content")
 <div class="container">
     <h1 class="mb-3 text-center"><strong><i>Login</i></strong></h1>
-    <div class="form p-4">            
-        @if(isset($error))
-            <div class="error mb-3">{{$error}}</div>
+    <div class="form p-4">          
+        @if(session()->has("error"))
+            <div class="error mb-3">{{session()->get("error")}}</div>
         @endif
         <form id="login-form" method="post" action="{{route('checkCustomer')}}">
             {{ csrf_field() }}
@@ -36,7 +36,7 @@
 </div>
 @stop
 
-@section('js')
+@section("js")
     <script src="{{asset('js/jquery.validate.js')}}"></script>
     <script src="{{asset('js/form-validation.js')}}"></script>
 @stop

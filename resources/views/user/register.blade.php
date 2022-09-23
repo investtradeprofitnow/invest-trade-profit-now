@@ -1,16 +1,16 @@
-@extends('layouts.app')
-@section('pageTitle', 'Registration')
-@section('css')
+@extends("layouts.app")
+@section("pageTitle", "Registration")
+@section("css")
     <link href="{{asset('css/register.css')}}" rel="stylesheet">
 @stop
-@section('content')
+@section("content")
 <div class="container">
     <h1 class="mb-3 text-center"><strong><i>Register</i></strong></h1>
-    @if(session('otpModal')=="yes")
+    @if(session("otpModal")=="yes")
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script>
             $(function(){
-                $('#otpModal').modal('show');
+                $("#otpModal").modal("show");
             });
         </script>
     @elseif(session("error"))
@@ -61,27 +61,30 @@
             </div>
             <div class="modal-body">
                 <div class="form p-4">
-                    @if(session("error"))
-                        <div class="error mb-3">{{session("error")}}</div>
+                    @if($errors->any())
+                        <div class="alert alert-danger mt-3">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if(session()->get("error"))
+                        <div class="error mb-3">{!!session()->get("error")!!}</div>
                     @endif
 					<form id="otp-form" method="post" action="{{route('verify-otp')}}">
             			{{ csrf_field() }}
 						<div class="form-group mt-3">
 							<label for="name">Mobile OTP:</label>
 							<input type="text" class="form-control" name="mobile-otp" id="mobile-otp" maxlength="6" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required>
-						</div>
+                            <span class="error mobile"></span>
+                        </div>
 						<div class="form-group mt-3">
 							<label for="name">Email OTP:</label>
 							<input type="text" class="form-control" name="email-otp" id="email-otp" maxlength="6" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required>
-						</div>
-                        @if(isset($customer))
-                            <div class="form-group mt-3">
-                                <input type="hidden" name="name" id="name" value="{{$customer->name}}"/>
-                                <input type="hidden" name="mobile" id="mobile" value="{{$customer->mobile}}"/>
-                                <input type="hidden" name="email" id="email" value="{{$customer->email}}"/>
-                                <input type="hidden" name="password" id="password" value="{{$customer->password}}"/>
-                            </div>
-                        @endif
+                            <span class="error email"></span>
+                        </div>
 					</form>
 				</div>
             </div>
@@ -93,7 +96,25 @@
     </div>
 </div>
 @stop
-@section('js')
+
+@section("js")
     <script src="{{asset('js/jquery.validate.js')}}"></script>
     <script src="{{asset('js/form-validation.js')}}"></script>
+    <script style="text/javascript">
+        $("#register").click(function(){
+            $(".mobile").html("");
+            $(".email").html("");
+            $mobile=$("#mobile-otp").val()+"";
+            $email=$("#email-otp").val()+"";
+            if($mobile.length<6){
+                $(".mobile").html("Please enter 6 digits mobile OTP.");
+            }
+            else if($email.length<6){
+                $(".email").html("Please enter 6 digits mobile OTP.");
+            }
+            else{
+                $("#otp-form").submit();
+            }
+        });
+    </script>
 @stop
