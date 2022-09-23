@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 
 use Auth;
 use Config;
+use Carbon\Carbon;
 
 use Mail;
 use App\Mail\OTPMail;
@@ -79,8 +80,8 @@ class CustomersController extends Controller
     }
     public function verifyOtp(Request $request){
         $this->validate($request, [
-            "mobile-otp" => "required|numeric|min:6|max:6",
-            "email-otp" => "required|numeric|min:6|max:6",
+            "mobile-otp" => "required|numeric|digits:6",
+            "email-otp" => "required|numeric|digits:6",
         ]);
         $customer = Session::get("customer");
         $mobile = $customer["mobile"];
@@ -95,12 +96,13 @@ class CustomersController extends Controller
             $error.="Email OTP doesn't match. ";
         }
         if($rowMobile==null){
-            $error.="Mobile OTP doesn't match.";
+            $error.="<br/>Mobile OTP doesn't match.";
         }
         if($error==""){
             $rowEmail->delete();
             $rowMobile->delete();
             Session::forget("otpModal");
+            Session::forget("otpError");
             if(Session::get("plan")!=null){
                 return redirect("/save-customer");
             }
@@ -128,25 +130,43 @@ class CustomersController extends Controller
     {
         $email = Session::get("email");
         $customer = Customers::where("email",$email)->first();
+        switch($id){
+            case 1:
+                $end_date = date("y-m-d", strtotime("+20 year"));
+                break;
+            case 2:
+                $end_date = date("y-m-d", strtotime("+1 year"));
+                break;
+            case 3:
+                $end_date = date("y-m-d", strtotime("+2 years"));
+                break;
+            case 4:
+                $end_date = date("y-m-d", strtotime("+5 year"));
+                break;
+        }
         $customer->plan = $id;
+        $customer->start_date = date("y-m-d");
+        $customer->end_date = $end_date;
         $customer->update();
         return redirect ("/strategy-list");
     }
 
     public function saveCustomer(){
         $customer = Session::get("customer");
-        dd($customer);
         $plan = Session::get("plan");
         $start_date = date("y-m-d");
         $end_date;
         switch($plan){
             case 1:
-                $end_date = date("y-m-d", strtotime("+1 year"));
+                $end_date = date("y-m-d", strtotime("+20 year"));
                 break;
             case 2:
-                $end_date = date("y-m-d", strtotime("+2 years"));
+                $end_date = date("y-m-d", strtotime("+1 year"));
                 break;
             case 3:
+                $end_date = date("y-m-d", strtotime("+2 years"));
+                break;
+            case 4:
                 $end_date = date("y-m-d", strtotime("+5 year"));
                 break;
         }
@@ -181,8 +201,22 @@ class CustomersController extends Controller
                 $error="User does not exists. Please register first.";
             }
             else if (password_verify($password,$user->password)){
+                $plan = $user->plan;
                 Session::put("email",$email);
-                Session::put("plan",$user->plan);
+                Session::put("plan",$plan);
+                if($plan>=1){
+                    $end = Carbon::parse($user->end_date);
+                    $days = now()->diffInDays($end,false);
+                    if($days<=0){
+                        $user->plan="1";
+                        $user->update();
+                        return redirect("/pricing")->with("expired","Your Subscription is expired.Please renew the same.");                                                                                
+                    }
+                    else if($days<=7){
+                        echo "<script type='text/javascript'>alert('hi');</script>";
+                        return redirect("/")->with("days",$days);
+                    }
+                }                
                 return redirect("/");
             }
             else{

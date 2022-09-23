@@ -4,6 +4,14 @@
     <link href="{{asset('css/pricing.css')}}" rel="stylesheet">
 @stop
 @section("content")
+    @if(session()->has("expired"))
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script>
+            $(function(){
+                $("#expiredModal").modal("show");
+            });
+        </script>        
+    @endif
     <div class="heading text-center py-4">
         <h1><i>PRICING</i></h1>
     </div>
@@ -136,6 +144,22 @@
                             <a class="btn btn-outline mb-4" href="{{route('save-plan',4)}}">Register</a>
                         @endif
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="expiredModal" tabindex="-1" aria-labelledby="expiredModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="expiredModalLabel">Plan has Expired</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Your plan has expired. Please renew your plan.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
