@@ -7,7 +7,7 @@
             <form id="add-strategy-short-form" method="post" action="{{route('save-strategy-short')}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             @if($errors->any())
-                <div class="alert alert-danger mt-3">
+                <div class="alert error mt-3">
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>

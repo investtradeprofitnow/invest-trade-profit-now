@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <div class="form p-4">
                     @if($errors->any())
-                        <div class="alert alert-danger mt-3">
+                        <div class="alert error mt-3">
                             <ul>
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -73,7 +73,7 @@
             <div class="modal-body">
                 <div class="form p-4">
                     @if($errors->any())
-                        <div class="alert alert-danger mt-3">
+                        <div class="alert error mt-3">
                             <ul>
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -110,7 +110,7 @@
             <div class="modal-body">
                 <div class="form p-4">
                     @if($errors->any())
-                        <div class="alert alert-danger mt-3">
+                        <div class="alert error mt-3">
                             <ul>
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>

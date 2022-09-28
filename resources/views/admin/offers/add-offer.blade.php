@@ -5,7 +5,7 @@
 	    <h1 class="mb-3 text-center section-title">Add Offer</h1>
         <div class="form p-4 mx-auto" style="width: 70%">
             @if($errors->any())
-                <div class="alert alert-danger mt-3">
+                <div class="alert error mt-3">
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
