@@ -14,7 +14,7 @@
             });
         </script>
     @elseif(session("error"))
-        <div class="error mb-3">{{session("error")}}</div>
+        <div class="error mb-3">{!!session("error")!!}</div>
     @endif
     <div class="form p-4">
         <form id="register-form" method="post" action="{{route('display-otp')}}">
