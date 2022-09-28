@@ -32,7 +32,7 @@ class StrategyShortController extends Controller
         $this->validate($request, [
             "name" => "required|max:50",
             "description" => "required",
-            "price" => "required|numeric",
+            "price" => "required|numeric|digits:5",
             "brief" => "required",
             "video" => "required"
         ]);
@@ -71,7 +71,7 @@ class StrategyShortController extends Controller
             "id" => "required|numeric",
             "name" => "required|max:50",
             "description" => "required",
-            "price" => "required|numeric",
+            "price" => "required|numeric|digits:5",
             "brief" => "required",
         ]);
         $email = Session::get("email");
