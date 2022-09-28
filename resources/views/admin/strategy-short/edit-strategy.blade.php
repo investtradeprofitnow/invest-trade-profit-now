@@ -30,7 +30,7 @@
             </div>
             <div class="form-group mt-3">
                 <label for="price">Price:</label>
-                <input type="text" class="form-control" name="price" id="price" value="{{$strategy->price}}" maxlength="6" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"required/>
+                <input type="text" class="form-control" name="price" id="price" value="{{$strategy->price}}" maxlength="5" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"required/>
             </div>
             <div class="form-group mt-3">
                 <label for="brief" class="form-label">Brief Strategy:</label>
