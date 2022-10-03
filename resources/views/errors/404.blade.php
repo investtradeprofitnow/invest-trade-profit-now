@@ -26,9 +26,9 @@
             border-radius: 100px;
         }
 
-        @media only screen and (max-width: 991px){
+        @media screen and (max-width: 991px){
             .error{
-                width: 90% !important;
+                width: 90%;
             }
         }
     </style>

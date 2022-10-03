@@ -22,7 +22,7 @@
             color: red;
         }
         
-        @media (min-width: 769px) and (max-width: 992px){
+        @media screen (min-width: 769px) and (max-width: 992px){
             .coupon-table{
                 width:80%;
             }

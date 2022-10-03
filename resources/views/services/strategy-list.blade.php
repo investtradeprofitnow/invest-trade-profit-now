@@ -31,7 +31,7 @@
             color: red;
         }
 
-        @media only screen and (max-width: 767px){
+        @media screen and (max-width: 767px){
             img{
                 width: 60%;
             }

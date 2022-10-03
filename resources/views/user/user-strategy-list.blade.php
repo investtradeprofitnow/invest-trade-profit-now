@@ -26,12 +26,6 @@
         h4, h5, h6{
             font-weight: bold;
         }
-
-        @media only screen and (max-width: 767px){
-            img{
-                width: 60%;
-            }
-        }
     </style>
 @stop
 @section('content')
