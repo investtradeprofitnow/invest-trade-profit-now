@@ -8,6 +8,7 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script>
             $(function(){
+                $(".notification").html("{{session()->get('expired')}}")
                 $("#expiredModal").modal("show");
             });
         </script>        
@@ -61,7 +62,7 @@
                             <div class="price_tag">  
                                 <span class="price">
                                     <span class="sign">&#8377;</span>
-                                    <span class="currency"><s>1499</s><span class="red">  999</span></span>
+                                    <span class="currency"><s>{{config('payments.plan2')}}</s><span class="red">  {{config('payments.planDiscount2')}}</span></span>
                                 </span>
                             </div>
                         </div>
@@ -93,7 +94,7 @@
                             <div class="price_tag">  
                                 <span class="price">
                                     <span class="sign">&#8377;</span>
-                                    <span class="currency"><s>2499</s><span class="red">  1999</span></span>
+                                    <span class="currency"><s>{{config('payments.plan3')}}</s><span class="red">  {{config('payments.planDiscount3')}}</span></span>
                                 </span>
                             </div>
                         </div>
@@ -125,7 +126,7 @@
                             <div class="price_tag">  
                                 <span class="price">
                                     <span class="sign">&#8377;</span>
-                                    <span class="currency"><s>5999</s><span class="red">  3999</span></span>
+                                    <span class="currency"><s>{{config('payments.plan4')}}</s><span class="red">  {{config('payments.planDiscount4')}}</span></span>
                                 </span>
                             </div>
                         </div>
@@ -156,7 +157,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Your plan has expired. Please renew your plan.</p>
+                    <p class="notification"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
