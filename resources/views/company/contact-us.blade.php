@@ -10,10 +10,6 @@
             background: none;
         }
 
-        .container .title{
-            padding-left:0;
-        }
-
         .mail-link{
             padding-left: 60px;
             color: #34bbe2;
@@ -37,7 +33,7 @@
                 <span class="email">Email Address:</span><br/>
                 <p><a href="mailto:{{config('app.contact')}}?subject=Query" class="mail-link">{{config('app.contact')}}</a></p>
             </div>
-            <div class="col-md-6 col-12">
+            <div class="col-md-6 col-12 mt-4 mt-md-0">
                 @if ($errors->any())
                     <div class="alert error mt-3">
                         <ul>
@@ -52,10 +48,10 @@
                         Session::forget("success");
                     @endphp
                 @endif
-                <span class="email title pl-0">
+                <p class="email title pl-0">
                     In case of any queries, please submit the form.
-                </span>                
-                <div class="form p-4">
+                </p>                
+                <div class="form pt-0 p-4">
                     <form id="contact-form" method="post" action="{{route('submit-query')}}">
                         {{ csrf_field() }}
                         <div class="form-group">

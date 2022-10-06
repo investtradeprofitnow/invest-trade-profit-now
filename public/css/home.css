@@ -120,7 +120,6 @@ footer{
 
 .what-we-do li{
     list-style-type: none;
-    font-size: 1.5vw;
 }
 
 .what-we-do .fa-arrow-right{
@@ -270,13 +269,28 @@ footer{
 }
 
 .heading h1{
-    font-size: 70px !important;
+    font-size: 70px;
     font-weight: 900;
     color: white;
 }
 
-@media only screen and (max-width: 992px){
+@media screen and (max-width: 992px){
     .nav-link{
         font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .nav-link{
+        font-size: 1rem;
+    }
+
+    .carousel-item{
+        background: linear-gradient(#34bbe2, #c4dc6a);
+        height: 30vw;
+    }
+
+    .heading h1{
+        font-size: 45px;
     }
 }

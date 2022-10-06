@@ -31,6 +31,16 @@ h1{
     color: #34bbe3;
 }
 
+.resend{
+    color:#34bbe3;
+    text-decoration: none;
+}
+
+.resend:hover{
+    color:#34bbe3;
+    text-decoration: none;
+}
+
 @media screen and (max-width: 768px){
     .container{
         width:100%;
