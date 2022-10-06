@@ -82,12 +82,17 @@
                         </div>
                     @elseif(session("otpError"))
                         <div class="error mb-3">{{session("otpError")}}</div>
+                    @elseif(session("successResend"))
+                        <div class="success mb-3">{{session("successResend")}}</div>
                     @endif
 					<form id="otp-email-form" method="post" action="{{route('verify-email-otp')}}">
             			{{ csrf_field() }}
 						<div class="form-group mt-3">
 							<label for="name">Email OTP:</label>
 							<input type="text" class="form-control" name="email-otp" id="email-otp" maxlength="6" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required>
+                        </div>
+                        <div class="form-group text-right mt-3">
+							<a href="{{route('resend-email-otp')}}" class="resend text-right">Resend OTP</a>
                         </div>
 					</form>
 				</div>
@@ -148,12 +153,17 @@
                 <div class="form p-4">
                     @if(session("otpError"))
                         <div class="error mb-3">{{session("otpError")}}</div>
+                    @elseif(session("successResend"))
+                        <div class="success mb-3">{{session("successResend")}}</div>
                     @endif
 					<form id="otp-mobile-form" method="post" action="{{route('verify-mobile-otp')}}">
             			{{ csrf_field() }}
 						<div class="form-group mt-3">
 							<label for="name">Mobile OTP:</label>
 							<input type="text" class="form-control" name="mobile-otp" id="mobile-otp" maxlength="6" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required>
+                        </div>
+                        <div class="form-group text-right mt-3">
+							<a href="{{route('resend-mobile-otp')}}" class="resend text-right">Resend OTP</a>
                         </div>
 					</form>
 				</div>
