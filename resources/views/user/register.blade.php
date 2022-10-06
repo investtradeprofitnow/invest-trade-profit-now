@@ -72,6 +72,8 @@
                     @endif
                     @if(session()->get("error"))
                         <div class="error mb-3">{!!session()->get("error")!!}</div>
+                    @elseif(session("successResend"))
+                        <div class="success mb-3">{{session("successResend")}}</div>
                     @endif
 					<form id="otp-form" method="post" action="{{route('verify-otp')}}">
             			{{ csrf_field() }}
@@ -80,10 +82,16 @@
 							<input type="text" class="form-control" name="mobile-otp" id="mobile-otp" maxlength="6" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required>
                             <span class="error mobile"></span>
                         </div>
+                        <div class="form-group text-right mt-3">
+							<a href="{{route('resend-mobile-otp')}}" class="resend text-right">Resend Mobile OTP</a>
+                        </div>
 						<div class="form-group mt-3">
 							<label for="name">Email OTP:</label>
 							<input type="text" class="form-control" name="email-otp" id="email-otp" maxlength="6" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required>
                             <span class="error email"></span>
+                        </div>
+                        <div class="form-group text-right mt-3">
+							<a href="{{route('resend-email-otp')}}" class="resend text-right">Resend Email OTP</a>
                         </div>
 					</form>
 				</div>

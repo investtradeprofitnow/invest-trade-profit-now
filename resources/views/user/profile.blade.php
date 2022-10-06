@@ -9,6 +9,10 @@
         a:hover{
             color: #34bbe3;
         }
+
+        .resend{
+            text-decoration: none;
+        }
     </style>
 @stop
 @section("content")
@@ -104,7 +108,7 @@
             </div>
         </div>
     </div>
-    @include("user.updateModals")
+    @include("user.update-modals")
 @stop
 @section("js")
     <script type="text/javascript">
