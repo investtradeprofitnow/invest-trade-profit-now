@@ -7,12 +7,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class OTPMail extends Mailable
+class OtpMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $name;
     public $otp;
+
     /**
      * Create a new message instance.
      *
