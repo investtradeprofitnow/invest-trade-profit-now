@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File; 
 use Illuminate\Support\Str;
 
 use Auth;
@@ -22,6 +23,8 @@ use App\Models\StrategyShort;
 use App\Models\StrategyBrief;
 use App\Models\UserStrategy;
 use App\Models\ResetPassword;
+
+use App\Http\Controllers;
 
 class CustomersController extends Controller
 {
@@ -48,25 +51,29 @@ class CustomersController extends Controller
             $user = Customers::where("email", $email)->first();
             if($user==null){
                 $customer = new Customers();
-                $customer->name = request("name");
-                $customer->mobile = request("mobile");
-                $customer->email = request("email");
+                $email = request("email");
+                $mobile = request("mobile");
+                $name = request("name");
+                $customer->name = $name;
+                $customer->mobile = $mobile;
+                $customer->email = $email;
                 $customer->password = password_hash(request("password"),PASSWORD_DEFAULT);
                 $customer->photo = null;
                 $otpMobile = new Otp();
                 $otpEmail = new Otp();
-                $otpMobile->type = request("mobile");
+                $otpMobile->type = $mobile;
                 $otpMobile->otp = random_int(100000, 999999);
-                $otpEmail->type = request("email");
+                $otpEmail->type = $email;
                 $otpEmail->otp = random_int(100000, 999999);
-                Otp::where("type", request("mobile"))->delete();
-                Otp::where("type", request("email"))->delete();
+                Otp::where("type", $mobile)->delete();
+                Otp::where("type", $email)->delete();
                 $otpMobile->save();
                 $otpEmail->save();
                 Session::put("customer",$customer);
                 Session::put("otpModal","yes");
-                Mail::to(request("email"))->send(new OTPMail(request("name"),$otpEmail->otp));
-                return redirect("/register");
+                $this->sendSms($mobile,$otpMobile);
+                Mail::to($email)->send(new OTPMail($name,$otpEmail->otp));
+                return redirect()->back();
             }
             else{
                 $error="User already exists.";
@@ -78,6 +85,30 @@ class CustomersController extends Controller
             return redirect()->back()->with("error",$error);
         }
     }
+
+    public function sendSms($mobile, $otp){
+        // Account details
+        $apiKey = urlencode("Your apiKey");
+        // Message details
+        $numbers = array($mobile);
+        $sender = urlencode("TXTLCL");
+        $message = rawurlencode("Welcome to Invest Trade Profit Now. Your OTP for Mobile Verification is ".$otp.". Thanks, Invest Trade Profit Now");
+        
+        $numbers = implode(",", $numbers);
+        
+        // Prepare data for POST request
+        $data = array("apikey" => $apiKey, "numbers" => $numbers, "sender" => $sender, "message" => $message);
+        // Send the POST request with cURL
+        $ch = curl_init("https://api.textlocal.in/send/");
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        // Process your response here
+        echo $response;
+    }
+
     public function verifyOtp(Request $request){
         $this->validate($request, [
             "mobile-otp" => "required|numeric|digits:6",
@@ -104,22 +135,48 @@ class CustomersController extends Controller
             Session::forget("otpModal");
             Session::forget("otpError");
             if(Session::get("plan")!=null){
-                return redirect("/save-customer");
+                Session::put("reason","register");
+                (new PaymentController)->initiatePaymentPlan(Session::get("plan"),"Registration for Website for ".$email);
+                //return redirect("/save-customer");
             }
             else{
                 return redirect("/pricing");
             }
         }
         else{
-            return redirect("/register")->with("error",$error);
+            return redirect()->back()->with("error",$error);
         }
+    }
+
+    public function resendEmailOtp(){
+        $email = Session::get("updateEmail")!=null ? Session::get("updateEmail") : Session::get("customer")["email"];
+        Otp::where("type", $email)->delete();
+        $otpEmail = new Otp();
+        $otpEmail->type = $email;
+        $otpEmail->otp = random_int(100000, 999999);
+        $otpEmail->save();
+        Mail::to($email)->send(new OTPMail(request("emailName"),$otpEmail->otp));
+        return redirect()->back()->with("successResend","OTP has been resend to the email address");
+    }
+
+    public function resendMobileOtp(){
+        $mobile = Session::get("updateMobile")!=null ? Session::get("updateMobile") : Session::get("customer")["mobile"];
+        Otp::where("type", $mobile)->delete();
+        $otpMobile = new Otp();
+        $otpMobile->type = $mobile;
+        $otpMobile->otp = random_int(100000, 999999);
+        $otpMobile->save();
+        return redirect()->back()->with("successResend","OTP has been resend to the mobile number");
     }
 
     public function savePlan($id)
     {
         Session::put("plan",$id);
         if(Session::get("customer")!=null){
-            return redirect("/save-customer");
+            $email = Session::get("customer")["email"];
+            Session::put("reason","register");
+            (new PaymentController)->initiatePaymentPlan($id,"Registration for Website for ".$email);
+            //return redirect("/save-customer");
         }
         else{
             return redirect("/register");
@@ -128,6 +185,13 @@ class CustomersController extends Controller
     
     public function updatePlan($id)
     {
+        $email = Session::get("email");
+        Session::put("reason","updatePlan");
+        $data = (new PaymentController)->initiatePaymentPlan($id,"Updation in Plan for ".$email);
+        return redirect("/payment-page")->with("data",$data);
+    }
+
+    public function updatePlanDetails(){
         $email = Session::get("email");
         $customer = Customers::where("email",$email)->first();
         switch($id){
@@ -297,7 +361,7 @@ class CustomersController extends Controller
     }
 
     public function displayResetPassword(){
-        return view("user.forgotPassword");
+        return view("user.forgot-password");
     }
 
     public function resetPassword($token){
@@ -310,7 +374,7 @@ class CustomersController extends Controller
     }
 
     public function displayChangePassword(){
-        return view("user.changePassword");
+        return view("user.change-password");
     }
 
     public function changePassword(){
@@ -366,7 +430,7 @@ class CustomersController extends Controller
             $customer->name = $name;
             $customer->update();
             Sesson::forget("nameModal");
-            return redirect("/profile");
+            return redirect()->back();
         }
         else{
             return redirect("/login");
@@ -378,11 +442,11 @@ class CustomersController extends Controller
             Session::put("emailModal","yes");
             $email = request("email");
             if($email=="" || !preg_match("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/",$email)){
-                return redirect("/profile")->with("otpError","Please enter a valid email address");
+                return redirect()->back()->with("otpError","Please enter a valid email address");
             }
             $customer = Customers::where("email", $email)->first();
             if($customer!=null){
-                return redirect("/profile")->with("otpError","Account with this email id already exists.");
+                return redirect()->back()->with("otpError","Account with this email id already exists.");
             }
             Otp::where("type", $email)->delete();
             $otpEmail = new Otp();
@@ -390,10 +454,11 @@ class CustomersController extends Controller
             $otpEmail->otp = random_int(100000, 999999);
             $otpEmail->save();
             Session::forget("emailModal");
+            Session::forget("mobileOtpModal");
             Session::put("emailOtpModal","yes");
             Session::put("updateEmail",$email);
             Mail::to($email)->send(new OTPMail(request("emailName"),$otpEmail->otp));
-            return redirect("/profile");
+            return redirect()->back();
         }
         else{
             return redirect("/login");
@@ -411,7 +476,7 @@ class CustomersController extends Controller
             $rowEmail = Otp::where("type", $updateEmail)->where("otp", $otpEmail)->first();
             $error="";
             if($rowEmail==null){
-                return redirect("/profile")->with("otpError","Email OTP doesn't match.");             
+                return redirect()->back()->with("otpError","Email OTP doesn't match.");             
             }
             else{
                 $rowEmail->delete();
@@ -421,7 +486,7 @@ class CustomersController extends Controller
                 Session::forget("emailOtpModal");
                 Session::forget("updateEmail");
                 Session::put("email",$updateEmail);
-                return redirect("/profile");
+                return redirect()->back();
             }
         }
         else{
@@ -438,17 +503,18 @@ class CustomersController extends Controller
             $mobile = request("mobile");
             $customer = Customers::where("mobile", $mobile)->first();
             if($customer!=null){
-                return redirect("/profile")->with("otpError","Account with this mobile number already exists.");
+                return redirect()->back()->with("otpError","Account with this mobile number already exists.");
             }
             Otp::where("type", $mobile)->delete();
-            $otpEmail = new Otp();
-            $otpEmail->type = $mobile;
-            $otpEmail->otp = random_int(100000, 999999);
-            $otpEmail->save();            
+            $otpMobile = new Otp();
+            $otpMobile->type = $mobile;
+            $otpMobile->otp = random_int(100000, 999999);
+            $otpMobile->save();            
+            Session::forget("emailOtpModal");
             Session::forget("mobileModal");
             Session::put("mobileOtpModal","yes");
             Session::put("updateMobile",$mobile);
-            return redirect("/profile");
+            return redirect()->back();
         }
         else{
             return redirect("/login");
@@ -466,7 +532,7 @@ class CustomersController extends Controller
             $rowMobile = Otp::where("type", $updateMobile)->where("otp", $otpMobile)->first();
             $error="";
             if($rowMobile==null){
-                return redirect("/profile")->with("otpError","Mobile OTP doesn't match.");
+                return redirect()->back()->with("otpError","Mobile OTP doesn't match.");
             }
             if($error==""){
                 $rowMobile->delete();
@@ -476,7 +542,7 @@ class CustomersController extends Controller
                     $customer->update();
                     Session::forget("mobileOtpModal");
                     Session::forget("updateMobile");
-                    return redirect("/profile");
+                    return redirect()->back();
                 }
             }
         }
@@ -494,7 +560,7 @@ class CustomersController extends Controller
             $customer = Customers::where("email", $email)->first();
             $customer->photo=$name;
             $customer->update();
-            return redirect("/profile");
+            return redirect()->back();
         }
         else{
             return redirect("/login");
@@ -505,9 +571,11 @@ class CustomersController extends Controller
         if((new PagesController)->checkSession()){
             $email=Session::get("email");
             $customer = Customers::where("email", $email)->first();
+            $photo = $customer->photo;
+            File::delete("images/customer-images/".$photo);
             $customer->photo=null;
             $customer->update();
-            return redirect("/profile");
+            return redirect()->back();
         }
         else{
             return redirerct("/login");
@@ -527,7 +595,7 @@ class CustomersController extends Controller
             return redirect("/admin/customer");
         }
         else{
-            return("/admin/login");
+            return redirect("/admin/login");
         }
     }
 }
