@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 use Auth;
@@ -71,7 +71,6 @@ class CustomersController extends Controller
                 $otpEmail->save();
                 Session::put("customer",$customer);
                 Session::put("otpModal","yes");
-                $this->sendSms($mobile,$otpMobile);
                 Mail::to($email)->send(new OTPMail($name,$otpEmail->otp));
                 return redirect()->back();
             }
@@ -85,30 +84,6 @@ class CustomersController extends Controller
             return redirect()->back()->with("error",$error);
         }
     }
-
-    public function sendSms($mobile, $otp){
-        // Account details
-        $apiKey = urlencode("Your apiKey");
-        // Message details
-        $numbers = array($mobile);
-        $sender = urlencode("TXTLCL");
-        $message = rawurlencode("Welcome to Invest Trade Profit Now. Your OTP for Mobile Verification is ".$otp.". Thanks, Invest Trade Profit Now");
-        
-        $numbers = implode(",", $numbers);
-        
-        // Prepare data for POST request
-        $data = array("apikey" => $apiKey, "numbers" => $numbers, "sender" => $sender, "message" => $message);
-        // Send the POST request with cURL
-        $ch = curl_init("https://api.textlocal.in/send/");
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        curl_close($ch);
-        // Process your response here
-        echo $response;
-    }
-
     public function verifyOtp(Request $request){
         $this->validate($request, [
             "mobile-otp" => "required|numeric|digits:6",
@@ -135,9 +110,7 @@ class CustomersController extends Controller
             Session::forget("otpModal");
             Session::forget("otpError");
             if(Session::get("plan")!=null){
-                Session::put("reason","register");
-                (new PaymentController)->initiatePaymentPlan(Session::get("plan"),"Registration for Website for ".$email);
-                //return redirect("/save-customer");
+                return redirect("/save-customer");
             }
             else{
                 return redirect("/pricing");
@@ -173,10 +146,7 @@ class CustomersController extends Controller
     {
         Session::put("plan",$id);
         if(Session::get("customer")!=null){
-            $email = Session::get("customer")["email"];
-            Session::put("reason","register");
-            (new PaymentController)->initiatePaymentPlan($id,"Registration for Website for ".$email);
-            //return redirect("/save-customer");
+            return redirect("/save-customer");
         }
         else{
             return redirect("/register");
@@ -185,13 +155,6 @@ class CustomersController extends Controller
     
     public function updatePlan($id)
     {
-        $email = Session::get("email");
-        Session::put("reason","updatePlan");
-        $data = (new PaymentController)->initiatePaymentPlan($id,"Updation in Plan for ".$email);
-        return redirect("/payment-page")->with("data",$data);
-    }
-
-    public function updatePlanDetails(){
         $email = Session::get("email");
         $customer = Customers::where("email",$email)->first();
         switch($id){
