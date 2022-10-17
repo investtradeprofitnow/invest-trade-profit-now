@@ -3,11 +3,11 @@
 }
 
 #price_table .content .head_price{
-    background-color: #edfdfd;
+    background-color: #EDFDFD;
 }
   
 #price_table .content .head_price .head_content .head_bg{
-    border-color: #d1fbfb rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #d1fbfb;
+    border-color: #D1FBFB rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #D1FBFB;
     border-style: solid;
     border-width: 90px 1411px 23px 399px;
     position: absolute;
@@ -20,7 +20,7 @@
 
 #price_table .content.active_pr .head_price .head_content .head_bg,
 #price_table .content:hover .head_price .head_content .head_bg{
-  border-color: #c4dc6a rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #c4dc6a;
+  border-color: #C4DC6A rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #C4DC6A;
 }
 
 #price_table{

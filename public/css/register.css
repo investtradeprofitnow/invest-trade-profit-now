@@ -7,37 +7,37 @@
 }
 
 h1{
-    color:#34bbe3;
+    color:#34BBE3;
 }
 
 .form-check-label a{
     text-decoration: none;
-    color: #34bbe3;
+    color: #34BBE3;
 }
 
 .btn-register{
-    background-color: #34bbe3;
-    border-color: #34bbe3;
+    background-color: #34BBE3;
+    border-color: #34BBE3;
     font-weight: bold;
 }
 
 .btn-register:hover{
-    background-color: #34bbe3;
-    border-color: #34bbe3;
+    background-color: #34BBE3;
+    border-color: #34BBE3;
 }
 
 .login-link a{
     text-decoration: none;
-    color: #34bbe3;
+    color: #34BBE3;
 }
 
 .resend{
-    color:#34bbe3;
+    color:#34BBE3;
     text-decoration: none;
 }
 
 .resend:hover{
-    color:#34bbe3;
+    color:#34BBE3;
     text-decoration: none;
 }
 

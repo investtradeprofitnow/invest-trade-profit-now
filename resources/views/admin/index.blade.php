@@ -3,7 +3,7 @@
 @section('css')
 	<style type="text/css">
 		h1{
-			color: #34bbe2;
+			color: #34BBE3;
 			font-size: 7vw;
 			margin-top: 10vw;
 		}

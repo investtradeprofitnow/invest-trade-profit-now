@@ -20,12 +20,12 @@
                 margin: 0 auto; 
             }
             a{ 
-                color: #34bbe3; 
+                color: #34BBE3; 
                 text-decoration: none; 
                 font-weight: bold;
             }
             a:hover{ 
-                color: #34bbe3; 
+                color: #34BBE3; 
                 text-decoration: none; 
             }
         </style>

@@ -6,19 +6,19 @@
             font-size: 20px;
             font-weight: bold;
             padding-left: 15px;
-            color: #34bbe2;
+            color: #34BBE3;
             background: none;
         }
 
         .mail-link{
             padding-left: 60px;
-            color: #34bbe2;
+            color: #34BBE3;
             text-decoration: none;
             font-weight: bolder;
         }
 
         .mail-link:hover{
-            color: #34bbe2;
+            color: #34BBE3;
         }
     </style>
 @stop

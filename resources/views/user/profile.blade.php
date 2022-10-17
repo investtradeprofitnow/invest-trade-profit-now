@@ -4,10 +4,10 @@
     <link href="{{asset('css/register.css')}}" rel="stylesheet">
     <style type="text/css">
         a{
-            color: #34bbe3;
+            color: #34BBE3;
         }
         a:hover{
-            color: #34bbe3;
+            color: #34BBE3;
         }
 
         .resend{

@@ -18,20 +18,20 @@ body{
 }
 
 .active{
-    color: #c4dc6a  !important;
+    color: #C4DC6A  !important;
 }
 
 .btn-success{
     color: black;
-    background-color: #c4dc6a;
-    border-color: #c4dc6a;
+    background-color: #C4DC6A;
+    border-color: #C4DC6A;
     font-weight: bold;
 }
 
 .btn-success:hover{
     color: black;
-    background-color: #c4dc6a;
-    border-color: #c4dc6a;
+    background-color: #C4DC6A;
+    border-color: #C4DC6A;
     font-weight: bold;
 }
 
@@ -62,7 +62,7 @@ footer{
 }
 
 .carousel-item{
-    background: linear-gradient(#34bbe2, #c4dc6a);
+    background: linear-gradient(#34BBE3, #C4DC6A);
     height: 25vw;
 }
 
@@ -113,7 +113,7 @@ footer{
 }
 
 .section-title{
-    color: #34bbe3;
+    color: #34BBE3;
     font-weight: 900;
     font-style: italic;
 }
@@ -123,7 +123,7 @@ footer{
 }
 
 .what-we-do .fa-arrow-right{
-    color:#c4dc6a;
+    color:#C4DC6A;
 }
 
 .services .border{
@@ -144,7 +144,7 @@ footer{
 .reason{
     height: 100%;
     font-weight: bold;
-    background-color: #d1fbfb;
+    background-color: #D1FBFB;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -164,18 +164,18 @@ footer{
 }
 
 .customer-reviews{
-    color: #34bbe3;
+    color: #34BBE3;
     font-weight: bold;
 }
 
 .customer-reviews a{
     text-decoration: none;
-    color: #34bbe3;
+    color: #34BBE3;
 }
 
 .review-box{
-    background-color: #f5fcfe;
-    border: 1px solid #34bbe3;
+    background-color: #F5FCFE;
+    border: 1px solid #34BBE3;
 }
 
 .hidden{
@@ -192,7 +192,7 @@ footer{
 }
 
 .success{
-    color: #c4dc6a;
+    color: #C4DC6A;
     font-weight: bold;
 }
 
@@ -201,11 +201,11 @@ footer{
 }
 
 .title{
-    background-image: linear-gradient(#c4dc6a, white);
+    background-image: linear-gradient(#C4DC6A, white);
 }
 
 .page-title{
-    background: linear-gradient(#34bbe2, #c4dc6a);
+    background: linear-gradient(#34BBE3, #C4DC6A);
     color: white;
     font-style: italic;
 }
@@ -220,25 +220,25 @@ footer{
     bottom: 20px;
     right: 20px;
     display: none;
-    background-color: #34bbe3;
+    background-color: #34BBE3;
     border-radius: 40px;
     font-size: 30px;
   }
 
   .btn-outline, .btn-outline:hover{
-    border: 2px solid #c4dc6a;
+    border: 2px solid #C4DC6A;
     padding: 5px 20px; 
     border-radius: 20px;
-    color: #c4dc6a;
+    color: #C4DC6A;
     font-weight: 500;
     background-color: transparent;
 }
 
 .btn-outline-secondary, .btn-outline-secondary:hover{
-    border: 2px solid #6c757d;
+    border: 2px solid #6C757D;
     padding: 5px 20px; 
     border-radius: 20px;
-    color: #6c757d;
+    color: #6C757D;
     font-weight: 500;
     background-color: transparent;
 }
@@ -265,7 +265,7 @@ footer{
 }
 
 .heading{
-    background: linear-gradient(#34bbe2, #c4dc6a);
+    background: linear-gradient(#34BBE3, #C4DC6A);
 }
 
 .heading h1{
@@ -286,7 +286,7 @@ footer{
     }
 
     .carousel-item{
-        background: linear-gradient(#34bbe2, #c4dc6a);
+        background: linear-gradient(#34BBE3, #C4DC6A);
         height: 30vw;
     }
 

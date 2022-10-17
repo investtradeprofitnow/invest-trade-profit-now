@@ -3,7 +3,7 @@
 @section("css")
     <style type="text/css">
         .error{
-            background-color: #d1fbfb;
+            background-color: #D1FBFB;
             border-top-left-radius: 100px;
             border-top-right-radius: 20px;
             border-bottom-right-radius: 100px;
@@ -12,7 +12,7 @@
             color: black;
         }
         h1{
-            color: #34bbe3;
+            color: #34BBE3;
             font-size: 800%;
             font-weight: 900;
         }        

@@ -16,7 +16,7 @@
 .nav-link:active,
 .nav-link:focus,
 .nav-link:hover {
-    color: #34bbe2;
+    color: #34BBE3;
     font-weight: bold;
 }
 
@@ -28,7 +28,7 @@
 .dropdown-item:focus,
 .dropdown-item:hover {
     background-color: transparent;
-    color: #34bbe2;
+    color: #34BBE3;
     font-weight: bold;
 }
 
@@ -47,25 +47,25 @@
 }
 
 .section-title{
-    color: #34bbe3;
+    color: #34BBE3;
     font-weight: 500;
     font-style: italic;
 }
 
 .btn-outline, .btn-outline:hover{
-    border: 2px solid #c4dc6a;
+    border: 2px solid #C4DC6A;
     padding: 5px 30px; 
     border-radius: 30px;
-    color: #c4dc6a;
+    color: #C4DC6A;
     font-weight: 500;
     background-color: transparent;
 }
 
 .btn-outline-secondary, .btn-outline-secondary:hover{
-    border: 2px solid #6c757d;
+    border: 2px solid #6C757D;
     padding: 5px 30px; 
     border-radius: 30px;
-    color: #6c757d;
+    color: #6C757D;
     font-weight: 500;
     background-color: transparent;
 }
