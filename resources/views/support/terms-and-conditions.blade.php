@@ -12,7 +12,8 @@
             <h5 class="sect-title">TERMS OF USE</h5>
             <p>
                 Kindly read all of the following terms and conditions of use for this website 
-                <a href="{{route('home')}}">{{config('app.url')}}</a> ("TOU") before using this site.
+                <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a> 
+                ("TOU") before using this site.
             </p>
             <p>
                 By visiting our site and continuing to access this site or use any service on this site 
@@ -36,7 +37,7 @@
                 contained on this site are the exclusive property of InvestTradeProfitNow ("ITPN") and 
                 is protected by copyrights and trademarks. You are hereby granted only a limited, 
                 non-exclusive, non-assignable and non-transferable license to access 
-                <a href="{{route('home')}}">{{config('app.url')}}</a> provided that all access and use 
+                <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a> provided that all access and use 
                 shall be governed by all of the terms and conditions set forth in this USER AGREEMENT. 
                 You agree to abide by all applicable copyright and intellectual property protection laws 
                 as well as any additional copyright notices or restrictions contained in the service. 
@@ -98,7 +99,7 @@
                 accurate.
             </p>
             <p>
-                If you do not login at <a href="{{route('home')}}">{{config('app.url')}}</a> for a 
+                If you do not login at <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a> for a 
                 continuous period of 45 days your registration may get automatically cancelled.
             </p>
             <p>
@@ -141,7 +142,7 @@
                 You shall not recirculate, redistribute or publish the analysis and presentation included 
                 in the service without ITPN's prior written consent. You may use the "e-mail this article" 
                 function solely to inform others about a 
-                <a href="{{route('home')}}">{{config('app.url')}}</a> news article, and you shall 
+                <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a> news article, and you shall 
                 immediately cease using this function with regard to recipients who have requested not to 
                 receive such information.
             </p>
@@ -182,7 +183,7 @@
                     </li>
                     <li>
                         You shall not use any of the trademarks, trade names, copyrights, or logos of 
-                        <a href="{{route('home')}}">{{config('app.url')}}</a> in any manner which 
+                        <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a> in any manner which 
                         creates the impression that any such items belong to or are associated with you or 
                         are used with ITPN's consent.
                     </li>
@@ -190,19 +191,19 @@
             </p>
             <p>
                 The services have been created by 
-                <a href="{{route('home')}}">{{config('app.url')}}</a> exclusively for ITPN Subscribers. You may not copy, reproduce, distribute, publish, display, perform, modify, create derivative works, transmit, or in any way exploit any such content. Unauthorized usage is an infringement of our intellectual property rights and a violation of law, and it may also result in cancellation of your subscription without any refund and may lead to legal action.
+                <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a> exclusively for ITPN Subscribers. You may not copy, reproduce, distribute, publish, display, perform, modify, create derivative works, transmit, or in any way exploit any such content. Unauthorized usage is an infringement of our intellectual property rights and a violation of law, and it may also result in cancellation of your subscription without any refund and may lead to legal action.
             </p>
         </div>
         <div class="mt-4">
             <h5 class="sect-title">DELAY IN SERVICES:</h5>
             <p>
-                Neither <a href="{{route('home')}}">{{config('app.url')}}</a> (including its directors, 
+                Neither <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a> (including its directors, 
                 employees, affiliates, agents, representatives or subcontractors) shall be liable for any 
                 loss or liability resulting, directly or indirectly, from delays or interruptions due to 
                 electronic or mechanical equipment failures, telecommunication interconnect problems, 
                 defects, weather, strikes, walkouts, fire, act of God, riots, armed conflicts, acts of 
                 war, or other like causes during which 
-                <a href="{{route('home')}}">{{config('app.url')}}</a> shall have no responsibility to 
+                <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a> shall have no responsibility to 
                 provide you access to the website and its services.
             </p>
         </div>
@@ -287,7 +288,7 @@
             <h5 class="sect-title">COMPUTER AND TELECOMMUNICATION EQUIPMENT AND CONNECTIONS</h5>
             <p>
                 You are responsible for operating your own computer and telecommunication equipment and 
-                internet connections used to access <a href="{{route('home')}}">{{config('app.url')}}</a>
+                internet connections used to access <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a>
             </p>
         </div>
         <div class="mt-4">
@@ -301,13 +302,13 @@
             <h5 class="sect-title">LINKS TO THIRD PARTY SITES</h5>
             <p>
                 The links in this site may allow you to leave 
-                <a href="{{route('home')}}">{{config('app.url')}}</a> and take to you to external 
+                <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a> and take to you to external 
                 sites. The linked sites are not under the control of ITPN. ITPN does not review or approve 
                 these sites and is not responsible for the contents or omissions of any linked site or any 
                 further links contained in a linked site. The mere fact that a site is linked from 
-                <a href="{{route('home')}}">{{config('app.url')}}</a> does not imply endorsement of 
-                such a site by <a href="{{route('home')}}">{{config('app.url')}}</a> or by ITPN. Third 
-                party links to <a href="{{route('home')}}">{{config('app.url')}}</a> are governed by a 
+                <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a> does not imply endorsement of 
+                such a site by <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a> or by ITPN. Third 
+                party links to <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a> are governed by a 
                 separate agreement.
             </p>
         </div>
@@ -393,7 +394,22 @@
         <div class="mt-4">
             <h5 class="sect-title">ENTIRE AGREEMENT:</h5>
             <p>
-                This TOU Agreement constitutes the entire agreement between the parties, and no other agreement, written or oral, exists between you and <a href="{{route('home')}}">{{config('app.url')}}</a>. By using the Information on <a href="{{route('home')}}">{{config('app.url')}}</a>, you assume full responsibility for any and all gains and losses, financial, emotional or otherwise, experienced, suffered or incurred by you. ITPN and <a href="{{route('home')}}">{{config('app.url')}}</a> do not guarantee the accuracy, completeness or timeliness of, or otherwise endorse in any way, the views, opinions or recommendations expressed in the Information, do not give investment advice, and do not advocate the purchase or sale of any security or investment by you or any other individual. The information is not intended to provide tax, legal or investment advice, which you should obtain from your professional advisor prior to making any investment of the type discussed in the Information. The Information does not constitute a solicitation by the information providers, <a href="{{route('home')}}">{{config('app.url')}}</a> or any other person for the purchase or sale of securities.
+                This TOU Agreement constitutes the entire agreement between the parties, and no other 
+                agreement, written or oral, exists between you and 
+                <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a> By using the 
+                Information on <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a>
+                you assume full responsibility for any and all gains and losses, financial, emotional or 
+                otherwise, experienced, suffered or incurred by you. ITPN and 
+                <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a> 
+                do not guarantee the accuracy, completeness or timeliness of, or otherwise endorse in 
+                any way, the views, opinions or recommendations expressed in the Information, do not 
+                give investment advice, and do not advocate the purchase or sale of any security or 
+                investment by you or any other individual. The information is not intended to provide 
+                tax, legal or investment advice, which you should obtain from your professional advisor 
+                prior to making any investment of the type discussed in the Information. The Information 
+                does not constitute a solicitation by the information providers, 
+                <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a> or any other person for the 
+                purchase or sale of securities.
             </p>
         </div>
         <div class="mb-4">
