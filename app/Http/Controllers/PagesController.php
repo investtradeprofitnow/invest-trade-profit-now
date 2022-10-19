@@ -57,6 +57,14 @@ class PagesController extends Controller
         return view("support.privacy-policy");
     }
 
+    public function refund(){
+        return view("support.refund-policy");
+    }
+
+    public function disclaimer(){
+        return view("support.disclaimer");
+    }
+
     public function login(){
         return view("user.login");
     }

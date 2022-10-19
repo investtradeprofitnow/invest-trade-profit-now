@@ -15,7 +15,7 @@
 				<div class="col-md-4 col-12 mt-3">
 					<h4>Company</h4>
 					<div class="row">
-						<div class="col-md-6 col-12">					
+						<div class="col-md-6 col-12">
 							<p>
 								<a href="{{route('about-us')}}" class="footer-links<?php echo Route::currentRouteName()=='about-us'?' links-active':''?>">About Us</a>
 							</p>
@@ -32,12 +32,26 @@
 				</div>			
 				<div class="col-md-4 col-12 mt-3">
 					<h4>Support</h4>
-					<p>
-						<a href="{{route('terms-and-conditions')}}" class="footer-links<?php echo Route::currentRouteName()=='terms-and-conditions'?' links-active':''?>">Terms and Conditions</a>
-					</p>
-					<p>
-						<a href="{{route('privacy-policy')}}" class="footer-links<?php echo Route::currentRouteName()=='privacy-policy'?' links-active':''?>">Privacy Policy</a>
-					</p>
+					<div class="row">
+						<div class="col-md-6 col-12">
+							<p>
+								<a href="{{route('terms-and-conditions')}}" class="footer-links<?php echo Route::currentRouteName()=='terms-and-conditions'?' links-active':''?>">Terms and Conditions</a>
+							</p>
+							<p>
+								<a href="{{route('privacy-policy')}}" class="footer-links<?php echo Route::currentRouteName()=='privacy-policy'?' links-active':''?>">Privacy Policy</a>
+							</p>
+						</div>
+						<div class="col-md-6 col-12">
+							<p>
+								<a href="{{route('disclaimer')}}" class="footer-links<?php echo Route::currentRouteName()=='disclaimer'?' links-active':''?>">Disclaimer</a>
+							</p>
+							<p>
+								<a href="{{route('refund-policy')}}" class="footer-links<?php echo Route::currentRouteName()=='refund-policy'?' links-active':''?>">Refund Policy</a>
+							</p>
+						</div>
+					</div>
+					
+					
 				</div>
 			</div>
 		</div>

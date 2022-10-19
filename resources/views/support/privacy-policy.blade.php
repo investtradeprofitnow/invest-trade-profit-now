@@ -8,7 +8,7 @@
         <h1><i>PRIVACY POLICY</i></h1>
     </div>
     <div class="container">
-        <p class="mt-3">
+        <p class="mt-4">
             <strong>INVEST TRADE PROFIT NOW</strong> is the owner of website 
             <a href="{{route('home')}}">{{config('app.url')}}</a>
         </p>
@@ -433,18 +433,18 @@
             </p>
         </div>
         <div class="mt-3">
-            <h5 class="sect-title"></h5>
+            <h5 class="sect-title">DEFINITIONS</h5>
             <p>
                 <ol>
                     <li>
-                        <h5><strong>Anonymous Information:</strong></h5>
+                        <strong>Anonymous Information:</strong>
                         <p>
                             Anonymous information means information that does not directly or indirectly 
                             identify, and cannot reasonably be used to identify, an individual guest.
                         </p>
                     </li>
                     <li>
-                        <h5><strong>IP Address:</strong></h5>
+                        <strong>IP Address:</strong>
                         <p>
                             An IP address is associated with the access point through which you enter the 
                             Internet, and is typically controlled by your Internet Service Provider (ISP), 
@@ -455,7 +455,7 @@
                         </p>
                     </li>
                     <li>
-                        <h5><strong>Notices:</strong></h5>
+                        <strong>Notices:</strong>
                         <p>
                             Notices will be sent by email to you at the last email address you provided 
                             us, by posting notice of such changes in our Services, or by other means, 
@@ -463,7 +463,7 @@
                         </p>
                     </li>
                     <li>
-                        <h5><strong>Personal Information:</strong></h5>
+                        <strong>Personal Information:</strong>
                         <p>
                             Personal information means and includes information that identifies (whether 
                             directly or indirectly) and Sensitive Personal Information of a person by 
@@ -476,7 +476,7 @@
                         </p>
                     </li>
                     <li>
-                        <h5><strong>Public Forums:</strong></h5>
+                        <strong>Public Forums:</strong>
                         <p>
                             Our Services may offer message boards, conversation pages, blogs, chat rooms, 
                             social community environments, profile pages, and other forums that do not 
@@ -486,7 +486,7 @@
                         </p>
                     </li>
                     <li>
-                        <h5><strong>Sensitive Personal Information:</strong></h5>
+                        <strong>Sensitive Personal Information:</strong>
                         <p>
                             Sensitive Personal Information shall have the meaning ascribed to it under 
                             the applicable law and is presently defined to mean such personal information 

@@ -31,6 +31,8 @@ Route::get("/contact-us", [PagesController::class,"contact"])->name("contact-us"
 Route::post("/submit-query", [PagesController::class,"submitQuery"])->name("submit-query");
 Route::get("/terms-and-conditions", [PagesController::class,"terms"])->name("terms-and-conditions");
 Route::get("/privacy-policy", [PagesController::class,"privacy"])->name("privacy-policy");
+Route::get("/refund-policy", [PagesController::class,"refund"])->name("refund-policy");
+Route::get("/disclaimer", [PagesController::class,"disclaimer"])->name("disclaimer");
 Route::get("/login", [PagesController::class,"login"])->name("login");
 Route::get("/register", [PagesController::class,"register"])->name("register");
 Route::get("/pricing", [PagesController::class,"pricing"])->name("pricing");
@@ -55,6 +57,8 @@ Route::post("/verify-mobile", [CustomersController::class,"verifyMobile"])->name
 Route::post("/verify-mobile-otp", [CustomersController::class,"verifyMobileOtp"])->name("verify-mobile-otp");
 Route::post("/change-photo", [CustomersController::class,"changePhoto"])->name("change-photo");
 Route::get("/delete-photo", [CustomersController::class,"deletePhoto"])->name("delete-photo");
+Route::get("/resend-email-otp", [CustomersController::class,"resendEmailOtp"])->name("resend-email-otp");
+Route::get("/resend-mobile-otp", [CustomersController::class,"resendMobileOtp"])->name("resend-mobile-otp");
 Route::get("/logout", [CustomersController::class,"logout"])->name("logout");
 
 Route::get("/strategy-list", [CartController::class,"strategyList"])->name("strategy-list");

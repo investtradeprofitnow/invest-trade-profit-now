@@ -131,6 +131,7 @@
 				<p>
 					<b>Disclaimer from Admin/Owner of our website:</b><br/>
 					This website and its content including all strategies are only for educational purposes and the admin / owner of the website is in no way responsible for any financial or other loss of any of the participants. Do consult your financial advisor before taking any trades or taking any investment decisions. This website and its admin / owner do not provide any recommendations / advice / tips. This disclaimer / disclosure / terms and conditions is applicable to all users of the content of the website in whatsoever case or manner.
+					&nbsp; <a href="{{route('disclaimer')}}">Read More>></a>
 				</p>
 			</div>
 		</div>
