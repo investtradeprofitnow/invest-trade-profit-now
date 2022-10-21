@@ -1,11 +1,11 @@
 @extends("layouts.app")
-@section("pageTitle", "Subscription Details")
+@section("pageTitle", "My Subscription")
 @section("css")
     <link href="{{asset('css/register.css')}}" rel="stylesheet">
 @stop
 @section("content")
     <div class="container">
-        <h1 class="mb-3 text-center"><strong><i>Subscription Details</i></strong></h1>
+        <h1 class="mb-3 text-center"><strong><i>My Subscription</i></strong></h1>
         @if(session()->has("amount"))
             <div class="success p-3 mb-4">Your refund for amount &#8377; {{session()->get("amount")}} has been 
                 processed. You should receive the same in 7 working days. In case you do not receive it, 
