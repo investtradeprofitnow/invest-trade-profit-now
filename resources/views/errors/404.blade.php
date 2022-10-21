@@ -38,7 +38,7 @@
         <div class="error mx-auto p-3 mb-5">
             <h1>404</h1>
             <h2 class="my-4">It seems you have landed on the Wrong Page.<h2>
-            <p><a role="button" class="btn btn-success" href="{{('/')}}">Go To HomePage</a></p>
+            <p><a role="button" class="btn btn-success" href="{{route('home')}}">Go To HomePage</a></p>
         </div>
     </div>
 @stop

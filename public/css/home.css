@@ -192,7 +192,8 @@ footer{
 }
 
 .success{
-    color: #C4DC6A;
+    background-color: #C4DC6A;
+    border-radius: 20px;
     font-weight: bold;
 }
 
