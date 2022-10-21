@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\File; 
 use Illuminate\Support\Str;
 
 use Auth;
@@ -23,6 +23,7 @@ use App\Models\StrategyShort;
 use App\Models\StrategyBrief;
 use App\Models\UserStrategy;
 use App\Models\ResetPassword;
+use App\Models\Refunds;
 
 use App\Http\Controllers;
 
@@ -159,21 +160,21 @@ class CustomersController extends Controller
         $customer = Customers::where("email",$email)->first();
         switch($id){
             case 1:
-                $end_date = date("y-m-d", strtotime("+20 year"));
+                $endDate = Carbon::now()->addYear(20)->format("d-m-Y");
                 break;
             case 2:
-                $end_date = date("y-m-d", strtotime("+1 year"));
+                $endDate = Carbon::now()->addYear(1)->format("d-m-Y");
                 break;
             case 3:
-                $end_date = date("y-m-d", strtotime("+2 years"));
+                $endDate = Carbon::now()->addYear(2)->format("d-m-Y");
                 break;
             case 4:
-                $end_date = date("y-m-d", strtotime("+5 year"));
+                $endDate = Carbon::now()->addYear(5)->format("d-m-Y");
                 break;
         }
         $customer->plan = $id;
-        $customer->start_date = date("y-m-d");
-        $customer->end_date = $end_date;
+        $customer->start_date = Carbon::now();
+        $customer->end_date = $endDate;
         $customer->update();
         return redirect ("/strategy-list");
     }
@@ -181,28 +182,28 @@ class CustomersController extends Controller
     public function saveCustomer(){
         $customer = Session::get("customer");
         $plan = Session::get("plan");
-        $start_date = date("y-m-d");
-        $end_date;
+        $endDate;
         switch($plan){
             case 1:
-                $end_date = date("y-m-d", strtotime("+20 year"));
+                $endDate = Carbon::now()->addYear(20);
                 break;
             case 2:
-                $end_date = date("y-m-d", strtotime("+1 year"));
+                $endDate = Carbon::now()->addYear(1);
                 break;
             case 3:
-                $end_date = date("y-m-d", strtotime("+2 years"));
+                $endDate = Carbon::now()->addYear(2);
                 break;
             case 4:
-                $end_date = date("y-m-d", strtotime("+5 year"));
+                $endDate = Carbon::now()->addYear(5);
                 break;
         }
-        $customer->start_date = $start_date;
-        $customer->end_date = $end_date;
+        $startDate = Carbon::now();
+        $customer->start_date = $startDate;
+        $customer->end_date = $endDate;
         $customer->plan = $plan;
         $customer->save();
-        $cust_id=$customer->id;
-        if($cust_id>0){
+        $custId=$customer->id;
+        if($custId>0){
             Mail::to($customer["email"])->send(new SuccessMail($customer["name"]));
             Session::put("email",$customer["email"]);
             Session::put("role","Customer");
@@ -231,11 +232,12 @@ class CustomersController extends Controller
                 $plan = $user->plan;
                 Session::put("email",$email);
                 Session::put("plan",$plan);
-                if($plan>=1){
-                    $end = Carbon::parse($user->end_date);
-                    $days = now()->diffInDays($end,false);
+                $end = Carbon::parse($user->endDate);
+                $days = Carbon::now()->diffInDays($end,false);
+                if($plan>1){
                     if($days<=0){
                         $user->plan="1";
+                        $user->endDate=Carbon::now()->addYear(20);
                         $user->update();
                         return redirect("/pricing")->with("expired","Your Subscription is expired.Please renew the same.");                                                                                
                     }
@@ -243,8 +245,14 @@ class CustomersController extends Controller
                         echo "<script type='text/javascript'>alert('hi');</script>";
                         return redirect("/")->with("days",$days);
                     }
-                }                
-                return redirect("/");
+                }
+                else{
+                    if($days<=0){
+                        $user->endDate=Carbon::now()->addYear(20);
+                        $user->update();
+                    }
+                    return redirect("/");
+                }
             }
             else{
                 $error="Email id and Password doesn't match. Please try again";
@@ -264,9 +272,9 @@ class CustomersController extends Controller
             $positionalList = array();
             $investmentList = array();
             $intraId=0;
-            $btst_id=0;
-            $pos_id=0;
-            $invest_id=0;
+            $btstId=0;
+            $posId=0;
+            $investId=0;
 
             for($i=0;$i<count($data);$i++){
                 $type = $data[$i]->type;
@@ -274,13 +282,13 @@ class CustomersController extends Controller
                     $intradayList[$intraId++]=$data[$i];
                 }
                 else if($type=="BTST"){
-                    $btstList[$btst_id++]=$data[$i];
+                    $btstList[$btstId++]=$data[$i];
                 }
                 else if($type=="Positional"){
-                    $positionalList[$pos_id++]=$data[$i];
+                    $positionalList[$posId++]=$data[$i];
                 }
                 else if($type=="Investment"){
-                    $investmentList[$invest_id++]=$data[$i];
+                    $investmentList[$investId++]=$data[$i];
                 }
             }        
             return view("user.user-strategy-list",["intradayList"=>$intradayList, "btstList"=>$btstList, "positionalList"=> $positionalList, "investmentList"=>$investmentList]);
@@ -375,6 +383,85 @@ class CustomersController extends Controller
                 $photo=null;
             }
             return view("user.profile",["customer"=>$customer, "photo"=>$photo]);
+        }
+        else{
+            return redirect("/login");
+        }
+    }
+
+    public function subscription(){
+        if((new PagesController)->checkSession()){
+            $email = Session::get("email");
+            $customer = Customers::where("email", $email)->first();
+            $startDate = Carbon::parse($customer->start_date);
+            $endDate = Carbon::parse($customer->end_date);
+            $plan = $customer->plan;
+            $unsubscribe = false;
+            if($plan>1){
+                $totalDays = $startDate->diffInDays($endDate,false);
+                $expiredDays = Carbon::now()->diffInDays($startDate);
+                if($expiredDays<=30){
+                    $userId = Customers::where("email", $email)->first()->value("id");
+                    $refund = Refunds::where("user_id",$userId)->orderBy("refund_id","desc")->first();
+                    if($refund!=null){
+                        $diffDays = Carbon::now()->diffInDays($refund->created_at);
+                        if($diffDays>30){
+                            $unsubscribe = true;
+                        }
+                    }
+                    else{
+                        $unsubscribe = true;
+                    }                    
+                }
+            }
+            $planName = "";
+            $amount = 0;
+            $startDate = $startDate->format("d-m-Y");
+            $endDate = $endDate->format("d-m-Y");
+            switch($plan){
+                case 1:
+                    $planName = "Basic";
+                    break;
+                case 2:
+                    $planName = "Silver";
+                    $amount = env("PLAN_DISCOUNT_2");
+                    break;
+                case 3:
+                    $planName = "Gold";
+                    $amount = env("PLAN_DISCOUNT_3");
+                    break;
+                case 4:
+                    $planName = "Platinum";
+                    $amount = env("PLAN_DISCOUNT_4");
+                    break;
+            }
+            if($plan>1){
+                $subscription = array("planName"=>$planName, "amount"=>$amount, "startDate"=>$startDate, "endDate"=>$endDate, "totalDays"=>$totalDays, "expiredDays"=>$expiredDays, "unsubscribe"=>$unsubscribe);
+            }
+            else{
+                $subscription = array("planName"=>$planName, "amount"=>$amount, "startDate"=>$startDate, "endDate"=>$endDate, "unsubscribe"=>$unsubscribe);
+            }
+            return view("user.subscription",["subscription"=>$subscription]);
+        }
+        else{
+            return redirect("/login");
+        }
+    }
+
+    public function unsubscribe($amount,$totalDays,$expiredDays){
+        if((new PagesController)->checkSession()){   
+            $email = Session::get("email");           
+            $leftDays = $totalDays-$expiredDays;
+            $gst=($amount*18)/118;
+            $amount = $amount-$gst;   
+            $refundAmount = floor(($amount*$leftDays)/$totalDays);
+            $refund = new Refunds();
+            $refund->user_id = Customers::where("email", $email)->first()->value("id");
+            $refund->email = $email;
+            $refund->amount = $refundAmount;
+            $refund->status = "Refund Initiated";
+            $refund->save();
+            return redirect()->back()->with("amount",$refundAmount);
         }
         else{
             return redirect("/login");
