@@ -232,19 +232,19 @@ class CustomersController extends Controller
                 $plan = $user->plan;
                 Session::put("email",$email);
                 Session::put("plan",$plan);
-                $end = Carbon::parse($user->endDate);
+                $end = Carbon::parse($user->end_date);
                 $days = Carbon::now()->diffInDays($end,false);
                 if($plan>1){
                     if($days<=0){
                         $user->plan="1";
-                        $user->endDate=Carbon::now()->addYear(20);
+                        $user->end_date=Carbon::now()->addYear(20);
                         $user->update();
                         return redirect("/pricing")->with("expired","Your Subscription is expired.Please renew the same.");                                                                                
                     }
                     else if($days<=7){
-                        echo "<script type='text/javascript'>alert('hi');</script>";
                         return redirect("/")->with("days",$days);
                     }
+                    return redirect("/");
                 }
                 else{
                     if($days<=0){
