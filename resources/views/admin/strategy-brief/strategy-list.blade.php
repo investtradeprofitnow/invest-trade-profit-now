@@ -23,7 +23,7 @@
 					@endphp
 					<td scope="row">{{$number}}</td>
 					<td id="{{'name'.$index}}">{{$strategy->name}}</td>
-					<td id="{{'desc'.$index}}">{{$strategy->description}}</td>
+					<td id="{{'desc'.$index}}" class="text-left">{!! nl2br($strategy->description) !!}</td>
 					<td id="{{'type'.$index}}">{{$strategy->type}}</td>
 					<td id="{{'video'.$index}}">{{$strategy->video}}</td>
 					<td class="text-center">
