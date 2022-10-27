@@ -3,7 +3,7 @@
 @section('css')
     <style type="text/css">
         h1{
-            color: #34bbe3;
+            color: #34BBE3;
         }
 
         .btn-success{
