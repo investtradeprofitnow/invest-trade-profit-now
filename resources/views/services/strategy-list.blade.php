@@ -70,7 +70,7 @@
                                             $index = strrpos($videoName, ".")+1;
                                             $end = strlen($videoName)-1;
                                             $type = substr($videoName,$index,$end);
-                                            $id = $intraday->id;
+                                            $id = $intraday->strategy_short_id;
                                             $price = floor($intraday->updated_price);
                                         @endphp
                                         <video width="100%" height="auto" controls>
@@ -114,7 +114,7 @@
                                             $index = strrpos($videoName, ".")+1;
                                             $end = strlen($videoName)-1;
                                             $type = substr($videoName,$index,$end);
-                                            $id = $btst->id;
+                                            $id = $btst->strategy_short_id;
                                             $price = floor($btst->updated_price);
                                         @endphp
                                         <video width="100%" height="auto" controls>
@@ -158,7 +158,7 @@
                                             $index = strrpos($videoName, ".")+1;
                                             $end = strlen($videoName)-1;
                                             $type = substr($videoName,$index,$end);
-                                            $id = $positional->id;
+                                            $id = $positional->strategy_short_id;
                                             $price = floor($positional->updated_price);
                                         @endphp
                                         <video width="100%" height="auto" controls>
@@ -202,7 +202,7 @@
                                             $index = strrpos($videoName, ".")+1;
                                             $end = strlen($videoName)-1;
                                             $type = substr($videoName,$index,$end);
-                                            $id = $investment->id;
+                                            $id = $investment->strategy_short_id;
                                             $price = floor($investment->updated_price);
                                         @endphp
                                         <video width="100%" height="auto" controls>
