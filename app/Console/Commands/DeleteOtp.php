@@ -53,7 +53,7 @@ class DeleteOtp extends Command
             $minutes = $diff->h * 60;
             $minutes += $diff->i;
             if($minutes>10){
-                OTP::findOrFail($otp->id)->delete();
+                OTP::findOrFail($otp->otp_id)->delete();
             }
         }
         \Log::info("Registration Verification OTPs");
@@ -65,7 +65,7 @@ class DeleteOtp extends Command
             $minutes = $diff->h * 60;
             $minutes += $diff->i;
             if($minutes>10){
-                ResetPassword::findOrFail($otp->id)->delete();
+                ResetPassword::findOrFail($otp->reset_password_id)->delete();
             }
         }
         \Log::info("Reset Password OTPs");

@@ -18,7 +18,7 @@
 					<tr>
 						@php
 							$number=$loop->index+1;
-							$index=$coupon->id;
+							$index=$coupon->coupon_id;
 							$type=$coupon->type;		
 						@endphp
 						<td scope="row">{{$number}}</td>

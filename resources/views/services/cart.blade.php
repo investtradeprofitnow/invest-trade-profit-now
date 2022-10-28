@@ -99,7 +99,7 @@
                             {{$coupon->description}}
                         </td>
                         <td>
-                            <button class="btn btn-success" id="btn{{$coupon->id}}" onclick="calculateDiscount({{$coupon->discount}}, '{{$coupon->type}}', {{$coupon->id}})">Apply Coupon</button>
+                            <button class="btn btn-success" id="btn{{$coupon->coupon_id}}" onclick="calculateDiscount({{$coupon->discount}}, '{{$coupon->type}}', {{$coupon->coupon_id}})">Apply Coupon</button>
                         </td>
                     </tr>
                 @endforeach

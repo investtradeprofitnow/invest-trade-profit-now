@@ -18,7 +18,7 @@
             <div class="form-group">
                 <label for="code">Coupon Code:</label>
                 <input type="text" class="form-control" name="code" id="code" maxlength="20" value="{{$coupon->code}}" required>
-                <input type="hidden" name="id" value="{{$coupon->id}}" required/>
+                <input type="hidden" name="id" value="{{$coupon->coupon_id}}" required/>
             </div>
             <div class="form-group mt-3">
                 <label for="desc">Description:</label>

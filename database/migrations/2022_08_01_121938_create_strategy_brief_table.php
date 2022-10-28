@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('strategy_brief', function (Blueprint $table) {
-            $table->id();
-            $table->string('name',50)->nullable(false);
-            $table->string('description',10000)->nullable(false);
-            $table->string('type')->nullable(false);
-            $table->string('video')->nullable(false);
-            $table->string('created_by')->nullable(false);
-            $table->string('updated_by')->nullable(false);
+        Schema::create("strategy_brief", function (Blueprint $table) {
+            $table->id("strategy_brief_id");
+            $table->string("name",50)->nullable(false);
+            $table->string("description",10000)->nullable(false);
+            $table->string("type")->nullable(false);
+            $table->string("video")->nullable(false);
+            $table->string("created_by")->nullable(false);
+            $table->string("updated_by")->nullable(false);
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('strategy_brief');
+        Schema::dropIfExists("strategy_brief");
     }
 };

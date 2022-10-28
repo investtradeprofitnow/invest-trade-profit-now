@@ -23,7 +23,7 @@
 				<tr>
 					@php
 						$number=$loop->index+1;
-						$index=$strategy->id;						
+						$index=$strategy->strategy_short_id;						
 					@endphp
 					<td scope="row">{{$number}}</td>
 					<td id="{{'name'.$index}}">{{$strategy->name}}</td>

@@ -15,7 +15,7 @@ class StrategyShortController extends Controller
     public function addStrategy(){
         if((new AdminController)->checkAdminSession()){
             $existStrategies = StrategyShort::pluck("strategy_brief_id");
-            $strategies = StrategyBrief::whereNotIn("id",$existStrategies)->get();
+            $strategies = StrategyBrief::whereNotIn("strategy_brief_id",$existStrategies)->get();
             if(count($strategies)>0){
                 return view("admin.strategy-short.add-strategy",["brief"=>$strategies]);
             }

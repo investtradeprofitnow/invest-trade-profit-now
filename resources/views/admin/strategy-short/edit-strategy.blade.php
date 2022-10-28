@@ -36,12 +36,12 @@
                 <label for="brief" class="form-label">Brief Strategy:</label>
                 <select class="form-control" name="brief" id="brief">
                     @foreach($brief as $strat)
-                    <option value="{{$strat->id}} {{$strat->type}}" {{$strategy->strategy_brief_id==$strat->id?"selected":""}}>{{$strat->name}}</option>
+                    <option value="{{$strat->strategy_brief_id}} {{$strat->type}}" {{$strategy->strategy_brief_id==$strat->strategy_brief_id?"selected":""}}>{{$strat->name}}</option>
                     @endforeach
                 </select>
             </div>
             <div>
-                <input type="hidden" name="id" value="{{$strategy->id}}"/>
+                <input type="hidden" name="id" value="{{$strategy->strategy_short_id}}"/>
             </div>
             <div class="form-group mt-3">
                 <input type="submit" class="btn btn-outline" value="Update Strategy"/>

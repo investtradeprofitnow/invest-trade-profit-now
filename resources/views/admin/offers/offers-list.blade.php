@@ -10,6 +10,7 @@
 					<th scope="col">Strategy Name</th>
 					<th scope="col">Description</th>
 					<th scope="col">Discount</th>
+					<th scope="col">Subscribers</th>
 					<th scope="col">Operation</th>
 				</tr>
 			</thead>
@@ -18,7 +19,7 @@
 					<tr>
 						@php
 							$number=$loop->index+1;
-							$index=$offer->id;
+							$index=$offer->offer_id;
 							$type=$offer->type;		
 						@endphp
 						<td scope="row">{{$number}}</td>
@@ -32,6 +33,7 @@
 						@else
 							<td>&#8377; {{$offer->discount}}</td>
 						@endif
+						<td id="{{'subscribers'.$index}}">{{$offer->subscribers}}</td>
 						<td class="text-center">
 							<a class="btn btn-outline" id="{{'edit'.$index}}" href="{{route('edit-offer',$index)}}">
 								Edit
@@ -39,7 +41,7 @@
 							<button type="button" class="btn btn-delete" id="{{'delete'.$index}}" data-bs-toggle="modal" data-bs-target="#deleteModal">
 								Delete
 							</button>
-						</td>
+						</td>  
 					</tr>
 				@endforeach
 			</tbody>

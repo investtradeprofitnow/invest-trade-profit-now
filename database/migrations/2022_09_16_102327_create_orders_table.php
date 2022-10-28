@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create("orders", function (Blueprint $table) {
             $table->id("order_id");
-            $table->bigInteger("user_id")->nullable(false);      
+            $table->unsignedBigInteger("user_id")->nullable(false)->unique();
+            $table->foreign("user_id")->references("customer_id")->on("customers");
             $table->json("strategy_names")->nullable(false);
             $table->integer("amount")->nullable(false);
             $table->string("coupon")->nullable(true);
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_details');
+        Schema::dropIfExists("order_details");
     }
 };

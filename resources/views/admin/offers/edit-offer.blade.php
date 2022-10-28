@@ -16,11 +16,11 @@
             <form id="edit-offer-form" method="post" action="{{route('update-offer')}}">
             {{ csrf_field() }}
             <div class="form-group">
-                <input type="hidden" name="id" value="{{$offer->id}}"/>
+                <input type="hidden" name="id" value="{{$offer->offer_id}}"/>
                 <label for="name">Strategy Name:</label>
                 <select class="form-control" name="strategy_id" id="strategy_id">
                     @foreach($strategies as $strategy)
-                        <option value="{{$strategy->id}}" {{$strategy->id==$offer->strategy_id ? "selected" : ""}}>{{$strategy->name}}</option>
+                        <option value="{{$strategy->strategy_short_id}}" {{$strategy->strategy_short_id==$offer->strategy_id ? "selected" : ""}}>{{$strategy->name}}</option>
                     @endforeach
                 </select>
                 <input type="hidden" name="strategy_name" id="strategy_name"/>
@@ -28,7 +28,11 @@
             <div class="form-group mt-3">
                 <label for="desc">Description:</label>
                 <textarea class="form-control" name="desc" id="desc" required>{{$offer->description}}</textarea>
-            </div>          
+            </div>
+            <div class="form-group mt-3">
+                <label for="desc">Number of Subscribers:</label>
+                <input type="text" class="form-control" name="subscribers" id="subscribers" value={{$offer->subscribers}} maxlength="7" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required>
+            </div>        
             <div class="form-group mt-3">
                 <label for="type" class="form-label">Discount:</label>
                 <div class="row">

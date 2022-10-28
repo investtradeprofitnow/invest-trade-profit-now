@@ -29,7 +29,7 @@ class AdminController extends Controller
 
     public function customer(){
         if($this->checkAdminSession()){
-            $customers=Customers::all()->sortBy("id");
+            $customers=Customers::all()->sortBy("customer_id");
             return view("admin.customer",["customers"=>$customers]);
         }
     }

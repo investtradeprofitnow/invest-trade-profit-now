@@ -13,17 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('customers', function (Blueprint $table) {
-            $table->id();
-            $table->string('name',50)->nullable(false);
-            $table->string('mobile',10)->nullable(false);
-            $table->string('email',80)->nullable(false);
-            $table->string('password',100)->nullable(false);
-            $table->string('photo',100)->nullable(true);
-            $table->integer('plan')->nullable(false);
-            $table->date('start_date')->nullable(false);
-            $table->date('end_date')->nullable(false);
-            $table->string('role',8)->nullable(false)->default("Customer");
+        Schema::create("customers", function (Blueprint $table) {
+            $table->id("customer_id");
+            $table->string("name",50)->nullable(false);
+            $table->string("mobile",10)->nullable(false);
+            $table->string("email",80)->nullable(false);
+            $table->string("password",100)->nullable(false);
+            $table->string("photo",100)->nullable(true);
+            $table->integer("plan")->nullable(false);
+            $table->date("start_date")->nullable(false);
+            $table->date("end_date")->nullable(false);
+            $table->string("role",8)->nullable(false)->default("Customer");
             $table->timestamps();
         });
     }
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists("customers");
     }
 };

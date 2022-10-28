@@ -28,7 +28,7 @@ class CartController extends Controller
             }
             if(Session::get("id")==null){
                 $customer=Customers::where("email",$email)->first();
-                Session::put("id",$customer->id);
+                Session::put("id",$customer->customer_id);
             }
             $disc = 1;
             switch($plan){
@@ -63,7 +63,7 @@ class CartController extends Controller
                 $type = $data[$i]->type;
                 $price = $data[$i]->price;
                 if($plan>1){
-                    $offer = $offers->where("strategy_id",$data[$i]->id);
+                    $offer = $offers->where("strategy_id",$data[$i]->strategy_short_id);
                     if (sizeof($offer)>0){
                         $price1 = $price * $disc;
                         $discount = $offer[$index]->discount;
@@ -107,7 +107,7 @@ class CartController extends Controller
     public function cart(){
         $custId = Session::get("id");
         $userCoupons = UserCoupon::where("user_id",$custId)->pluck("coupon_id");
-        $coupons = Coupons::whereNotIn("id",$userCoupons)->get();
+        $coupons = Coupons::whereNotIn("coupon_id",$userCoupons)->get();
         return view("services.cart",["coupons"=>$coupons]);
     }
 
@@ -180,7 +180,7 @@ class CartController extends Controller
         
         $email=Session::get("email");
         $customer = Customers::where("email",$email)->first();
-        $custId=$customer->id;
+        $custId=$customer->customer_id;
         $cartStrategies = Session::get("cartStrategies",[]);
         $strategies = [];
         $index=0;
@@ -197,7 +197,7 @@ class CartController extends Controller
             $userCoupon->user_id = $custId;
             $userCoupon->coupon_id = $couponId;
             $userCoupon->save();
-            $couponCode = Coupons::where("id",$couponId)->value("code");
+            $couponCode = Coupons::where("coupon_id",$couponId)->value("code");
         }        
 
         $order = new Orders();
@@ -212,7 +212,7 @@ class CartController extends Controller
         Session::forget("id");
         Session::forget("offers");
 
-        Mail::to($email)->send(new OrderMail($customer->name,str_pad($order->id,8,"0",STR_PAD_LEFT),$order->created_at->format("d-M-Y"),$strategies,$amount,$couponCode));
+        Mail::to($email)->send(new OrderMail($customer->name,str_pad($order->order_id,8,"0",STR_PAD_LEFT),$order->created_at->format("d-M-Y"),$strategies,$amount,$couponCode));
         return redirect("/user-strategies");
     }
 }

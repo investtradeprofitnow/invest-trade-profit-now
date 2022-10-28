@@ -20,7 +20,7 @@
 				<tr>
 					@php
 						$number=$loop->index+1;
-						$index=$cust->id;
+						$index=$cust->customer_id;
 					@endphp
 					<td scope="row">{{$number}}</td>
 					<td id="{{'name'.$index}}">{{$cust->name}}</td>

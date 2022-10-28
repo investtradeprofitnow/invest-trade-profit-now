@@ -15,7 +15,7 @@ class OffersController extends Controller
     public function addOffer(){
         if((new AdminController)->checkAdminSession()){
             $existStrategies = Offers::pluck("strategy_id");
-            $strategies = StrategyShort::whereNotIn("id",$existStrategies)->get();
+            $strategies = StrategyShort::whereNotIn("strategy_short_id",$existStrategies)->get();
             return view("admin.offers.add-offer",["strategies"=>$strategies]);
         }
         else{
@@ -29,6 +29,7 @@ class OffersController extends Controller
                 "strategy_id" => "required|numeric",
                 "strategy_name" => "required",
                 "desc" => "required",
+                "subscribers" => "required|numeric|max:1000000",
                 "discount" => "required|numeric",
                 "type" => "required|in:percent,rupees"
             ]);
@@ -36,6 +37,7 @@ class OffersController extends Controller
             $offer->strategy_id = request("strategy_id");
             $offer->strategy_name = request("strategy_name");
             $offer->description = request("desc");
+            $offer->subscribers = request("subscribers");
             $offer->discount = request("discount");
             $offer->type = request("type");
             $offer->save();
@@ -64,6 +66,7 @@ class OffersController extends Controller
                 "strategy_id" => "required|numeric",
                 "strategy_name" => "required",
                 "desc" => "required",
+                "subscribers" => "required|numeric|max:1000000",
                 "discount" => "required|numeric",
                 "type" => "required|in:percent,rupees"
             ]);
@@ -72,6 +75,7 @@ class OffersController extends Controller
             $offer->strategy_id = request("strategy_id");
             $offer->strategy_name = request("strategy_name");
             $offer->description = request("desc");
+            $offer->subscribers = request("subscribers");
             $offer->discount = request("discount");
             $offer->type = request("type");
             $offer->update();

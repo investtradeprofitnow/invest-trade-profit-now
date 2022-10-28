@@ -202,7 +202,7 @@ class CustomersController extends Controller
         $customer->end_date = $endDate;
         $customer->plan = $plan;
         $customer->save();
-        $custId=$customer->id;
+        $custId=$customer->customer_id;
         if($custId>0){
             Mail::to($customer["email"])->send(new SuccessMail($customer["name"]));
             Session::put("email",$customer["email"]);

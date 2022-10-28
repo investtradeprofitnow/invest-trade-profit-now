@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('otp', function (Blueprint $table) {
-            $table->id();
-            $table->string('type',80)->nullable(false)->unique();
-            $table->integer('otp')->nullable(false);
+        Schema::create("otp", function (Blueprint $table) {
+            $table->id("otp_id");
+            $table->string("type",80)->nullable(false)->unique();
+            $table->integer("otp")->nullable(false);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('otp');
+        Schema::dropIfExists("otp");
     }
 };

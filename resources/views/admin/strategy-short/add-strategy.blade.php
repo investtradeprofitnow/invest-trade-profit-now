@@ -36,7 +36,7 @@
                 <label for="brief" class="form-label">Brief Strategy:</label>
                 <select class="form-control" name="brief" id="brief">
                     @foreach($brief as $strat)
-                        <option value="{{$strat->id}} {{$strat->type}}">{{$strat->name}}</option>
+                        <option value="{{$strat->strategy_short_id}} {{$strat->type}}">{{$strat->name}}</option>
                     @endforeach
                 </select>
             </div>

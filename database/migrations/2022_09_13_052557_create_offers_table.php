@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('offers', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('strategy_id')->nullable(false)->unique();
-            $table->foreign('strategy_id')->references('id')->on('strategy_short');
-            $table->string('strategy_name',50)->nullable(false);
-            $table->string('description')->nullable(false);
-            $table->integer('discount')->nullable(false);
-            $table->string('type')->nullable(false)->default('percent');
+        Schema::create("offers", function (Blueprint $table) {
+            $table->id("offer_id");
+            $table->unsignedBigInteger("strategy_id")->nullable(false)->unique();
+            $table->foreign("strategy_id")->references("strategy_short_id")->on("strategy_short");
+            $table->string("strategy_name",50)->nullable(false);
+            $table->string("description")->nullable(false);
+            $table->integer("subscribers")->nullable(false);
+            $table->integer("discount")->nullable(false);
+            $table->string("type")->nullable(false)->default("percent");
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('offers');
+        Schema::dropIfExists("offers");
     }
 };

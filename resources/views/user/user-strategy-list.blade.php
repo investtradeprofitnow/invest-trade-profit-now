@@ -51,7 +51,7 @@
                                         $index = strrpos($videoName, '.')+1;
                                         $end = strlen($videoName)-1;
                                         $type = substr($videoName,$index,$end);
-                                        $id = $intraday->id;
+                                        $id = $intraday->strategy_brief_id;
                                     @endphp
                                     <video width="100%" height="auto" controls>
                                         <source src="{{asset('strategy/short/'.$videoName)}}" type="{{'video/'.$type}}">
@@ -80,7 +80,7 @@
                                         $index = strrpos($videoName, '.')+1;
                                         $end = strlen($videoName)-1;
                                         $type = substr($videoName,$index,$end);
-                                        $id = $btst->id;
+                                        $id = $btst->strategy_brief_id;
                                     @endphp
                                     <video width="100%" height="auto" controls>
                                         <source src="{{asset('strategy/short/'.$videoName)}}" type="{{'video/'.$type}}">
@@ -109,7 +109,7 @@
                                         $index = strrpos($videoName, '.')+1;
                                         $end = strlen($videoName)-1;
                                         $type = substr($videoName,$index,$end);
-                                        $id = $positional->id;
+                                        $id = $positional->strategy_brief_id;
                                     @endphp
                                     <video width="100%" height="auto" controls>
                                         <source src="{{asset('strategy/short/'.$videoName)}}" type="{{'video/'.$type}}">
@@ -138,7 +138,7 @@
                                         $index = strrpos($videoName, '.')+1;
                                         $end = strlen($videoName)-1;
                                         $type = substr($videoName,$index,$end);
-                                        $id = $investment->id;
+                                        $id = $investment->strategy_brief_id;
                                     @endphp
                                     <video width="100%" height="auto" controls>
                                         <source src="{{asset('strategy/short/'.$videoName)}}" type="{{'video/'.$type}}">

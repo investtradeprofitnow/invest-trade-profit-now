@@ -38,7 +38,7 @@
                     <input type="file" class="form-control form-control-sm" name="video" id="video" accept="video/*">
                 </div>
                 <div>
-                    <input type="hidden" name="id" value="{{$strategy->id}}"/>
+                    <input type="hidden" name="id" value="{{$strategy->strategy_brief_id}}"/>
                 </div>
             <div class="form-group mt-3">
                 <input type="submit" class="btn btn-outline" value="Update Strategy"/>

@@ -19,7 +19,7 @@
                     <label for="name">Strategy Name:</label>
                     <select class="form-control" name="strategy_id" id="strategy_id">
                         @foreach($strategies as $strategy)
-                            <option value="{{$strategy->id}}">{{$strategy->name}}</option>
+                            <option value="{{$strategy->strategy_short_id}}">{{$strategy->name}}</option>
                         @endforeach
                     </select>
                     <input type="hidden" name="strategy_name" id="strategy_name"/>
@@ -27,6 +27,10 @@
                 <div class="form-group mt-3">
                     <label for="desc">Description:</label>
                     <textarea class="form-control" name="desc" id="desc" required></textarea>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="desc">Number of Subscribers:</label>
+                    <input type="text" class="form-control" name="subscribers" id="subscribers" value=1000000 maxlength="7" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required>
                 </div>
                 <label for="type" class="form-label mt-3">Discount:</label>
                 <div class="row">
