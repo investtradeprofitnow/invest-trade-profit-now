@@ -20,6 +20,11 @@
         .mail-link:hover{
             color: #34BBE3;
         }
+
+        .web-details{
+            padding-left: 15px;
+        }
+
     </style>
 @stop
 @section("content")
@@ -32,6 +37,17 @@
                 <img src="{{asset('images/email-icon.png')}}" width="40px"/>
                 <span class="email">Email Address:</span><br/>
                 <p><a href="mailto:{{config('app.contact')}}?subject=Query" class="mail-link">{{config('app.contact')}}</a></p>
+                <br/>   
+                <p>
+                    <span class="email">Website Creator:</span><br/>
+                    <p class="web-details">
+                        <strong>Name:</strong> Karishma Shah<br/>
+                        <strong>Designation:</strong> Senior Design Development Maintenance Support<br/>
+                        <strong>Address:</strong> Mumbai, Maharashtra, India<br/>
+                        <strong>Working Days: </strong>Monday to Friday<br/>
+                        <strong>Timings: </strong>8am to 6pm IST<br>
+                    </p>
+                </p>
             </div>
             <div class="col-md-6 col-12 mt-4 mt-md-0">
                 @if ($errors->any())
@@ -49,7 +65,7 @@
                     @endphp
                 @endif
                 <p class="email title pl-0">
-                    In case of any queries, please submit the form.
+                    In case of any query, please submit the same via the form below. Our Team will revert within 48 working hours.
                 </p>                
                 <div class="form pt-0 p-4">
                     <form id="contact-form" method="post" action="{{route('submit-query')}}">
