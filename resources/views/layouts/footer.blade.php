@@ -14,21 +14,12 @@
 				</div>
 				<div class="col-md-4 col-12 mt-3">
 					<h4>Company</h4>
-					<div class="row">
-						<div class="col-md-6 col-12">
-							<p>
-								<a href="{{route('about-us')}}" class="footer-links<?php echo Route::currentRouteName()=='about-us'?' links-active':''?>">About Us</a>
-							</p>
-							<p>
-								<a href="{{route('our-expertise')}}" class="footer-links<?php echo Route::currentRouteName()=='our-expertise'?' active':''?>">Our Expertise</a>
-							</p>
-						</div>
-						<div class="col-md-6 col-12">	
-							<p>
-								<a href="{{route('contact-us')}}" class="footer-links<?php echo Route::currentRouteName()=='contact-us'?' links-active':''?>">Contact Us</a>
-							</p>
-						</div>
-					</div>
+					<p>
+						<a href="{{route('about-us')}}" class="footer-links<?php echo Route::currentRouteName()=='about-us'?' links-active':''?>">About Us</a>
+					</p>	
+					<p>
+						<a href="{{route('contact-us')}}" class="footer-links<?php echo Route::currentRouteName()=='contact-us'?' links-active':''?>">Contact Us</a>
+					</p>
 				</div>			
 				<div class="col-md-4 col-12 mt-3">
 					<h4>Support</h4>
