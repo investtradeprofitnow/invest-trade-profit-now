@@ -23,14 +23,24 @@
             30 days from the date of payment of the subscription package (effective from 16th October 
             2022).
         </p>
-        <p>
-            In case of strategies purchased, <strong>No Refund</strong> will be available. 
-        </p>
-        <p>
-            In case of recurring subscription plans, <strong>No Refund</strong> will be available. 
-            However, if you choose to unsubscribe you will not be charged once your paid subscription 
-            period expires.
-        </p>
+        <ol>
+            <li>
+                In case of strategies purchased, <strong>No Refund</strong> will be provided.
+            </li>
+            <li>
+                In case of recurring subscription plans, <strong>No Refund</strong> will be provided. 
+                However, if you choose to unsubscribe you will not be charged once your paid subscription 
+                period expires.
+            </li>
+            <li>
+                You can upgrade the plan anytime during your subscription period. You need to pay the 
+                full amount of the new subscription and the amount for the remaining days will be 
+                refunded.
+            </li>
+            <li>
+                In case you want to downgrade the plan, <strong>No Refund</strong> will be provided.
+            </li>
+        </ol>
         <p>
             The amount refundable to you for the silver, gold or platinum subscription plans and the 
             mode of refund is as under:
