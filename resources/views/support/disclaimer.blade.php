@@ -49,7 +49,7 @@
                 </li>
                 <li>
                     Invest Trade Profit Now ("the Company"), who are the owners of 
-                    <a target="_blank" href="{{route('home')}}">{{config('app.url')}}</a> especially 
+                    <a target="_blank" href="{{config('app.url')}}">{{config('app.url')}}</a> especially 
                     state that neither the Company nor its shareholders, directors, officers, employees, 
                     advertisers, content providers and licensors have any liability, financial or 
                     otherwise, (jointly or severally) whatsoever to any user of the website or any other 

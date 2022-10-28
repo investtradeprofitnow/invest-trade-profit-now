@@ -10,7 +10,7 @@
     <div class="container">
         <p class="mt-4">
             <strong>INVEST TRADE PROFIT NOW</strong> is the owner of website 
-            <a href="{{route('home')}}">{{config('app.url')}}</a>
+            <a href="{{config('app.url')}}">{{config('app.url')}}</a>
         </p>
         <p>
             Our privacy policy is designed to provide greater transparency into our privacy practices and 
@@ -187,7 +187,7 @@
                 </ul>
             </p>
             <p>
-                The services have been created by <a href="{{route('home')}}">{{config('app.url')}}</a> 
+                The services have been created by <a href="{{config('app.url')}}">{{config('app.url')}}</a> 
                 exclusively for Mojo Professional Subscribers. You may not copy, reproduce, distribute, 
                 publish, display, perform, modify, create derivative works, transmit, or in any way 
                 exploit any such content. Unauthorized usage is an infringement of our intellectual 
