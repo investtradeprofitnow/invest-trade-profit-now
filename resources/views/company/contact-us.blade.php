@@ -45,7 +45,7 @@
                         <strong>Designation:</strong> Senior Design Development Maintenance Support<br/>
                         <strong>Address:</strong> Mumbai, Maharashtra, India<br/>
                         <strong>Working Days: </strong>Monday to Friday<br/>
-                        <strong>Timings: </strong>8am to 6pm IST<br>
+                        <strong>Timings: </strong>9am to 6pm IST<br>
                     </p>
                 </p>
             </div>
