@@ -12,6 +12,9 @@
                     <li class="nav-item" >
                         <a class="nav-link<?php echo Route::currentRouteName()=='home'?' active':''?>" href="{{route('home')}}">Home</a>
                     </li>
+                    <li class="nav-item" >
+                        <a class="nav-link<?php echo Route::currentRouteName()=='about-us'?' active':''?>" href="{{route('about-us')}}">About Us</a>
+                    </li>
                     <li class="nav-item" id="contact-us">
                         <a class="nav-link<?php echo Route::currentRouteName()=='contact-us'?' active':''?>" href="{{route('contact-us')}}">Contact Us</a>
                     </li>
