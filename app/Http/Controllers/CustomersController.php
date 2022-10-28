@@ -264,9 +264,8 @@ class CustomersController extends Controller
     public function userStrategies(){
         if((new PagesController)->checkSession()){
             $email=Session::get("email");
-            $id=Customers::where("email",$email)->value("id");
-            $data = UserStrategy::join("strategy_brief","user_strategy.strategy_id","=","strategy_brief.id")->where("user_strategy.user_id","=",$id)->get(["strategy_brief.name","strategy_brief.description","strategy_brief.type","strategy_brief.video"]);
-            
+            $id=Customers::where("email",$email)->value("customer_id");
+            $data = UserStrategy::join("strategy_brief","user_strategy.strategy_id","=","strategy_brief.strategy_brief_id")->where("user_strategy.user_id","=",$id)->get(["strategy_brief.name","strategy_brief.description","strategy_brief.type","strategy_brief.video"]);            
             $intradayList = array();
             $btstList = array();
             $positionalList = array();
@@ -401,7 +400,7 @@ class CustomersController extends Controller
                 $totalDays = $startDate->diffInDays($endDate,false);
                 $expiredDays = Carbon::now()->diffInDays($startDate);
                 if($expiredDays<=30){
-                    $userId = Customers::where("email", $email)->first()->value("id");
+                    $userId = Customers::where("email", $email)->first()->value("customer_id");
                     $refund = Refunds::where("user_id",$userId)->orderBy("refund_id","desc")->first();
                     if($refund!=null){
                         $diffDays = Carbon::now()->diffInDays($refund->created_at);
@@ -456,7 +455,7 @@ class CustomersController extends Controller
             $amount = $amount-$gst;   
             $refundAmount = floor(($amount*$leftDays)/$totalDays);
             $refund = new Refunds();
-            $refund->user_id = Customers::where("email", $email)->first()->value("id");
+            $refund->user_id = Customers::where("email", $email)->first()->value("customer_id");
             $refund->email = $email;
             $refund->amount = $refundAmount;
             $refund->status = "Refund Initiated";
