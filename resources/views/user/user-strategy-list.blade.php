@@ -1,6 +1,6 @@
-@extends('layouts.app')
-@section('pageTitle', 'Strategy List')
-@section('css')
+@extends("layouts.app")
+@section("pageTitle", "Strategy List")
+@section("css")
     <style type="text/css">
         .nav-tabs .nav-link{
             background-color: #EDFDFD;
@@ -28,7 +28,7 @@
         }
     </style>
 @stop
-@section('content')
+@section("content")
 <div class="container my-5">
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -48,17 +48,17 @@
                                 <div class="p-4 border text-center service-box">
                                     @php
                                         $videoName = $intraday->video;
-                                        $index = strrpos($videoName, '.')+1;
+                                        $index = strrpos($videoName, ".")+1;
                                         $end = strlen($videoName)-1;
                                         $type = substr($videoName,$index,$end);
                                         $id = $intraday->strategy_brief_id;
                                     @endphp
                                     <video width="100%" height="auto" controls>
-                                        <source src="{{asset('strategy/short/'.$videoName)}}" type="{{'video/'.$type}}">
+                                        <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
                                     </video>
                                     <h5 class="my-2">{{$intraday->name}}</h5>
                                     <h6 class="text-left">Description of the Strategy:</h6>
-                                    <p class="text-left">{{$intraday->description}}</p>
+                                    <p class="text-left">{!! nl2br($intraday->description) !!}</p>
                                 </div>                      
                             </div>
                         @endforeach
@@ -77,17 +77,17 @@
                                 <div class="p-4 border text-center service-box">
                                     @php
                                         $videoName = $btst->video;
-                                        $index = strrpos($videoName, '.')+1;
+                                        $index = strrpos($videoName, ".")+1;
                                         $end = strlen($videoName)-1;
                                         $type = substr($videoName,$index,$end);
                                         $id = $btst->strategy_brief_id;
                                     @endphp
                                     <video width="100%" height="auto" controls>
-                                        <source src="{{asset('strategy/short/'.$videoName)}}" type="{{'video/'.$type}}">
+                                        <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
                                     </video>
                                     <h5 class="my-2">{{$btst->name}}</h5>
                                     <h6 class="text-left">Description of the Strategy:</h6>
-                                    <p class="text-left">{{$btst->description}}</p>                                    
+                                    <p class="text-left">{!! nl2br($btst->description) !!}</p>                        
                                 </div>                      
                             </div>
                         @endforeach
@@ -106,17 +106,17 @@
                                 <div class="p-4 border text-center service-box">
                                     @php
                                         $videoName = $positional->video;
-                                        $index = strrpos($videoName, '.')+1;
+                                        $index = strrpos($videoName, ".")+1;
                                         $end = strlen($videoName)-1;
                                         $type = substr($videoName,$index,$end);
                                         $id = $positional->strategy_brief_id;
                                     @endphp
                                     <video width="100%" height="auto" controls>
-                                        <source src="{{asset('strategy/short/'.$videoName)}}" type="{{'video/'.$type}}">
+                                        <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
                                     </video>
                                     <h5 class="my-2">{{$positional->name}}</h5>
                                     <h6 class="text-left">Description of the Strategy:</h6>
-                                    <p class="text-left">{{$positional->description}}</p>
+                                    <p class="text-left">{!! nl2br($positional->description) !!}</p>
                                 </div>                      
                             </div>
                         @endforeach
@@ -135,17 +135,17 @@
                                 <div class="p-4 border text-center service-box">
                                     @php
                                         $videoName = $investment->video;
-                                        $index = strrpos($videoName, '.')+1;
+                                        $index = strrpos($videoName, ".")+1;
                                         $end = strlen($videoName)-1;
                                         $type = substr($videoName,$index,$end);
                                         $id = $investment->strategy_brief_id;
                                     @endphp
                                     <video width="100%" height="auto" controls>
-                                        <source src="{{asset('strategy/short/'.$videoName)}}" type="{{'video/'.$type}}">
+                                        <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
                                     </video>
                                     <h5 class="my-2">{{$investment->name}}</h5>
                                     <h6 class="text-left">Description of the Strategy:</h6>
-                                    <p class="text-left">{{$investment->description}}</p>
+                                    <p class="text-left">{!! nl2br($investment->description) !!}</p>
                                 </div>                      
                             </div>
                         @endforeach
