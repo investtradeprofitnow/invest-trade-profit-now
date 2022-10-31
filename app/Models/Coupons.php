@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Coupons extends Model
 {
     protected $table="coupons";
+    protected $primaryKey = "coupon_id";
     use HasFactory;
 }

@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Refunds extends Model
 {
     protected $table="refunds";
+    protected $primaryKey = "refund_id";
     use HasFactory;
 }
