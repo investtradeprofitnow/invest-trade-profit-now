@@ -23,7 +23,7 @@ class CouponsController extends Controller
             $this->validate($request, [
                 "code" => "required|alpha_num|max:20",
                 "desc" => "required",
-                "discount" => "required|numeric|'digits_between:1,4",
+                "discount" => "required|numeric|digits_between:1,4",
                 "type" => "required|in:percent,rupees"
             ]);
             $coupon = new Coupons();
@@ -55,7 +55,7 @@ class CouponsController extends Controller
                 "id" => "required|numeric",
                 "code" => "required|alpha_num|max:20",
                 "desc" => "required",
-                "discount" => "required|numeric|'digits_between:1,4",
+                "discount" => "required|numeric|digits_between:1,4",
                 "type" => "required|in:percent,rupees"
             ]);
             $id = request("id");
