@@ -231,6 +231,7 @@ class CustomersController extends Controller
             else if (password_verify($password,$user->password)){
                 $plan = $user->plan;
                 Session::put("email",$email);
+                Session::put("role",$user->role);
                 Session::put("plan",$plan);
                 $end = Carbon::parse($user->end_date);
                 $days = Carbon::now()->diffInDays($end,false);
