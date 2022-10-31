@@ -16,6 +16,7 @@ use App\Mail\OTPMail;
 use App\Mail\SuccessMail;
 use App\Mail\ResetPasswordMail;
 use App\Mail\ChangePasswordMail;
+use App\Mail\RefundInitiateMail;
 
 use App\Models\Customers;
 use App\Models\Otp;
@@ -450,17 +451,20 @@ class CustomersController extends Controller
 
     public function unsubscribe($amount,$totalDays,$expiredDays){
         if((new PagesController)->checkSession()){   
-            $email = Session::get("email");           
+            $email = Session::get("email");   
+            $customer = Customers::where("email", $email)->first();
             $leftDays = $totalDays-$expiredDays;
             $gst=($amount*18)/118;
             $amount = $amount-$gst;   
-            $refundAmount = floor(($amount*$leftDays)/$totalDays);
+            $refundAmount = ($amount*$leftDays)/$totalDays;
+            $refundAmount = number_format((float)$refundAmount, 2, '.', '');
             $refund = new Refunds();
-            $refund->user_id = Customers::where("email", $email)->first()->value("customer_id");
+            $refund->user_id = $customer->customer_id;
             $refund->email = $email;
             $refund->amount = $refundAmount;
             $refund->status = "Refund Initiated";
             $refund->save();
+            Mail::to($email)->send(new RefundInitiateMail($customer->name, $refundAmount, $refund->refund_id));
             return redirect()->back()->with("amount",$refundAmount);
         }
         else{
