@@ -26,7 +26,7 @@
             
             <div class="form-group mt-3">
                 <label for="video" class="form-label">Video:</label>
-                <input type="file" class="form-control form-control-sm" name="video" id="video" accept="video/*" required>
+                <input type="file" class="form-control form-control-sm" name="video" id="video" accept="video/*">
             </div>
             <div class="form-group mt-3">
                 <label for="price">Price:</label>

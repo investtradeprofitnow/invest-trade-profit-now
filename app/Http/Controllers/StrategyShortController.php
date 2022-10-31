@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Session;
 
 use App\Models\StrategyShort;
 use App\Models\StrategyBrief;
+use App\Models\Offers;
+use App\Models\OfferSubscribers;
 
 class StrategyShortController extends Controller
 {
@@ -33,26 +35,26 @@ class StrategyShortController extends Controller
             "name" => "required|max:50",
             "description" => "required",
             "price" => "required|numeric|digits_between:2,5",
-            "brief" => "required",
-            "video" => "required"
+            "brief" => "required"
         ]);
         $email = Session::get("email");
+        $fileName=null;
+        $strategy = new StrategyShort();
+        $idType = explode(" ",request("brief"));
+        $strategy->name = request("name");
+        $strategy->description = request("description");
+        $strategy->type = $idType[1];
+        $strategy->price = request("price");
+        $strategy->strategy_brief_id = $idType[0];
+        $strategy->created_by = $email;
+        $strategy->updated_by = $email;
         if($files=$request->file("video")){  
             $fileName=$files->getClientOriginalName();  
             $files->move("strategy/short",$fileName);
-            $idType = explode(" ",request("brief"));
-            $strategy = new StrategyShort();
-            $strategy->name = request("name");
-            $strategy->description = request("description");
-            $strategy->type = $idType[1];
-            $strategy->price = request("price");
-            $strategy->strategy_brief_id = $idType[0];
             $strategy->video = $fileName;
-            $strategy->created_by = $email;
-            $strategy->updated_by = $email;
-            $strategy->save();
-            return redirect("/admin/strategy-short");
-        }
+        }       
+        $strategy->save();
+        return redirect("/admin/strategy-short");
     }
 
     public function editStrategy($id){
@@ -87,18 +89,19 @@ class StrategyShortController extends Controller
         if($files=$request->file("video")){
             $fileName=$files->getClientOriginalName();  
             $files->move("strategy/short",$fileName);
-            $strategy->video = $fileName;
-            $strategy->update();            
+            $strategy->video = $fileName;    
         }
-        else{
-            $strategy->update();
-        }
+        $strategy->update();
         return redirect("/admin/strategy-short");
     }
 
     public function deleteStrategy($id){
-        $strategy = StrategyShort::find($id);
-        $strategy->delete();
+        $offer = Offers::where("strategy_id",$id)->first();
+        if($offer!=null){
+            OfferSubscribers::where("offer_id",$offer->offer_id)->first()->delete();
+            $offer->delete();
+        }        
+        $strategy = StrategyShort::find($id)->delete();
         return redirect("/admin/strategy-short");
     }
 }

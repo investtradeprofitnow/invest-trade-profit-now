@@ -73,12 +73,14 @@
                                             $id = $intraday->strategy_short_id;
                                             $price = floor($intraday->updated_price);
                                         @endphp
-                                        <video width="100%" height="auto" controls>
-                                            <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
-                                        </video>
+                                        @if($intraday->video!=null)
+                                            <video width="100%" height="auto" controls>
+                                                <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
+                                            </video>
+                                        @endif
                                         <h5 class="my-2">{{$intraday->name}}</h5>
                                         <h6 class="text-left">Description of the Strategy:</h6>
-                                        <p class="text-left">{{$intraday->description}}</p>
+                                        <p class="text-left">{!! nl2br($intraday->description) !!}</p>
                                         @if($intraday->updated_price)
                                             <h4 class="mb-3">Price: &#8377;<s>{{$intraday->price}}</s><span class="red">&nbsp;{{$price}}</span></h4>
                                         @else
@@ -117,12 +119,14 @@
                                             $id = $btst->strategy_short_id;
                                             $price = floor($btst->updated_price);
                                         @endphp
-                                        <video width="100%" height="auto" controls>
-                                            <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
-                                        </video>
+                                        @if($btst->video!=null)
+                                            <video width="100%" height="auto" controls>
+                                                <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
+                                            </video>
+                                        @endif
                                         <h5 class="my-2">{{$btst->name}}</h5>
                                         <h6 class="text-left">Description of the Strategy:</h6>
-                                        <p class="text-left">{{$btst->description}}</p>
+                                        <p class="text-left">{!! nl2br($btst->description) !!}</p>
                                         @if($btst->updated_price)
                                             <h4 class="mb-3">Price: &#8377;<s>{{$btst->price}}</s><span class="red">&nbsp;{{$price}}</span></h4>
                                         @else
@@ -161,12 +165,14 @@
                                             $id = $positional->strategy_short_id;
                                             $price = floor($positional->updated_price);
                                         @endphp
-                                        <video width="100%" height="auto" controls>
-                                            <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
-                                        </video>
+                                        @if($positional->video!=null)
+                                            <video width="100%" height="auto" controls>
+                                                <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
+                                            </video>
+                                        @endif
                                         <h5 class="my-2">{{$positional->name}}</h5>
                                         <h6 class="text-left">Description of the Strategy:</h6>
-                                        <p class="text-left">{{$positional->description}}</p>
+                                        <p class="text-left">{!! nl2br($positional->description) !!}</p>
                                         @if($positional->updated_price)
                                             <h4 class="mb-3">Price: &#8377;<s>{{$positional->price}}</s><span class="red">&nbsp;{{$price}}</span></h4>
                                         @else
@@ -205,12 +211,14 @@
                                             $id = $investment->strategy_short_id;
                                             $price = floor($investment->updated_price);
                                         @endphp
-                                        <video width="100%" height="auto" controls>
-                                            <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
-                                        </video>
+                                        @if($investment->video!=null)
+                                            <video width="100%" height="auto" controls>
+                                                <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
+                                            </video>
+                                        @endif                                        
                                         <h5 class="my-2">{{$investment->name}}</h5>
                                         <h6 class="text-left">Description of the Strategy:</h6>
-                                        <p class="text-left">{{$investment->description}}</p>
+                                        <p class="text-left">{!! nl2br($investment->description) !!}</p>
                                         @if($investment->updated_price)
                                             <h4 class="mb-3">Price: &#8377;<s>{{$investment->price}}</s><span class="red">&nbsp;{{$price}}</span></h4>
                                         @else

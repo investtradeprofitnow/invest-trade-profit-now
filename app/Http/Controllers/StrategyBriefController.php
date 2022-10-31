@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
+use App\Models\StrategyShort;
 use App\Models\StrategyBrief;
 
 class StrategyBriefController extends Controller
@@ -80,6 +81,11 @@ class StrategyBriefController extends Controller
     }
 
     public function deleteStrategy($id){
+        $strategyShort = StrategyShort::where("strategy_brief_id",$id)->first();
+        if($strategyShort!=null)
+        {
+            $strategyShort->delete();
+        }
         $strategy = StrategyBrief::find($id);
         $strategy->delete();
         return redirect("/admin/strategy-brief");
