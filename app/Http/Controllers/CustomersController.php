@@ -464,7 +464,7 @@ class CustomersController extends Controller
             $refund->amount = $refundAmount;
             $refund->status = "Refund Initiated";
             $refund->save();
-            Mail::to($email)->send(new RefundInitiateMail($customer->name, $refundAmount, $refund->refund_id));
+            Mail::to($email)->send(new RefundInitiateMail($customer->name, $refundAmount, str_pad($refund->refund_id,8,"0",STR_PAD_LEFT)));
             return redirect()->back()->with("amount",$refundAmount);
         }
         else{

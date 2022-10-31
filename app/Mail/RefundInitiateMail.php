@@ -35,6 +35,6 @@ class RefundInitiateMail extends Mailable
      */
     public function build()
     {
-        return $this->subject("Refund Initiated")->from(env("MAIL_USERNAME"),env("MAIL_FROM_NAME"))->markdown('mails.refund-initiate');
+        return $this->subject("Refund Initiated: ".$this->id)->from(env("MAIL_USERNAME"),env("MAIL_FROM_NAME"))->markdown('mails.refund-initiate');
     }
 }
