@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 use App\Models\Offers;
+use App\Models\OfferSubscribers;
 use App\Models\StrategyShort;
 
 class OffersController extends Controller
@@ -41,6 +42,10 @@ class OffersController extends Controller
             $offer->discount = request("discount");
             $offer->type = request("type");
             $offer->save();
+            $offerSubscriber = new OfferSubscribers();
+            $offerSubscriber->offer_id = $offer->offer_id;
+            $offerSubscriber->subscribers = request("subscribers");
+            $offerSubscriber->save();
             return redirect("/admin/offers");
         }
         else{

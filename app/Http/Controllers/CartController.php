@@ -8,6 +8,7 @@ use App\Models\StrategyShort;
 use App\Models\Customers;
 use App\Models\UserStrategy;
 use App\Models\Offers;
+use App\Models\OfferSubscribers;
 use App\Models\Coupons;
 use App\Models\UserCoupon;
 use App\Models\Orders;
@@ -63,19 +64,25 @@ class CartController extends Controller
                 $type = $data[$i]->type;
                 $price = $data[$i]->price;
                 if($plan>1){
-                    $offer = $offers->where("strategy_id",$data[$i]->strategy_short_id);
-                    if (sizeof($offer)>0){
-                        $price1 = $price * $disc;
-                        $discount = $offer[$index]->discount;
-                        $typeDisc = $offer[$index]->type;                     
-                        if($typeDisc=="percent"){
-                            $price2=((100-$discount)*$price/100);
+                    $offer = $offers->where("strategy_id",$data[$i]->strategy_short_id)->first();
+                    if($offer!=null){
+                        $offerSubscribers = OfferSubscribers::where("offer_id",$offer->offer_id)->first();
+                        if($offerSubscribers->subscribers>0){
+                            $price1 = $price * $disc;
+                            $discount = $offer->discount;
+                            $typeDisc = $offer->type;                     
+                            if($typeDisc=="percent"){
+                                $price2=((100-$discount)*$price/100);
+                            }
+                            else{
+                                $price2=$price-$discount;
+                            }
+                            $data[$i]->updated_price = $price1 < $price2 ? $price1 : $price2;
+                            $index++;
                         }
                         else{
-                            $price2=$price-$discount;
+                            $data[$i]->updated_price = $price * $disc;
                         }
-                        $data[$i]->updated_price = $price1 < $price2 ? $price1 : $price2;
-                        $index++;
                     }
                     else{
                         $data[$i]->updated_price = $price * $disc;
@@ -134,18 +141,24 @@ class CartController extends Controller
                     break;
             }
             if($plan>1){
-                $offer = $offers->where("strategy_id",$id);
-                if(sizeof($offer)){
-                    $price1 = $price * $disc;
-                    $discount = $offer[0]->discount;
-                    $typeDisc = $offer[0]->type;
-                    if($typeDisc=="percent"){
-                        $price2=((100-$discount)*$price/100);
+                $offer = $offers->where("strategy_id",$id)->first();
+                if($offer!=null){
+                    $offerSubscribers = OfferSubscribers::where("offer_id",$offer->offer_id)->first();
+                    if($offerSubscribers->subscribers>0){
+                        $price1 = $price * $disc;
+                        $discount = $offer->discount;
+                        $typeDisc = $offer->type;
+                        if($typeDisc=="percent"){
+                            $price2=((100-$discount)*$price/100);
+                        }
+                        else{
+                            $price2=$price-$discount;
+                        }
+                        $updated_price = $price1 < $price2 ? $price1 : $price2;
                     }
                     else{
-                        $price2=$price-$discount;
+                        $updated_price = $price * $disc;
                     }
-                    $updated_price = $price1 < $price2 ? $price1 : $price2;
                 }
                 else{
                     $updated_price = $price * $disc;
@@ -158,7 +171,8 @@ class CartController extends Controller
                 "name" => $strategy->name,
                 "type" => $strategy->type,
                 "price" => $updated_price!=null?floor($updated_price):$strategy->price,
-                "brief_id" => $strategy->strategy_brief_id
+                "brief_id" => $strategy->strategy_brief_id,
+                "short_id" => $strategy->strategy_short_id
             ];
             Session::put("cartStrategies", $cartStrategies);
             return redirect()->back()->with("success","Strategy added successfully");
@@ -190,6 +204,14 @@ class CartController extends Controller
             $userStrategy->strategy_id = $strategy["brief_id"];
             $userStrategy->save();
             $strategies[$index] = $strategy["name"];
+            $offer=Offers::where("strategy_id",$strategy["short_id"])->first();
+            if($offer!=null){
+                $offerSubscribers = OfferSubscribers::where("offer_id",$offer->offer_id)->first();
+                if($offerSubscribers->subscribers>0){
+                    $offerSubscribers->subscribers = $offerSubscribers->subscribers - 1;
+                    $offerSubscribers->update();
+                }
+            }            
             $index++;
         }
         if($couponId!=null){
@@ -198,7 +220,8 @@ class CartController extends Controller
             $userCoupon->coupon_id = $couponId;
             $userCoupon->save();
             $couponCode = Coupons::where("coupon_id",$couponId)->value("code");
-        }        
+        }
+
 
         $order = new Orders();
         $order->user_id = $custId;

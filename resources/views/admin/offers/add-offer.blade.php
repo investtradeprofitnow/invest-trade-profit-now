@@ -55,7 +55,6 @@
     <script type="text/javascript">
         $("#submit").click(function(){
             $("#strategy_name").val($("#strategy_id").find(":selected").text());
-            alert($("#strategy_id").find(":selected").text());
         });
     </script>
 @stop
