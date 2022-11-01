@@ -11,6 +11,7 @@ use App\Models\StrategyBrief;
 use App\Models\Customers;
 use App\Models\Offers;
 use App\Models\Coupons;
+use App\Models\Refunds;
 
 class AdminController extends Controller
 {
@@ -100,6 +101,16 @@ class AdminController extends Controller
         if($this->checkAdminSession()){
             $coupons=Coupons::all()->sortByDesc("updated_at");
             return view("admin.coupons.coupons-list",["coupons"=>$coupons]);
+        }
+        else{
+            return redirect("/admin/login");
+        }
+    }
+
+    public function refunds(){
+        if($this->checkAdminSession()){
+            $refunds=Refunds::all()->sortByDesc("created_at");
+            return view("admin.refunds.refunds-list",["refunds"=>$refunds]);
         }
         else{
             return redirect("/admin/login");

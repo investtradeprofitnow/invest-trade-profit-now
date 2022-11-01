@@ -10,6 +10,7 @@ use App\Http\Controllers\StrategyBriefController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OffersController;
 use App\Http\Controllers\CouponsController;
+use App\Http\Controllers\RefundsController;
 use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\SMSController;
 
@@ -78,6 +79,7 @@ Route::get("/admin/strategy-brief", [AdminController::class,"strategyBrief"])->n
 Route::get("/admin/customer", [AdminController::class,"customer"])->name("customer");
 Route::get("/admin/offers", [AdminController::class,"offers"])->name("offers");
 Route::get("/admin/coupons", [AdminController::class,"coupons"])->name("coupons");
+Route::get("/admin/refunds", [AdminController::class,"refunds"])->name("refunds");
 Route::get("/admin/logout", [AdminController::class,"logout"])->name("admin-logout");
 
 Route::get("/admin/updateRole/{id}", [CustomersController::class,"updateRole"])->name("updateRole");
@@ -105,6 +107,8 @@ Route::post("/admin/save-coupon", [CouponsController::class,"saveCoupon"])->name
 Route::get("/admin/edit-coupon/{id}", [CouponsController::class,"editCoupon"])->name("edit-coupon");
 Route::post("/admin/update-coupon", [CouponsController::class,"updateCoupon"])->name("update-coupon");
 Route::get("/admin/delete-coupon/{id}", [CouponsController::class,"deleteCoupon"])->name("delete-coupon");
+
+Route::get("/admin/update-refund-status/{id}/{status}", [RefundsController::class,"updateRefundStatus"])->name("update-refund-status");
 
 Route::get("/send-email", [SendEmailController::class, "index"]);
 Route::get("/sms", [SMSController::class, "sendSMS"]);
