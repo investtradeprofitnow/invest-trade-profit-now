@@ -18,8 +18,9 @@
     </div>
     <div id="price_table">   
         <div class="container">
+            <input type="hidden" name="currentPlan" id="currentPlan" value="{{session('plan')}}"/>
             <div class="row">
-            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="col-lg-3 col-sm-6 col-12">
                     <div class="content border">
                         <div class="head_price">
                             <div class="head_content">
@@ -44,7 +45,7 @@
                         @if(session("customer"))
                             <a class="btn btn-outline mb-4" href="{{route('save-plan',1)}}">Pay Now</a>
                         @elseif(session("email"))
-                            <a class="btn btn-outline mb-4" href="{{route('update-plan',1)}}">Change Plan</a>
+                            <a class="btn btn-outline change-plan mb-4" href="{{route('update-plan',1)}}" id="1">Change Plan</a>
                         @else
                             <a class="btn btn-outline mb-4" href="{{route('save-plan',1)}}">Register</a>
                         @endif
@@ -76,7 +77,7 @@
                         @if(session("customer"))
                             <a class="btn btn-outline mb-4" href="{{route('save-plan',2)}}">Pay Now</a>
                         @elseif(session("email"))
-                            <a class="btn btn-outline mb-4" href="{{route('update-plan',2)}}">Change Plan</a>
+                            <a class="btn btn-outline change-plan mb-4" href="{{route('update-plan',2)}}" id="2">Change Plan</a>
                         @else
                             <a class="btn btn-outline mb-4" href="{{route('save-plan',2)}}">Register</a>
                         @endif
@@ -108,7 +109,7 @@
                         @if(session("customer"))
                             <a class="btn btn-outline mb-4" href="{{route('save-plan',3)}}">Pay Now</a>
                         @elseif(session("email"))
-                            <a class="btn btn-outline mb-4" href="{{route('update-plan',3)}}">Change Plan</a>
+                            <a class="btn btn-outline change-plan mb-4" href="{{route('update-plan',3)}}" id="3">Change Plan</a>
                         @else
                             <a class="btn btn-outline mb-4" href="{{route('save-plan',3)}}">Register</a>
                         @endif
@@ -140,7 +141,7 @@
                         @if(session("customer"))
                             <a class="btn btn-outline mb-4" href="{{route('save-plan',4)}}">Pay Now</a>
                         @elseif(session("email"))
-                            <a class="btn btn-outline mb-4" href="{{route('update-plan',4)}}">Change Plan</a>
+                            <a class="btn btn-outline change-plan mb-4" href="{{route('update-plan',4)}}" id="4">Change Plan</a>
                         @else
                             <a class="btn btn-outline mb-4" href="{{route('save-plan',4)}}">Register</a>
                         @endif
@@ -171,6 +172,23 @@
         $(".content").click(function(){
             $(".content").removeClass("active_pr");
             $(this).addClass("active_pr");
+        });
+
+        $(".change-plan").click(function(e){
+            $currentPlan = $("#currentPlan").val();
+            $plan = $(this).attr("id");
+            if($plan>$currentPlan){
+                $btn = confirm("If you wish to upgrade your plan, you need to pay the full amount.\nIf your plan has not expired, the amount for the remaining days will be refunded.\nDo you wish to continue?");
+                if(!$btn){
+                    e.preventDefault();
+                }
+            }
+            else{
+                $btn = confirm("If you wish to downgrade your plan and if your plan has not expired, the amount for the remaining days will be not be refunded.\nDo you wish to continue?");
+                if(!$btn){
+                    e.preventDefault();
+                }
+            }
         });
     </script>
 @stop

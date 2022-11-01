@@ -159,18 +159,37 @@ class CustomersController extends Controller
     {
         $email = Session::get("email");
         $customer = Customers::where("email",$email)->first();
+        $currentPlan = $customer->plan;
+        if($currentPlan<$id){
+            $startDate = Carbon::parse($customer->startDate);
+            $endDate = Carbon::parse($customer->end_date);
+            $amount = $this->checkAmount($currentPlan);
+            $totalDays = $startDate->diffInDays($endDate,false);
+            $expiredDays = Carbon::now()->diffInDays($startDate);
+            $leftDays = $totalDays-$expiredDays;
+            $gst=($amount*18)/118;
+            $amount = $amount-$gst;   
+            $refundAmount = ($amount*$leftDays)/$totalDays;
+            $refundAmount = number_format((float)$refundAmount, 2, '.', '');
+            $refund = new Refunds();
+            $refund->user_id = $customer->customer_id;
+            $refund->email = $email;
+            $refund->amount = $refundAmount;
+            $refund->status = "Refund Initiated";
+            $refund->save();
+        }
         switch($id){
             case 1:
-                $endDate = Carbon::now()->addYear(20)->format("d-m-Y");
+                $endDate = Carbon::now()->addYear(20);
                 break;
             case 2:
-                $endDate = Carbon::now()->addYear(1)->format("d-m-Y");
+                $endDate = Carbon::now()->addYear(1);
                 break;
             case 3:
-                $endDate = Carbon::now()->addYear(2)->format("d-m-Y");
+                $endDate = Carbon::now()->addYear(2);
                 break;
             case 4:
-                $endDate = Carbon::now()->addYear(5)->format("d-m-Y");
+                $endDate = Carbon::now()->addYear(5);
                 break;
         }
         $customer->plan = $id;
@@ -416,26 +435,10 @@ class CustomersController extends Controller
                 }
             }
             $planName = "";
-            $amount = 0;
+            $amount = $this->checkAmount($plan);
             $startDate = $startDate->format("d-m-Y");
             $endDate = $endDate->format("d-m-Y");
-            switch($plan){
-                case 1:
-                    $planName = "Basic";
-                    break;
-                case 2:
-                    $planName = "Silver";
-                    $amount = env("PLAN_DISCOUNT_2");
-                    break;
-                case 3:
-                    $planName = "Gold";
-                    $amount = env("PLAN_DISCOUNT_3");
-                    break;
-                case 4:
-                    $planName = "Platinum";
-                    $amount = env("PLAN_DISCOUNT_4");
-                    break;
-            }
+            
             if($plan>1){
                 $subscription = array("planName"=>$planName, "amount"=>$amount, "startDate"=>$startDate, "endDate"=>$endDate, "totalDays"=>$totalDays, "expiredDays"=>$expiredDays, "unsubscribe"=>$unsubscribe);
             }
@@ -464,12 +467,36 @@ class CustomersController extends Controller
             $refund->amount = $refundAmount;
             $refund->status = "Refund Initiated";
             $refund->save();
+            $customer->plan=1;
+            $customre->update();
             Mail::to($email)->send(new RefundInitiateMail($customer->name, $refundAmount, str_pad($refund->refund_id,8,"0",STR_PAD_LEFT)));
             return redirect()->back()->with("amount",$refundAmount);
         }
         else{
             return redirect("/login");
         }
+    }
+
+    public function checkAmount($plan){
+        $amount=0;
+        switch($plan){
+            case 1:
+                $planName = "Basic";
+                break;
+            case 2:
+                $planName = "Silver";
+                $amount = env("PLAN_DISCOUNT_2");
+                break;
+            case 3:
+                $planName = "Gold";
+                $amount = env("PLAN_DISCOUNT_3");
+                break;
+            case 4:
+                $planName = "Platinum";
+                $amount = env("PLAN_DISCOUNT_4");
+                break;
+        }
+        return $amount;
     }
 
     public function updateName(Request $request){
