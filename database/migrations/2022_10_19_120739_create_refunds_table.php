@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create("refunds", function (Blueprint $table) {
             $table->id("refund_id");
-            $table->unsignedBigInteger("user_id")->nullable(false)->unique();
+            $table->unsignedBigInteger("user_id")->nullable(false);
             $table->foreign("user_id")->references("customer_id")->on("customers");
             $table->string("email",80)->nullable(false);
             $table->integer("amount")->nullable(false);
