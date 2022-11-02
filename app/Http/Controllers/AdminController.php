@@ -110,7 +110,7 @@ class AdminController extends Controller
     public function refunds(){
         if($this->checkAdminSession()){
             $refunds=Refunds::all()->sortByDesc("created_at");
-            return view("admin.refunds.refunds-list",["refunds"=>$refunds]);
+            return view("admin.refunds-list",["refunds"=>$refunds]);
         }
         else{
             return redirect("/admin/login");
