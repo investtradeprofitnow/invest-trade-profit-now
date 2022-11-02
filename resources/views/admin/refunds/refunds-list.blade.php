@@ -1,6 +1,7 @@
 @extends("admin.layouts.app")
 @section("pageTitle", "Refunds List")
 @section("css")
+	<link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
     <style type="text/css">
 		.refund-link{
 			text-decoration: none;
@@ -11,20 +12,24 @@
 			text-decoration: none;
     		color: #34BBE3;
 		}
+
+		.paginate_button {
+			border-radius: 0 !important;
+		}
 	</style>
 @stop
 @section("content")
     <div class="p-2 active-cont mt-5">
-		<h1 class="mb-3 text-center section-title">Offer List</h1>	
+		<h1 class="mb-3 text-center section-title">Refunds List</h1>	
 		<table class="table mx-auto text-center" id="refunds-table">
 			<thead>
 				<tr>
-					<th scope="col">Sr. No.</th>
-					<th scope="col">Email</th>
-					<th scope="col">Amount</th>
-					<th scope="col">Status</th>
-					<th scope="col">Date</th>
-					<th scope="col">Operation</th>
+					<th scope="col" class="text-center">Sr. No.</th>
+					<th scope="col" class="text-center">Email</th>
+					<th scope="col" class="text-center">Amount</th>
+					<th scope="col" class="text-center">Status</th>
+					<th scope="col" class="text-center">Date</th>
+					<th scope="col" class="text-center">Operation</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -60,7 +65,21 @@
     </div>
 @stop
 @section('js')
+	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#refunds-table").DataTable({
+  				"columnDefs": [ {
+      					"targets": [0,2,3,5],
+						"orderable": false
+    				},
+					{
+						"targets": [0,2,3,4,5],
+						"searchable": false
+					}
+				]
+			});
+		});
 		$(".refund-link").click(function(e){
 			$text = $(this).html();
 			if($text=="Update to Refund Processed"){
