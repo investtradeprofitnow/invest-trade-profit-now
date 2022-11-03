@@ -181,7 +181,7 @@ class CustomersController extends Controller
         }
         switch($id){
             case 1:
-                $endDate = Carbon::now()->addYear(20);
+                $endDate = Carbon::now()->addYear(100);
                 break;
             case 2:
                 $endDate = Carbon::now()->addYear(1);
@@ -191,6 +191,9 @@ class CustomersController extends Controller
                 break;
             case 4:
                 $endDate = Carbon::now()->addYear(5);
+                break;
+            case 5:
+                $endDate = Carbon::now()->addYear(100);
                 break;
         }
         $customer->plan = $id;
@@ -206,7 +209,7 @@ class CustomersController extends Controller
         $endDate;
         switch($plan){
             case 1:
-                $endDate = Carbon::now()->addYear(20);
+                $endDate = Carbon::now()->addYear(100);
                 break;
             case 2:
                 $endDate = Carbon::now()->addYear(1);
@@ -216,6 +219,9 @@ class CustomersController extends Controller
                 break;
             case 4:
                 $endDate = Carbon::now()->addYear(5);
+                break;
+            case 5:
+                $endDate = Carbon::now()->addYear(100);
                 break;
         }
         $startDate = Carbon::now();
@@ -495,6 +501,10 @@ class CustomersController extends Controller
             case 4:
                 $planName = "Platinum";
                 $amount = env("PLAN_DISCOUNT_4");
+                break;
+            case 5:
+                $planName = "Lifetime";
+                $amount = env("PLAN_DISCOUNT_5");
                 break;
         }
         return $amount;

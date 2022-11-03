@@ -20,7 +20,7 @@
         <div class="container">
             <input type="hidden" name="currentPlan" id="currentPlan" value="{{session('plan')}}"/>
             <div class="row">
-                <div class="col-lg-3 col-sm-6 col-12">
+                <div class="col-lg-4 col-sm-6 col-12">
                     <div class="content border">
                         <div class="head_price">
                             <div class="head_content">
@@ -31,7 +31,7 @@
                             </div>
                             <div class="price_tag">  
                                 <span class="price">
-                                    <span class="currency">Free</span></span>
+                                    <span class="currency">Free<br/>&nbsp;&nbsp;</span>
                                 </span>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6 col-12">
+                <div class="col-lg-4 col-sm-6 col-12">
                     <div class="content border">
                         <div class="head_price">
                             <div class="head_content">
@@ -63,7 +63,7 @@
                             <div class="price_tag">  
                                 <span class="price">
                                     <span class="sign">&#8377;</span>
-                                    <span class="currency"><s>{{config('payments.plan2')}}</s><span class="red">  {{config('payments.planDiscount2')}}</span></span>
+                                    <span class="currency"><s>{{config('payments.plan2')}}</s><br/><span class="red">  {{config('payments.planDiscount2')}}</span></span>
                                 </span>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6 col-12">
+                <div class="col-lg-4 col-sm-6 col-12">
                     <div class="content border">
                         <div class="head_price">
                             <div class="head_content">
@@ -95,7 +95,7 @@
                             <div class="price_tag">  
                                 <span class="price">
                                     <span class="sign">&#8377;</span>
-                                    <span class="currency"><s>{{config('payments.plan3')}}</s><span class="red">  {{config('payments.planDiscount3')}}</span></span>
+                                    <span class="currency"><s>{{config('payments.plan3')}}</s><br/><span class="red">  {{config('payments.planDiscount3')}}</span></span>
                                 </span>
                             </div>
                         </div>
@@ -115,7 +115,10 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6 col-12">
+            </div>
+            <div class="row mt-4">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-4 col-sm-6 col-12">
                     <div class="content active_pr border">
                         <div class="head_price">
                             <div class="head_content">
@@ -127,7 +130,7 @@
                             <div class="price_tag">  
                                 <span class="price">
                                     <span class="sign">&#8377;</span>
-                                    <span class="currency"><s>{{config('payments.plan4')}}</s><span class="red">  {{config('payments.planDiscount4')}}</span></span>
+                                    <span class="currency"><s>{{config('payments.plan4')}}</s><br/><span class="red">  {{config('payments.planDiscount4')}}</span></span>
                                 </span>
                             </div>
                         </div>
@@ -144,6 +147,38 @@
                             <a class="btn btn-outline change-plan mb-4" href="{{route('update-plan',4)}}" id="4">Change Plan</a>
                         @else
                             <a class="btn btn-outline mb-4" href="{{route('save-plan',4)}}">Register</a>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-12">
+                    <div class="content border">
+                        <div class="head_price">
+                            <div class="head_content">
+                                <div class="head_bg"></div>
+                                <div class="head">
+                                    <span>Lifetime</span>
+                                </div>                              
+                            </div>
+                            <div class="price_tag">  
+                                <span class="price">
+                                    <span class="sign">&#8377;</span>
+                                    <span class="currency"><s>{{config('payments.plan5')}}</s><br/><span class="red">  {{config('payments.planDiscount5')}}</span></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="feature_list">
+                            <ul>
+                                <li>Flat <span>50%</span> Discount on purchase of every Strategy</li>
+                                <li><span>Coupon codes</span> will be provided while buying strategies</li>
+                                <li>Validity: <span class="year">Lifetime</span></li>  
+                            </ul>
+                        </div>
+                        @if(session("customer"))
+                            <a class="btn btn-outline mb-4" href="{{route('save-plan',5)}}">Pay Now</a>
+                        @elseif(session("email"))
+                            <a class="btn btn-outline change-plan mb-4" href="{{route('update-plan',4)}}" id="5">Change Plan</a>
+                        @else
+                            <a class="btn btn-outline mb-4" href="{{route('save-plan',5)}}">Register</a>
                         @endif
                     </div>
                 </div>

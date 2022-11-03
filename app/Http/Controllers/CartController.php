@@ -42,6 +42,9 @@ class CartController extends Controller
                 case 4:
                     $disc=0.50;
                     break;
+                case 5:
+                    $disc=0.50;
+                    break;
             }
             $custId = Session::get("id");
             $userStrategies = UserStrategy::where("user_id",$custId)->pluck("strategy_id");
@@ -137,6 +140,9 @@ class CartController extends Controller
                     $disc=0.75;
                     break;
                 case 4:
+                    $disc=0.50;
+                    break;
+                case 5:
                     $disc=0.50;
                     break;
             }

@@ -9,5 +9,7 @@ return [
     "plan3"         => env("PLAN_3", 2499),
     "planDiscount3" => env("PLAN_DISCOUNT_3", 1999),
     "plan4"         => env("PLAN_4", 5999),
-    "planDiscount4" => env("PLAN_DISCOUNT_4", 1000),
+    "planDiscount4" => env("PLAN_DISCOUNT_4", 3999),
+    "plan5"         => env("PLAN_5", 99999),
+    "planDiscount5" => env("PLAN_DISCOUNT_5", 49999),
 ];
