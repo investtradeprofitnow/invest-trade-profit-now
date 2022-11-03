@@ -35,6 +35,6 @@ class RefundProcessMail extends Mailable
      */
     public function build()
     {
-        return $this->subject("Refund Processed: ".$this->id)->from(env("MAIL_USERNAME"),env("MAIL_FROM_NAME"))->markdown('mails.refund-process');
+        return $this->subject("Refund Processed: ".$this->id)->from(env("MAIL_USERNAME"),env("MAIL_FROM_NAME"))->markdown('mails.refund-process-mail');
     }
 }

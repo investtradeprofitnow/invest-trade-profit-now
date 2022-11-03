@@ -35,6 +35,6 @@ class RefundCloseMail extends Mailable
      */
     public function build()
     {
-        return $this->subject("Refund Closed: ".$this->id)->from(env("MAIL_USERNAME"),env("MAIL_FROM_NAME"))->markdown('mails.refund-close');
+        return $this->subject("Refund Closed: ".$this->id)->from(env("MAIL_USERNAME"),env("MAIL_FROM_NAME"))->markdown('mails.refund-close-mail');
     }
 }
