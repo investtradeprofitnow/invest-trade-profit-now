@@ -16,21 +16,12 @@ $("#register-form").validate({
         },
         password: {
             checkPassword: true
-        },
-        mobile: {
-            validMobile: true,
-            minlength: 10,
-            maxlength: 10
         }
     },
     messages:{
         email: {
             email: "Please enter a Valid Email Id"
-        },
-        mobile: {
-            minlength: "Please enter 10 digit mobile number",
-            maxlength: "Please enter 10 digit mobile number"
-        },
+        }
     },
     submitHandler : function(form) {
         form.submit();
@@ -152,17 +143,6 @@ $.validator.addMethod("numeric", function (value, elem) {
         return re.test(value);
     },
     "Only Numbers Allowed"
-);
-
-$.validator.addMethod("validMobile", function (value, elem) {
-        hasFocus = document.activeElement === elem;
-        if (hasFocus === false) {
-            var re = /^[6-9]\d{9}$/;
-            return re.test(value);
-        }
-        return true;
-    },
-    "Please enter a Valid Mobile Number"
 );
 
 $.validator.addMethod("checkPassword", function (value, elem) {

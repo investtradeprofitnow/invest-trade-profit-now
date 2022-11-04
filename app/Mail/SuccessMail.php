@@ -30,6 +30,6 @@ class SuccessMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Welcome to Invest Trade Profit Now')->from(env("MAIL_USERNAME"),env("MAIL_FROM_NAME"))->markdown('mails.successMail');
+        return $this->subject('Welcome to Invest Trade Profit Now')->from(env("MAIL_USERNAME"),env("MAIL_FROM_NAME"))->markdown('mails.success-mail');
     }
 }

@@ -12,7 +12,7 @@ use Config;
 use Carbon\Carbon;
 
 use Mail;
-use App\Mail\OTPMail;
+use App\Mail\OtpMail;
 use App\Mail\SuccessMail;
 use App\Mail\ResetPasswordMail;
 use App\Mail\ChangePasswordMail;
@@ -33,14 +33,10 @@ class CustomersController extends Controller
     public function displayOTP(){
         $email = request("email");
         $name = request("name");
-        $mobile = request("mobile");
         $password = request("password");
         $error ="";
         if($name=="" || !preg_match ("/^[a-zA-Z ]+$/",$name)){
             $error = "Name should contain only Capital, Small Letters and Spaces Allowed";
-        }
-        if($mobile=="" || strlen($mobile)!=10 || !preg_match("/^[0-9]*$/",$mobile)){
-            $error = $error."<br/> Mobile Number must be 10 digits";
         }
         if($email=="" || !preg_match("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/",$email)){
             $error = $error."<br/> Please enter a valid email address";
@@ -54,26 +50,19 @@ class CustomersController extends Controller
             if($user==null){
                 $customer = new Customers();
                 $email = request("email");
-                $mobile = request("mobile");
                 $name = request("name");
                 $customer->name = $name;
-                $customer->mobile = $mobile;
                 $customer->email = $email;
                 $customer->password = password_hash(request("password"),PASSWORD_DEFAULT);
                 $customer->photo = null;
-                $otpMobile = new Otp();
                 $otpEmail = new Otp();
-                $otpMobile->type = $mobile;
-                $otpMobile->otp = random_int(100000, 999999);
                 $otpEmail->type = $email;
                 $otpEmail->otp = random_int(100000, 999999);
-                Otp::where("type", $mobile)->delete();
                 Otp::where("type", $email)->delete();
-                $otpMobile->save();
                 $otpEmail->save();
                 Session::put("customer",$customer);
                 Session::put("otpModal","yes");
-                Mail::to($email)->send(new OTPMail($name,$otpEmail->otp));
+                Mail::to($email)->send(new OtpMail($name,$otpEmail->otp));
                 return redirect()->back();
             }
             else{
@@ -88,35 +77,22 @@ class CustomersController extends Controller
     }
     public function verifyOtp(Request $request){
         $this->validate($request, [
-            "mobile-otp" => "required|numeric|digits:6",
             "email-otp" => "required|numeric|digits:6",
         ]);
         $customer = Session::get("customer");
-        $mobile = $customer["mobile"];
-        $otpMobile = request ("mobile-otp");
         $email = $customer["email"];
         $otpEmail = request ("email-otp");
         $rowEmail = Otp::where("type", $email)->where("otp", $otpEmail)->first();
-        $rowMobile = Otp::where("type", $mobile)->where("otp", $otpMobile)->first();
         $error="";
 
         if($rowEmail==null){
             $error.="Email OTP doesn't match. ";
         }
-        if($rowMobile==null){
-            $error.="<br/>Mobile OTP doesn't match.";
-        }
         if($error==""){
             $rowEmail->delete();
-            $rowMobile->delete();
             Session::forget("otpModal");
             Session::forget("otpError");
-            if(Session::get("plan")!=null){
-                return redirect("/save-customer");
-            }
-            else{
-                return redirect("/pricing");
-            }
+            return redirect("/save-customer");
         }
         else{
             return redirect()->back()->with("error",$error);
@@ -130,111 +106,18 @@ class CustomersController extends Controller
         $otpEmail->type = $email;
         $otpEmail->otp = random_int(100000, 999999);
         $otpEmail->save();
-        Mail::to($email)->send(new OTPMail(request("emailName"),$otpEmail->otp));
+        Mail::to($email)->send(new OtpMail(request("emailName"),$otpEmail->otp));
         return redirect()->back()->with("successResend","OTP has been resend to the email address");
-    }
-
-    public function resendMobileOtp(){
-        $mobile = Session::get("updateMobile")!=null ? Session::get("updateMobile") : Session::get("customer")["mobile"];
-        Otp::where("type", $mobile)->delete();
-        $otpMobile = new Otp();
-        $otpMobile->type = $mobile;
-        $otpMobile->otp = random_int(100000, 999999);
-        $otpMobile->save();
-        return redirect()->back()->with("successResend","OTP has been resend to the mobile number");
-    }
-
-    public function savePlan($id)
-    {
-        Session::put("plan",$id);
-        if(Session::get("customer")!=null){
-            return redirect("/save-customer");
-        }
-        else{
-            return redirect("/register");
-        }
-    }
-    
-    public function updatePlan($id)
-    {
-        $email = Session::get("email");
-        $customer = Customers::where("email",$email)->first();
-        $currentPlan = $customer->plan;
-        if($currentPlan<$id){
-            $startDate = Carbon::parse($customer->startDate);
-            $endDate = Carbon::parse($customer->end_date);
-            $amount = $this->checkAmount($currentPlan);
-            $totalDays = $startDate->diffInDays($endDate,false);
-            $expiredDays = Carbon::now()->diffInDays($startDate);
-            $leftDays = $totalDays-$expiredDays;
-            $gst=($amount*18)/118;
-            $amount = $amount-$gst;   
-            $refundAmount = ($amount*$leftDays)/$totalDays;
-            $refundAmount = number_format((float)$refundAmount, 2, '.', '');
-            $refund = new Refunds();
-            $refund->user_id = $customer->customer_id;
-            $refund->email = $email;
-            $refund->amount = $refundAmount;
-            $refund->status = "Refund Initiated";
-            $refund->save();
-            Mail::to($email)->send(new RefundInitiateMail($customer->name, $refundAmount, str_pad($refund->refund_id,8,"0",STR_PAD_LEFT)));
-        }
-        switch($id){
-            case 1:
-                $endDate = Carbon::now()->addYear(100);
-                break;
-            case 2:
-                $endDate = Carbon::now()->addYear(1);
-                break;
-            case 3:
-                $endDate = Carbon::now()->addYear(2);
-                break;
-            case 4:
-                $endDate = Carbon::now()->addYear(5);
-                break;
-            case 5:
-                $endDate = Carbon::now()->addYear(100);
-                break;
-        }
-        $customer->plan = $id;
-        $customer->start_date = Carbon::now();
-        $customer->end_date = $endDate;
-        $customer->update();
-        return redirect ("/strategy-list");
     }
 
     public function saveCustomer(){
         $customer = Session::get("customer");
-        $plan = Session::get("plan");
-        $endDate;
-        switch($plan){
-            case 1:
-                $endDate = Carbon::now()->addYear(100);
-                break;
-            case 2:
-                $endDate = Carbon::now()->addYear(1);
-                break;
-            case 3:
-                $endDate = Carbon::now()->addYear(2);
-                break;
-            case 4:
-                $endDate = Carbon::now()->addYear(5);
-                break;
-            case 5:
-                $endDate = Carbon::now()->addYear(100);
-                break;
-        }
-        $startDate = Carbon::now();
-        $customer->start_date = $startDate;
-        $customer->end_date = $endDate;
-        $customer->plan = $plan;
         $customer->save();
         $custId=$customer->customer_id;
         if($custId>0){
             Mail::to($customer["email"])->send(new SuccessMail($customer["name"]));
             Session::put("email",$customer["email"]);
             Session::put("role","Customer");
-            $plan = Session::put("plan",$plan);
             Session::forget("customer");
             return redirect("/");
         }
@@ -256,31 +139,9 @@ class CustomersController extends Controller
                 $error="User does not exists. Please register first.";
             }
             else if (password_verify($password,$user->password)){
-                $plan = $user->plan;
                 Session::put("email",$email);
                 Session::put("role",$user->role);
-                Session::put("plan",$plan);
-                $end = Carbon::parse($user->end_date);
-                $days = Carbon::now()->diffInDays($end,false);
-                if($plan>1){
-                    if($days<=0){
-                        $user->plan="1";
-                        $user->end_date=Carbon::now()->addYear(20);
-                        $user->update();
-                        return redirect("/pricing")->with("expired","Your Subscription is expired.Please renew the same.");                                                                                
-                    }
-                    else if($days<=7){
-                        return redirect("/")->with("days",$days);
-                    }
-                    return redirect("/");
-                }
-                else{
-                    if($days<=0){
-                        $user->endDate=Carbon::now()->addYear(20);
-                        $user->update();
-                    }
-                    return redirect("/");
-                }
+                return redirect("/");
             }
             else{
                 $error="Email id and Password doesn't match. Please try again";
@@ -416,100 +277,6 @@ class CustomersController extends Controller
         }
     }
 
-    public function subscription(){
-        if((new PagesController)->checkSession()){
-            $email = Session::get("email");
-            $customer = Customers::where("email", $email)->first();
-            $startDate = Carbon::parse($customer->start_date);
-            $endDate = Carbon::parse($customer->end_date);
-            $plan = $customer->plan;
-            $unsubscribe = false;
-            if($plan>1){
-                $totalDays = $startDate->diffInDays($endDate,false);
-                $expiredDays = Carbon::now()->diffInDays($startDate);
-                if($expiredDays<=30){
-                    $userId = Customers::where("email", $email)->first()->value("customer_id");
-                    $refund = Refunds::where("user_id",$userId)->orderBy("refund_id","desc")->first();
-                    if($refund!=null){
-                        $diffDays = Carbon::now()->diffInDays($refund->created_at);
-                        if($diffDays>30){
-                            $unsubscribe = true;
-                        }
-                    }
-                    else{
-                        $unsubscribe = true;
-                    }                    
-                }
-            }
-            $planName = "";
-            $amount = $this->checkAmount($plan);
-            $startDate = $startDate->format("d-m-Y");
-            $endDate = $endDate->format("d-m-Y");
-            
-            if($plan>1){
-                $subscription = array("planName"=>$planName, "amount"=>$amount, "startDate"=>$startDate, "endDate"=>$endDate, "totalDays"=>$totalDays, "expiredDays"=>$expiredDays, "unsubscribe"=>$unsubscribe);
-            }
-            else{
-                $subscription = array("planName"=>$planName, "amount"=>$amount, "startDate"=>$startDate, "endDate"=>$endDate, "unsubscribe"=>$unsubscribe);
-            }
-            return view("user.subscription",["subscription"=>$subscription]);
-        }
-        else{
-            return redirect("/login");
-        }
-    }
-
-    public function unsubscribe($amount,$totalDays,$expiredDays){
-        if((new PagesController)->checkSession()){   
-            $email = Session::get("email");   
-            $customer = Customers::where("email", $email)->first();
-            $leftDays = $totalDays-$expiredDays;
-            $gst=($amount*18)/118;
-            $amount = $amount-$gst;   
-            $refundAmount = ($amount*$leftDays)/$totalDays;
-            $refundAmount = number_format((float)$refundAmount, 2, '.', '');
-            $refund = new Refunds();
-            $refund->user_id = $customer->customer_id;
-            $refund->email = $email;
-            $refund->amount = $refundAmount;
-            $refund->status = "Refund Initiated";
-            $refund->save();
-            $customer->plan=1;
-            $customre->update();
-            Mail::to($email)->send(new RefundInitiateMail($customer->name, $refundAmount, str_pad($refund->refund_id,8,"0",STR_PAD_LEFT)));
-            return redirect()->back()->with("amount",$refundAmount);
-        }
-        else{
-            return redirect("/login");
-        }
-    }
-
-    public function checkAmount($plan){
-        $amount=0;
-        switch($plan){
-            case 1:
-                $planName = "Basic";
-                break;
-            case 2:
-                $planName = "Silver";
-                $amount = env("PLAN_DISCOUNT_2");
-                break;
-            case 3:
-                $planName = "Gold";
-                $amount = env("PLAN_DISCOUNT_3");
-                break;
-            case 4:
-                $planName = "Platinum";
-                $amount = env("PLAN_DISCOUNT_4");
-                break;
-            case 5:
-                $planName = "Lifetime";
-                $amount = env("PLAN_DISCOUNT_5");
-                break;
-        }
-        return $amount;
-    }
-
     public function updateName(Request $request){
         if((new PagesController)->checkSession()){
             Session::put("nameModal","yes");
@@ -521,7 +288,7 @@ class CustomersController extends Controller
             $name=request("name");
             $customer->name = $name;
             $customer->update();
-            Sesson::forget("nameModal");
+            Session::forget("nameModal");
             return redirect()->back();
         }
         else{
@@ -546,10 +313,9 @@ class CustomersController extends Controller
             $otpEmail->otp = random_int(100000, 999999);
             $otpEmail->save();
             Session::forget("emailModal");
-            Session::forget("mobileOtpModal");
             Session::put("emailOtpModal","yes");
             Session::put("updateEmail",$email);
-            Mail::to($email)->send(new OTPMail(request("emailName"),$otpEmail->otp));
+            Mail::to($email)->send(new OtpMail(request("emailName"),$otpEmail->otp));
             return redirect()->back();
         }
         else{
@@ -579,63 +345,6 @@ class CustomersController extends Controller
                 Session::forget("updateEmail");
                 Session::put("email",$updateEmail);
                 return redirect()->back();
-            }
-        }
-        else{
-            return redirect("/login");
-        }
-    }
-
-    public function verifyMobile(Request $request){
-        if((new PagesController)->checkSession()){
-            Session::put("mobileModal","yes");
-            $this->validate($request, [
-                "mobile" => "required|numeric|digits:10",
-            ]);
-            $mobile = request("mobile");
-            $customer = Customers::where("mobile", $mobile)->first();
-            if($customer!=null){
-                return redirect()->back()->with("otpError","Account with this mobile number already exists.");
-            }
-            Otp::where("type", $mobile)->delete();
-            $otpMobile = new Otp();
-            $otpMobile->type = $mobile;
-            $otpMobile->otp = random_int(100000, 999999);
-            $otpMobile->save();            
-            Session::forget("emailOtpModal");
-            Session::forget("mobileModal");
-            Session::put("mobileOtpModal","yes");
-            Session::put("updateMobile",$mobile);
-            return redirect()->back();
-        }
-        else{
-            return redirect("/login");
-        }
-    }
-
-    public function verifyMobileOtp(Request $request){
-        if((new PagesController)->checkSession()){
-            $this->validate($request, [
-                "mobile-otp" => "required|numeric|digits:6",
-            ]);
-            $email = Session::get("email");
-            $updateMobile = Session::get("updateMobile");
-            $otpMobile = request ("mobile-otp");
-            $rowMobile = Otp::where("type", $updateMobile)->where("otp", $otpMobile)->first();
-            $error="";
-            if($rowMobile==null){
-                return redirect()->back()->with("otpError","Mobile OTP doesn't match.");
-            }
-            if($error==""){
-                $rowMobile->delete();
-                $customer = Customers::where("email", $email)->first();
-                if($customer!=null){
-                    $customer->mobile = $updateMobile;
-                    $customer->update();
-                    Session::forget("mobileOtpModal");
-                    Session::forget("updateMobile");
-                    return redirect()->back();
-                }
             }
         }
         else{

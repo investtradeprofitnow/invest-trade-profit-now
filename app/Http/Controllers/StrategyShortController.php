@@ -16,14 +16,7 @@ class StrategyShortController extends Controller
 {
     public function addStrategy(){
         if((new AdminController)->checkAdminSession()){
-            $existStrategies = StrategyShort::pluck("strategy_brief_id");
-            $strategies = StrategyBrief::whereNotIn("strategy_brief_id",$existStrategies)->get();
-            if(count($strategies)>0){
-                return view("admin.strategy-short.add-strategy",["brief"=>$strategies]);
-            }
-            else{
-                return redirect()->back()->with("error","All the Brief Strategies have been linked.");
-            }
+            return view("admin.strategy-short.add-strategy");
         }
         else{
             return redirect("/admin/login");
@@ -34,25 +27,16 @@ class StrategyShortController extends Controller
         $this->validate($request, [
             "name" => "required|max:50",
             "description" => "required",
-            "price" => "required|numeric|digits_between:2,5",
-            "brief" => "required"
+            "link" => "required"
         ]);
         $email = Session::get("email");
-        $fileName=null;
         $strategy = new StrategyShort();
-        $idType = explode(" ",request("brief"));
         $strategy->name = request("name");
         $strategy->description = request("description");
-        $strategy->type = $idType[1];
-        $strategy->price = request("price");
-        $strategy->strategy_brief_id = $idType[0];
+        $strategy->type = request("type");
+        $strategy->link = request("link");
         $strategy->created_by = $email;
-        $strategy->updated_by = $email;
-        if($files=$request->file("video")){  
-            $fileName=$files->getClientOriginalName();  
-            $files->move("strategy/short",$fileName);
-            $strategy->video = $fileName;
-        }       
+        $strategy->updated_by = $email;    
         $strategy->save();
         return redirect("/admin/strategy-short");
     }
@@ -60,8 +44,7 @@ class StrategyShortController extends Controller
     public function editStrategy($id){
         if((new AdminController)->checkAdminSession()){
             $strategy = StrategyShort::find($id);
-            $strategies=StrategyBrief::all();
-            return view("admin.strategy-short.edit-strategy",["strategy"=>$strategy],["brief"=>$strategies]);
+            return view("admin.strategy-short.edit-strategy");
         }
         else{
             return redirect("/admin/login");
@@ -70,27 +53,19 @@ class StrategyShortController extends Controller
 
     public function updateStrategy(Request $request){      
         $this->validate($request, [
-            "id" => "required|numeric",
             "name" => "required|max:50",
             "description" => "required",
-            "price" => "required|numeric|digits_between:2,5",
-            "brief" => "required",
+            "link" => "required"
         ]);
         $email = Session::get("email");
         $id=request("id");
         $strategy = StrategyShort::find($id);
-        $idType = explode(" ",request("brief"));
         $strategy->name = request("name");
         $strategy->description = request("description");
-        $strategy->type = $idType[1];
-        $strategy->price = request("price");
-        $strategy->strategy_brief_id = $idType[0];
+        $strategy->type = request("type");
+        $strategy->link = request("link");
         $strategy->updated_by = $email;
-        if($files=$request->file("video")){
-            $fileName=$files->getClientOriginalName();  
-            $files->move("strategy/short",$fileName);
-            $strategy->video = $fileName;    
-        }
+        $strategy->updated_at = Carbon::now();
         $strategy->update();
         return redirect("/admin/strategy-short");
     }

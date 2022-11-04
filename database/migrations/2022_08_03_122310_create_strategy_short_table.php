@@ -18,10 +18,9 @@ return new class extends Migration
             $table->string("name",50)->nullable(false);
             $table->string("description",10000)->nullable(false);
             $table->string("type")->nullable(false);
+            $table->string("link",300)->nullable(false);
             $table->string("video")->nullable(true);
-            $table->string("price")->nullable(false);
-            $table->unsignedBigInteger("strategy_brief_id")->nullable(false)->unique();
-            $table->foreign("strategy_brief_id")->references("strategy_brief_id")->on("strategy_brief");
+            $table->string("price")->nullable(true);
             $table->string("created_by")->nullable(false);
             $table->string("updated_by")->nullable(false);
             $table->timestamps();

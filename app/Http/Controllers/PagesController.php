@@ -23,10 +23,6 @@ class PagesController extends Controller
         return view("company.about-us");
     }
 
-    public function expertise(){
-        return view("company.our-expertise");
-    }
-
     public function contact(){
         return view("company.contact-us");
     }
@@ -43,10 +39,6 @@ class PagesController extends Controller
         Mail::to(env("MAIL_USERNAME"))->send(new QueryMail($name,$email,$query));
         Session::put("success","Your query has been sent successfully to our team. They will contact you shortly.");
         return redirect("/contact-us");
-    }
-
-    public function pricing(){
-        return view("services.pricing");
     }
 
     public function terms(){

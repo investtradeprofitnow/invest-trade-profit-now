@@ -13,8 +13,7 @@
 				<th scope="col">Name</th>
 				<th scope="col">Description</th>
 				<th scope="col">Type</th>
-				<th scope="col">Video</th>
-				<th scope="col">Price</th>
+				<th scope="col">Purchase Link</th>
 				<th scope="col">Operation</th>
 			</tr>
 		</thead>
@@ -29,8 +28,7 @@
 					<td id="{{'name'.$index}}">{{$strategy->name}}</td>
 					<td id="{{'desc'.$index}}" class="text-left">{!! nl2br($strategy->description) !!}</td>
 					<td id="{{'type'.$index}}">{{$strategy->type}}</td>
-					<td id="{{'video'.$index}}">{{$strategy->video}}</td>
-					<td id="{{'price'.$index}}">{{$strategy->price}}</td>
+					<td id="{{'link'.$index}}">{{$strategy->link}}</td>
 					<td class="text-center">
 						<a class="btn btn-outline" id="{{'edit'.$index}}" href="{{route('edit-strategy-short',$index)}}">
 							Edit

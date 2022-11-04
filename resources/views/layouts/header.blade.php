@@ -18,9 +18,11 @@
                     <li class="nav-item" id="contact-us">
                         <a class="nav-link<?php echo Route::currentRouteName()=='contact-us'?' active':''?>" href="{{route('contact-us')}}">Contact Us</a>
                     </li>
-                    <li class="nav-item" id="pricing">
-                        <a class="nav-link<?php echo Route::currentRouteName()=='pricing'?' active':''?>" href="{{route('pricing')}}">Pricing</a>
-                    </li>
+                    @if(Session::has("email"))
+                        <li class="nav-item" id="contact-us">
+                            <a class="nav-link<?php echo Route::currentRouteName()=='strategy-list'?' active':''?>" href="{{route('strategy-list')}}">Strategy List</a>
+                        </li>
+                    @endif
                 </ul>
                 @if(!Session::has("email"))
                     <div class="d-flex">				
@@ -33,8 +35,6 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" type="button" href="{{route('profile')}}">My Profile</a></li>
-                            <li><a class="dropdown-item" type="button" href="{{route('subscription-details')}}">My Subscription</a></li>
-                            <li><a class="dropdown-item" type="button" href="{{route('user-strategies')}}">My Strategies</a></li>
                             <li><a class="dropdown-item" type="button" href="{{route('display-change-password')}}">Change Password</a></li>
                             <li><a class="dropdown-item" type="button" href="{{route('logout')}}">Logout</a></li>
                         </ul>

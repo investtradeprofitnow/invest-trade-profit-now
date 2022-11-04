@@ -23,22 +23,18 @@
                 <label for="description">Description:</label>
                 <textarea class="form-control" name="description" id="description" required></textarea>
             </div>
-            
             <div class="form-group mt-3">
-                <label for="video" class="form-label">Video:</label>
-                <input type="file" class="form-control form-control-sm" name="video" id="video" accept="video/*">
-            </div>
-            <div class="form-group mt-3">
-                <label for="price">Price:</label>
-                <input type="text" class="form-control" name="price" id="price" maxlength="5" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"required/>
-            </div>
-            <div class="form-group mt-3">
-                <label for="brief" class="form-label">Brief Strategy:</label>
-                <select class="form-control" name="brief" id="brief">
-                    @foreach($brief as $strat)
-                        <option value="{{$strat->strategy_brief_id}} {{$strat->type}}">{{$strat->name}}</option>
-                    @endforeach
+                <label for="type" class="form-label">Type:</label>
+                <select class="form-control" name="type" id="type">
+                    <option value="Intraday" selected>Intraday</option>
+                    <option value="BTST">BTST</option>
+                    <option value="Positional">Positional</option>
+                    <option value="Investment">Investment</option>
                 </select>
+            </div>
+            <div class="form-group mt-3">
+                <label for="video" class="form-label">Purchase Link:</label>
+                <input type="text" class="form-control" name="link" id="link" required>
             </div>
             <div class="form-group mt-3">
                 <input type="submit" class="btn btn-outline" value="Save Strategy"/>

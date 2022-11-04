@@ -24,10 +24,6 @@
                 <input type="text" class="form-control" name="name" id="name" maxlength=50 required>
             </div>
             <div class="form-group mt-3">
-                <label for="mobile">Mobile:</label>
-                <input type="text" class="form-control" name="mobile" id="mobile" maxlength=10 oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required>
-            </div>
-            <div class="form-group mt-3">
                 <label for="email">Email:</label>
                 <input type="email" class="form-control" name="email" id="email" required>
             </div>
@@ -78,14 +74,6 @@
 					<form id="otp-form" method="post" action="{{route('verify-otp')}}">
             			{{ csrf_field() }}
 						<div class="form-group mt-3">
-							<label for="name">Mobile OTP:</label>
-							<input type="text" class="form-control" name="mobile-otp" id="mobile-otp" maxlength="6" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required>
-                            <span class="error mobile"></span>
-                        </div>
-                        <div class="form-group text-right mt-3">
-							<a href="{{route('resend-mobile-otp')}}" class="resend text-right">Resend Mobile OTP</a>
-                        </div>
-						<div class="form-group mt-3">
 							<label for="name">Email OTP:</label>
 							<input type="text" class="form-control" name="email-otp" id="email-otp" maxlength="6" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required>
                             <span class="error email"></span>
@@ -110,15 +98,10 @@
     <script src="{{asset('js/form-validation.js')}}"></script>
     <script style="text/javascript">
         $("#register").click(function(){
-            $(".mobile").html("");
             $(".email").html("");
-            $mobile=$("#mobile-otp").val()+"";
             $email=$("#email-otp").val()+"";
-            if($mobile.length<6){
-                $(".mobile").html("Please enter 6 digits mobile OTP.");
-            }
-            else if($email.length<6){
-                $(".email").html("Please enter 6 digits mobile OTP.");
+            if($email.length<6){
+                $(".email").html("Please enter 6 digits email OTP.");
             }
             else{
                 $("#otp-form").submit();

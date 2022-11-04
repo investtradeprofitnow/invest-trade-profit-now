@@ -39,16 +39,7 @@
     </style>
 @stop
 @section("content")
-    <div class="container my-5">    
-        @php
-            $strategyList = session()->get("cartStrategies");
-        @endphp
-        @if(session()->has("error"))
-            <div class="error p-3 mb-4">{{session()->get("error")}}</div>
-        @elseif(session()->has("success"))
-            <div class="success p-3 mb-4">{{session()->get("success")}}</div>
-        @endif
-        <a href="{{route('cart')}}" class="btn btn-outline mb-4" role="button" style="float: right;">View Cart</a>
+    <div class="container my-5">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <button class="nav-link active" id="intraday-tab" data-bs-toggle="tab" data-bs-target="#intraday" type="button" role="tab" aria-controls="intraday" aria-selected="true">Intraday</button>
@@ -66,35 +57,15 @@
                                 <div class="col-md-6 col-12 mt-4">
                                     <div class="p-4 border text-center service-box">
                                         @php
-                                            $videoName = $intraday->video;
-                                            $index = strrpos($videoName, ".")+1;
-                                            $end = strlen($videoName)-1;
-                                            $type = substr($videoName,$index,$end);
                                             $id = $intraday->strategy_short_id;
-                                            $price = floor($intraday->updated_price);
                                         @endphp
-                                        @if($intraday->video!=null)
-                                            <video width="100%" height="auto" controls>
-                                                <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
-                                            </video>
-                                        @endif
                                         <h5 class="my-2">{{$intraday->name}}</h5>
                                         <h6 class="text-left">Description of the Strategy:</h6>
                                         <p class="text-left">{!! nl2br($intraday->description) !!}</p>
-                                        @if($intraday->updated_price)
-                                            <h4 class="mb-3">Price: &#8377;<s>{{$intraday->price}}</s><span class="red">&nbsp;{{$price}}</span></h4>
-                                        @else
-                                            <h4 class="mb-3">Price: &#8377;{{$intraday->price}}</h4>
-                                        @endif
-                                        @if(isset($strategyList[$id]))
-                                            <a href="{{route('delete-from-cart',$id)}}" role="button">
-                                                <img src="{{asset('images/delete-cart-icon.jpg')}}" width="50%" alt="Cart"/>
-                                            </a>
-                                        @else
-                                            <a href="{{route('add-to-cart',$id)}}" role="button">
-                                                <img src="{{asset('images/add-cart-icon.png')}}" width="50%" alt="Cart"/>
-                                            </a>
-                                        @endif
+                                        <h5>
+                                            To buy this strategy please click on the link below<br>
+                                            <a href="{{$intraday->link}}" target="_blank">{{$intraday->link}}</a>
+                                        </h5>
                                     </div>                      
                                 </div>
                             @endforeach
@@ -112,35 +83,15 @@
                                 <div class="col-md-6 col-12 mt-4">
                                     <div class="p-4 border text-center service-box">
                                         @php
-                                            $videoName = $btst->video;
-                                            $index = strrpos($videoName, ".")+1;
-                                            $end = strlen($videoName)-1;
-                                            $type = substr($videoName,$index,$end);
                                             $id = $btst->strategy_short_id;
-                                            $price = floor($btst->updated_price);
                                         @endphp
-                                        @if($btst->video!=null)
-                                            <video width="100%" height="auto" controls>
-                                                <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
-                                            </video>
-                                        @endif
                                         <h5 class="my-2">{{$btst->name}}</h5>
                                         <h6 class="text-left">Description of the Strategy:</h6>
                                         <p class="text-left">{!! nl2br($btst->description) !!}</p>
-                                        @if($btst->updated_price)
-                                            <h4 class="mb-3">Price: &#8377;<s>{{$btst->price}}</s><span class="red">&nbsp;{{$price}}</span></h4>
-                                        @else
-                                            <h4 class="mb-3">Price: &#8377;{{$btst->price}}</h4>
-                                        @endif
-                                        @if(isset($strategyList[$id]))
-                                            <a href="{{route('delete-from-cart',$id)}}" role="button">
-                                                <img src="{{asset('images/delete-cart-icon.jpg')}}" width="50%" alt="Cart"/>
-                                            </a>
-                                        @else
-                                            <a href="{{route('add-to-cart',$id)}}" role="button">
-                                                <img src="{{asset('images/add-cart-icon.png')}}" width="50%" alt="Cart"/>
-                                            </a>
-                                        @endif
+                                        <h5>
+                                            To buy this strategy please click on the link below<br>
+                                            <a href="{{$btst->link}}" target="_blank" target="_blank">{{$btst->link}}</a>
+                                        </h5>
                                     </div>                      
                                 </div>
                             @endforeach
@@ -158,35 +109,15 @@
                                 <div class="col-md-6 col-12 mt-4">
                                     <div class="p-4 border text-center service-box">
                                         @php
-                                            $videoName = $positional->video;
-                                            $index = strrpos($videoName, ".")+1;
-                                            $end = strlen($videoName)-1;
-                                            $type = substr($videoName,$index,$end);
                                             $id = $positional->strategy_short_id;
-                                            $price = floor($positional->updated_price);
                                         @endphp
-                                        @if($positional->video!=null)
-                                            <video width="100%" height="auto" controls>
-                                                <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
-                                            </video>
-                                        @endif
                                         <h5 class="my-2">{{$positional->name}}</h5>
                                         <h6 class="text-left">Description of the Strategy:</h6>
                                         <p class="text-left">{!! nl2br($positional->description) !!}</p>
-                                        @if($positional->updated_price)
-                                            <h4 class="mb-3">Price: &#8377;<s>{{$positional->price}}</s><span class="red">&nbsp;{{$price}}</span></h4>
-                                        @else
-                                            <h4 class="mb-3">Price: &#8377;{{$positional->price}}</h4>
-                                        @endif
-                                        @if(isset($strategyList[$id]))
-                                            <a href="{{route('delete-from-cart',$id)}}" role="button">
-                                                <img src="{{asset('images/delete-cart-icon.jpg')}}" width="50%" alt="Cart"/>
-                                            </a>
-                                        @else
-                                            <a href="{{route('add-to-cart',$id)}}" role="button">
-                                                <img src="{{asset('images/add-cart-icon.png')}}" width="50%" alt="Cart"/>
-                                            </a>
-                                        @endif
+                                        <h5>
+                                            To buy this strategy please click on the link below<br>
+                                            <a href="{{$positional->link}}" target="_blank">{{$positional->link}}</a>
+                                        </h5>
                                     </div>                      
                                 </div>
                             @endforeach
@@ -204,35 +135,15 @@
                                 <div class="col-md-6 col-12 mt-4">
                                     <div class="p-4 border text-center service-box">
                                         @php
-                                            $videoName = $investment->video;
-                                            $index = strrpos($videoName, ".")+1;
-                                            $end = strlen($videoName)-1;
-                                            $type = substr($videoName,$index,$end);
                                             $id = $investment->strategy_short_id;
-                                            $price = floor($investment->updated_price);
                                         @endphp
-                                        @if($investment->video!=null)
-                                            <video width="100%" height="auto" controls>
-                                                <source src="{{asset('strategy/brief/'.$videoName)}}" type="{{'video/'.$type}}">
-                                            </video>
-                                        @endif                                        
                                         <h5 class="my-2">{{$investment->name}}</h5>
                                         <h6 class="text-left">Description of the Strategy:</h6>
                                         <p class="text-left">{!! nl2br($investment->description) !!}</p>
-                                        @if($investment->updated_price)
-                                            <h4 class="mb-3">Price: &#8377;<s>{{$investment->price}}</s><span class="red">&nbsp;{{$price}}</span></h4>
-                                        @else
-                                            <h4 class="mb-3">Price: &#8377;{{$investment->price}}</h4>
-                                        @endif
-                                        @if(isset($strategyList[$id]))
-                                            <a href="{{route('delete-from-cart',$id)}}" role="button">
-                                                <img src="{{asset('images/delete-cart-icon.jpg')}}" width="50%" alt="Cart"/>
-                                            </a>
-                                        @else
-                                            <a href="{{route('add-to-cart',$id)}}" role="button">
-                                                <img src="{{asset('images/add-cart-icon.png')}}" width="50%" alt="Cart"/>
-                                            </a>
-                                        @endif
+                                        <h5>
+                                            To buy this strategy please click on the link below<br>
+                                            <a href="{{$investment->link}}" target="_blank">{{$investment->link}}</a>
+                                        </h5>
                                     </div>                      
                                 </div>
                             @endforeach

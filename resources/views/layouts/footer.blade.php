@@ -4,10 +4,7 @@
 		<div class="container text-center mt-3">
 			<div class="row">			
 				<div class="col-md-4 col-12 mt-3">
-					<h4>Services</h4>	
-					<p>
-						<a href="{{route('pricing')}}" class="footer-links<?php echo Route::currentRouteName()=='pricing'?' links-active':''?>">Pricing</a>
-					</p>
+					<h4>Services</h4>
 					<p>
 						<a href="{{route('strategy-list')}}" class="footer-links<?php echo Route::currentRouteName()=='strategy-list'?' links-active':''?>">Strategy List</a>
 					</p>
@@ -35,9 +32,6 @@
 						<div class="col-md-6 col-12">
 							<p>
 								<a href="{{route('disclaimer')}}" class="footer-links<?php echo Route::currentRouteName()=='disclaimer'?' links-active':''?>">Disclaimer</a>
-							</p>
-							<p>
-								<a href="{{route('refund-policy')}}" class="footer-links<?php echo Route::currentRouteName()=='refund-policy'?' links-active':''?>">Refund Policy</a>
 							</p>
 						</div>
 					</div>

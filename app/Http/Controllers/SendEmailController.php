@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use \DateTime;
 
 use Mail;
-use App\Mail\OTPMail;
+use App\Mail\OtpMail;
 use App\Mail\SuccessMail;
 use App\Mail\ChangePasswordMail;
 use App\Mail\OrderMail;
