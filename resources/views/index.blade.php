@@ -13,6 +13,14 @@
 	<!-- Slide Tags Start -->
 	<div id="carousel-tags" class="carousel slide" data-bs-ride="carousel">
 		<div class="carousel-inner">
+			@if(Session::has("email"))
+				<div class="carousel-item">
+					<div class="text-center">
+						<h1 class="tags-home text-center mt-3">Buy To Learn and Earn...​</h1>
+						<p><a class="create-btn" href="{{route('strategy-list')}}">Buy Strategies</a></p>
+					</div>
+				</div>
+			@endif
 			<div class="carousel-item active">
 				<div class="text-center">
 					<h1 class="tags-home text-center">Want to learn how to make consistent profits from markets​​</h1>
@@ -22,13 +30,15 @@
 				<div class="text-center">
 					<h1 class="tags-home text-center">Want to become an independent trader/investor​​</h1>
 				</div>
-			</div>
-			<div class="carousel-item">
-				<div class="text-center">
-					<h1 class="tags-home text-center mt-3">Register now and start your profitable journey today​</h1>
-					<p><a class="create-btn" href="{{route('register')}}">Create Account</a></p>
+			</div>			
+			@if(!Session::has("email"))
+				<div class="carousel-item">
+					<div class="text-center">
+						<h1 class="tags-home text-center mt-3">Register now and start your profitable journey today​</h1>
+						<p><a class="create-btn" href="{{route('register')}}">Create Account</a></p>
+					</div>
 				</div>
-			</div>
+            @endif			
 		</div>
 	</div>
 	<!-- Slide Tags End -->
@@ -42,6 +52,7 @@
 			<li><i class="fa fa-solid fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;We provide strategies to identify short term and long term investment opportunities in markets</li>
 			<li><i class="fa fa-solid fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;We provide strategies for buying as well as selling in index as well as stock options.</li>
 		</ul>
+		<p class="text-right"><a role="button" class="btn btn-success" href="{{route('strategy-list')}}">Buy Strategies</a></p>	
 	</div>
 	<!-- What We Do End -->
 
@@ -78,6 +89,7 @@
 				</div>
 			</div>
 		</div>
+		<p class="text-right mt-4"><a role="button" class="btn btn-success" href="{{route('strategy-list')}}">Buy Strategies</a></p>	
 	</div>
 	<!-- Services End -->
 
@@ -87,6 +99,7 @@
 		<p>
 			We started our journey in the market as small time retailers and have gathered enough experience and knowledge to start this wonderful venture with a purpose to help our fellow retailers earn with the strategies bringing consistent profit and help change their attitude towards markets and investments.
 		</p>
+		<p class="text-right"><a role="button" class="btn btn-success" href="{{route('strategy-list')}}">Buy Strategies</a></p>	
 	</div>
 	<!-- About Us End -->
 
@@ -119,6 +132,7 @@
 				</div>
 			</div>
 		</div>
+		<p class="text-right mt-4"><a role="button" class="btn btn-success" href="{{route('strategy-list')}}">Buy Strategies</a></p>	
 	</div>
 	<!-- Why ITPN End -->
 

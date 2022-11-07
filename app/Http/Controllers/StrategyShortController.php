@@ -12,6 +12,8 @@ use App\Models\StrategyBrief;
 use App\Models\Offers;
 use App\Models\OfferSubscribers;
 
+use Carbon\Carbon;
+
 class StrategyShortController extends Controller
 {
     public function addStrategy(){
@@ -34,6 +36,11 @@ class StrategyShortController extends Controller
         $strategy->name = request("name");
         $strategy->description = request("description");
         $strategy->type = request("type");
+        if($files=$request->file("photo")){
+            $fileName=$files->getClientOriginalName();  
+            $files->move("strategy/short",$fileName);
+            $strategy->photo = $fileName;
+        }
         $strategy->link = request("link");
         $strategy->created_by = $email;
         $strategy->updated_by = $email;    
@@ -44,7 +51,7 @@ class StrategyShortController extends Controller
     public function editStrategy($id){
         if((new AdminController)->checkAdminSession()){
             $strategy = StrategyShort::find($id);
-            return view("admin.strategy-short.edit-strategy");
+            return view("admin.strategy-short.edit-strategy",["strategy"=>$strategy]);
         }
         else{
             return redirect("/admin/login");
@@ -64,6 +71,11 @@ class StrategyShortController extends Controller
         $strategy->description = request("description");
         $strategy->type = request("type");
         $strategy->link = request("link");
+        if($files=$request->file("photo")){
+            $fileName=$files->getClientOriginalName();  
+            $files->move("strategy/short",$fileName);
+            $strategy->photo = $fileName;
+        }
         $strategy->updated_by = $email;
         $strategy->updated_at = Carbon::now();
         $strategy->update();

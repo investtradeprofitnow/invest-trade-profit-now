@@ -119,7 +119,7 @@ class CustomersController extends Controller
             Session::put("email",$customer["email"]);
             Session::put("role","Customer");
             Session::forget("customer");
-            return redirect("/");
+            return redirect("/strategy-list");
         }
     }
 
@@ -141,7 +141,7 @@ class CustomersController extends Controller
             else if (password_verify($password,$user->password)){
                 Session::put("email",$email);
                 Session::put("role",$user->role);
-                return redirect("/");
+                return redirect("/strategy-list");
             }
             else{
                 $error="Email id and Password doesn't match. Please try again";

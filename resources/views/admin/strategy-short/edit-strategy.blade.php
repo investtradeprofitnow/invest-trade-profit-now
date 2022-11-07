@@ -33,9 +33,13 @@
                 </select>
             </div>
             <div class="form-group mt-3">
+                <label for="photo" class="form-label">Display Photo:</label>
+                    <br/>Current Photo: {{$strategy->photo}}
+                <input type="file" class="form-control form-control-sm" name="photo" id="photo" accept="photo/*">
+            </div>
+            <div class="form-group mt-3">
                 <label for="link" class="form-label">Purchase Link:</label>
-                <br/>Purchase Link: {{$strategy->link}}
-                <input type="text" class="form-control" name="link" id="link">
+                <input type="text" class="form-control" name="link" id="link" value="{{$strategy->link}}">
             </div>
             <div>
                 <input type="hidden" name="id" value="{{$strategy->strategy_short_id}}"/>

@@ -33,7 +33,11 @@
                 </select>
             </div>
             <div class="form-group mt-3">
-                <label for="video" class="form-label">Purchase Link:</label>
+                <label for="photo" class="form-label">Display Photo:</label>
+                <input type="file" class="form-control form-control-sm" name="photo" id="photo" accept="photo/*">
+            </div>
+            <div class="form-group mt-3">
+                <label for="photo" class="form-label">Purchase Link:</label>
                 <input type="text" class="form-control" name="link" id="link" required>
             </div>
             <div class="form-group mt-3">

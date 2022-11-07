@@ -27,32 +27,8 @@ class CartController extends Controller
                 Session::put("id",$customer->customer_id);
             }
             $custId = Session::get("id");
-            $data = StrategyShort::all();
-            $intradayList = array();
-            $btstList = array();
-            $positionalList = array();
-            $investmentList = array();
-            $intraId=0;
-            $btstId=0;
-            $posId=0;
-            $investId=0;
-            $index=0;
-            for($i=0;$i<count($data);$i++){
-                $type = $data[$i]->type;                
-                if($type=="Intraday"){
-                    $intradayList[$intraId++]=$data[$i];
-                }
-                else if($type=="BTST"){
-                    $btstList[$btstId++]=$data[$i];
-                }
-                else if($type=="Positional"){
-                    $positionalList[$posId++]=$data[$i];
-                }
-                else if($type=="Investment"){
-                    $investmentList[$investId++]=$data[$i];
-                }
-            }
-            return view("services.strategy-list",["intradayList"=>$intradayList, "btstList"=>$btstList, "positionalList"=> $positionalList, "investmentList"=>$investmentList]);
+            $strategies = StrategyShort::all()->sortByDesc("updated_at");
+            return view("services.strategy-list",["strategies"=>$strategies]);
         }
         else{
             return redirect("/login");

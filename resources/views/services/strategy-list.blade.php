@@ -40,119 +40,52 @@
 @stop
 @section("content")
     <div class="container my-5">
-        <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="nav-link active" id="intraday-tab" data-bs-toggle="tab" data-bs-target="#intraday" type="button" role="tab" aria-controls="intraday" aria-selected="true">Intraday</button>
-                <button class="nav-link" id="btst-tab" data-bs-toggle="tab" data-bs-target="#btst" type="button" role="tab" aria-controls="btst" aria-selected="false">BTST</button>
-                <button class="nav-link" id="positional-tab" data-bs-toggle="tab" data-bs-target="#positional" type="button" role="tab" aria-controls="positional" aria-selected="false">Positional</button>
-                <button class="nav-link" id="investment-tab" data-bs-toggle="tab" data-bs-target="#investment" type="button" role="tab" aria-controls="investment" aria-selected="false">Investment</button>
-            </div>
-        </nav>
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="intraday" role="tabpanel" aria-labelledby="intraday-tab">
-                @if(count($intradayList)>0)
-                    <div class="container">
-                        <div class="row">
-                            @foreach($intradayList as $intraday)
-                                <div class="col-md-6 col-12 mt-4">
-                                    <div class="p-4 border text-center service-box">
-                                        @php
-                                            $id = $intraday->strategy_short_id;
-                                        @endphp
-                                        <h5 class="my-2">{{$intraday->name}}</h5>
-                                        <h6 class="text-left">Description of the Strategy:</h6>
-                                        <p class="text-left">{!! nl2br($intraday->description) !!}</p>
-                                        <h5>
-                                            To buy this strategy please click on the link below<br>
-                                            <a href="{{$intraday->link}}" target="_blank">{{$intraday->link}}</a>
-                                        </h5>
-                                    </div>                      
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @else
-                    <h5 class="pt-4">There are no Strategies in this category</h5>
-                @endif
-            </div>
-            <div class="tab-pane fade" id="btst" role="tabpanel" aria-labelledby="btst-tab">
-                @if(count($btstList)>0)
-                    <div class="container">
-                        <div class="row">
-                            @foreach($btstList as $btst)
-                                <div class="col-md-6 col-12 mt-4">
-                                    <div class="p-4 border text-center service-box">
-                                        @php
-                                            $id = $btst->strategy_short_id;
-                                        @endphp
-                                        <h5 class="my-2">{{$btst->name}}</h5>
-                                        <h6 class="text-left">Description of the Strategy:</h6>
-                                        <p class="text-left">{!! nl2br($btst->description) !!}</p>
-                                        <h5>
-                                            To buy this strategy please click on the link below<br>
-                                            <a href="{{$btst->link}}" target="_blank" target="_blank">{{$btst->link}}</a>
-                                        </h5>
-                                    </div>                      
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @else
-                    <h5 class="pt-4">There are no Strategies in this category</h5>
-                @endif
-            </div>
-            <div class="tab-pane fade" id="positional" role="tabpanel" aria-labelledby="positional-tab">
-                @if(count($positionalList)>0)
-                    <div class="container">
-                        <div class="row">
-                            @foreach($positionalList as $positional)
-                                <div class="col-md-6 col-12 mt-4">
-                                    <div class="p-4 border text-center service-box">
-                                        @php
-                                            $id = $positional->strategy_short_id;
-                                        @endphp
-                                        <h5 class="my-2">{{$positional->name}}</h5>
-                                        <h6 class="text-left">Description of the Strategy:</h6>
-                                        <p class="text-left">{!! nl2br($positional->description) !!}</p>
-                                        <h5>
-                                            To buy this strategy please click on the link below<br>
-                                            <a href="{{$positional->link}}" target="_blank">{{$positional->link}}</a>
-                                        </h5>
-                                    </div>                      
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @else
-                    <h5 class="pt-4">There are no Strategies in this category</h5>
-                @endif
-            </div>
-            <div class="tab-pane fade" id="investment" role="tabpanel" aria-labelledby="investment-tab">
-                @if(count($investmentList)>0)
-                    <div class="container">
-                        <div class="row">
-                            @foreach($investmentList as $investment)
-                                <div class="col-md-6 col-12 mt-4">
-                                    <div class="p-4 border text-center service-box">
-                                        @php
-                                            $id = $investment->strategy_short_id;
-                                        @endphp
-                                        <h5 class="my-2">{{$investment->name}}</h5>
-                                        <h6 class="text-left">Description of the Strategy:</h6>
-                                        <p class="text-left">{!! nl2br($investment->description) !!}</p>
-                                        <h5>
-                                            To buy this strategy please click on the link below<br>
-                                            <a href="{{$investment->link}}" target="_blank">{{$investment->link}}</a>
-                                        </h5>
-                                    </div>                      
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @else
-                    <h5 class="pt-4">There are no Strategies in this category</h5>
-                @endif
-            </div>
+        <div class="text-right">
+            <b>Type of Strategy:</b>&nbsp;&nbsp;
+            <select class="" id="type">
+                <option value="all" selected>All</option>
+                <option value="intraday">Intraday</option>
+                <option value="btst">BTST</option>
+                <option value="positional">Positional</option>
+                <option value="investment">Investment</option>
+            </select>
+        </div>
+        <div class="row">
+            @foreach($strategies as $strategy)
+                @php
+                    $id = $strategy->strategy_short_id;
+                    $photo = $strategy->photo;
+                    $type = strtolower($strategy->type);
+                @endphp
+                <div class="col-md-6 col-12 mt-4 all {{$type}}">
+                    <div class="p-4 border text-center service-box">
+                        <h4 class="my-2">{{$strategy->name}}</h4><br/>
+                        <p>
+                            <img src="{{asset('strategy/short/'.$photo)}}" width="100%">
+                        </p>
+                        <h6 class="text-left">Description of the Strategy:</h6>
+                        <p class="text-left">{!! nl2br($strategy->description) !!}</p>
+                        <h5>
+                            To buy this strategy please click on the link below<br>
+                            <a href="{{$strategy->link}}" target="_blank">{{$strategy->link}}</a>
+                        </h5>
+                    </div>                      
+                </div>
+            @endforeach
         </div>
     </div>
+@stop
+@section('js')
+    <script>
+        $("#type").change(function(){
+            $type=$('#type :selected').val();
+            if($type=="all"){
+                $(".all").show();
+            }
+            else{
+                $(".all").hide();
+                $("."+$type).show();
+            }
+        });
+    </script>
 @stop
