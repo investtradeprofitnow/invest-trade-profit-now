@@ -38,7 +38,7 @@
             });
         </script>
     @endif
-    <div class="container">
+    <div class="container box">
         <h1 class="mb-3 text-center"><strong><i>Profile</i></strong></h1>
         @if(session("error"))
             <div class="error mb-3">{{session("error")}}</div>

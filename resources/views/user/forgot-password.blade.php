@@ -4,7 +4,7 @@
     <link href="{{asset('css/register.css')}}" rel="stylesheet">
 @stop
 @section('content')
-    <div class="container">
+    <div class="container box">
         <h1 class="mb-3 text-center"><strong><i>Forgot Password</i></strong></h1>
         @if(session("success"))
             <div class="success mb-3">{{session("success")}}</div>

@@ -4,7 +4,7 @@
     <link href="{{asset('css/register.css')}}" rel="stylesheet">
 @stop
 @section("content")
-    <div class="container">
+    <div class="container box">
         <h1 class="mb-3 text-center"><strong><i>My Subscription</i></strong></h1>
         @if(session()->has("amount"))
             <div class="success p-3 mb-4">Your refund for amount &#8377; {{session()->get("amount")}} has been 

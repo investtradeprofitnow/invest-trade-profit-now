@@ -20,7 +20,7 @@
                 </a>
             </div>
         </nav>
-        <div class="container">
+        <div class="container box">
             <h1 class="mb-3 text-center"><strong><i>Login</i></strong></h1>
             <div class="form p-4">
                 @if(session()->has("error"))
