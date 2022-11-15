@@ -186,14 +186,14 @@
                     </li>
                 </ul>
             </p>
-            <p>
+            <!-- <p>
                 The services have been created by <a href="{{config('app.url')}}">{{config('app.url')}}</a> 
                 exclusively for Mojo Professional Subscribers. You may not copy, reproduce, distribute, 
                 publish, display, perform, modify, create derivative works, transmit, or in any way 
                 exploit any such content. Unauthorized usage is an infringement of our intellectual 
                 property rights and a violation of law, and it may also result in cancellation of your 
                 subscription without any refund and may lead to legal action.
-            </p>
+            </p> -->
         </div>
         <div class="mt-3">
             <h5 class="sect-title">YOUR CONTROLS AND CHOICES:</h5>
@@ -526,10 +526,6 @@
                         </p>
                     </li>
                 </ol>
-            </p>
-            <p>
-                Refund of subscription is guided by our Refund Policy. Click here to read the 
-                <a target="_blank" href="{{route('refund-policy')}}">Refund Policy</a>
             </p>
         </div>
     </div>

@@ -19,26 +19,69 @@
             color: black;
         }
 
-        .service-box{
-            color: black;
+        .border{
+            box-shadow: 0 0 15px #34BBE3;
+            border-top-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            border: 5px solid #fff !important;
         }
 
-        h4, h5, h6{
-            font-weight: bold;
+        .bg-light{
+            border-top-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            background: linear-gradient(#AEE4F4, #E7F1C3);
+        }
+
+        .row{
+            color: #0A252D;
         }
 
         .red{
             color: red;
         }
 
+        .buy-now{
+            color: black;
+            background-color: transparent;
+            border-color: black;
+            border: 2px solid black;
+            border-radius: 30px;
+            padding: 10px 40px;
+            font-weight: bold;
+        }
+
+        .buy-now:hover{
+            color: white;
+            background-color: #C4DC6A;
+            border-color: #9DB055;
+            border-radius: 30px;
+            padding: 10px 40px;
+            font-weight: bold;
+        }
+
+        h3{
+            font-weight: bold;
+        }
+
+        h4, h5, h6{
+            font-weight: bold;
+        }
+
+        p, ul{
+            margin-bottom: 0 !important;
+        }
+
         @media screen and (max-width: 767px){
             img{
-                width: 60%;
+                width: 80%;
             }
         }
     </style>
 @stop
 @section("content")
+    <div class="heading text-center py-4">
+        <h1><i>STRATEGY LIST</i></h1>
+    </div>
     <div class="container my-5">
         <div class="text-right">
             <b>Type of Strategy:</b>&nbsp;&nbsp;
@@ -58,17 +101,14 @@
                     $type = strtolower($strategy->type);
                 @endphp
                 <div class="col-md-6 col-12 mt-4 all {{$type}}">
-                    <div class="p-4 border text-center service-box">
-                        <h4 class="my-2">{{$strategy->name}}</h4><br/>
+                    <div class="p-4 border text-center service-box bg-light">
+                        <h3 class="my-2"><i>{{$strategy->name}}</i></h3><br/>
                         <p>
-                            <img src="{{asset('strategy/short/'.$photo)}}" width="100%">
+                            <img src="{{asset('strategy/short/'.$photo)}}" width="50%">
                         </p>
-                        <h6 class="text-left">Description of the Strategy:</h6>
-                        <p class="text-left">{!! nl2br($strategy->description) !!}</p>
-                        <h5>
-                            To buy this strategy please click on the link below<br>
-                            <a href="{{$strategy->link}}" target="_blank">{{$strategy->link}}</a>
-                        </h5>
+                        <br/><h6 class="text-left">Description of the Strategy:</h6>
+                        <p class="text-left">{!! nl2br($strategy->description) !!}</p>                        
+                        <a href="{{$strategy->link}}" target="_blank" class="btn buy-now" role="button">Buy Now</a>
                     </div>                      
                 </div>
             @endforeach
@@ -85,6 +125,13 @@
             else{
                 $(".all").hide();
                 $("."+$type).show();
+            }
+        });
+
+        $(".buy-now").click(function(e){
+            $btn = confirm("This will take you to a third-party site to view the content. Do you wish to continue?");
+            if(!$btn){
+                e.preventDefault();
             }
         });
     </script>
