@@ -103,12 +103,14 @@
                 <div class="col-md-6 col-12 mt-4 all {{$type}}">
                     <div class="p-4 border text-center service-box bg-light">
                         <h3 class="my-2"><i>{{$strategy->name}}</i></h3><br/>
-                        <p>
-                            <img src="{{asset('strategy/short/'.$photo)}}" width="50%">
-                        </p>
+                        @if($photo!=null)
+                            <p>
+                                <img src="{{asset('strategy/short/'.$photo)}}" width="50%">
+                            </p>
+                        @endif
                         <br/><h6 class="text-left">Description of the Strategy:</h6>
                         <p class="text-left">{!! nl2br($strategy->description) !!}</p>                        
-                        <a href="{{$strategy->link}}" target="_blank" class="btn buy-now" role="button">Buy Now</a>
+                        <a href="{{$strategy->link}}" target="_blank" class="btn buy-now mt-3" role="button">Buy Now</a>
                     </div>                      
                 </div>
             @endforeach
