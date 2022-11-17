@@ -24,7 +24,7 @@
             <h1 class="mb-3 text-center"><strong><i>Login</i></strong></h1>
             <div class="form p-4">
                 @if(session()->has("error"))
-                    <div class="error mb-3">{!!session()->get("error")!!}</div>
+                    <div class="error mb-3 p-3">{!!session()->get("error")!!}</div>
                 @endif
                 <form id="login-form" method="post" action="{{route('check-admin-user')}}">
                     {{ csrf_field() }}

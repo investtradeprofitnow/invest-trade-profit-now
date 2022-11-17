@@ -41,7 +41,7 @@
     <div class="container box">
         <h1 class="mb-3 text-center"><strong><i>Profile</i></strong></h1>
         @if(session("error"))
-            <div class="error mb-3">{{session("error")}}</div>
+            <div class="error mb-3 p-3">{{session("error")}}</div>
         @endif
         <div class="form p-4 mb-5">
             <div class="mb-4 text-center">

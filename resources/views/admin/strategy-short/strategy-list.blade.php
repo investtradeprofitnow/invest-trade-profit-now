@@ -4,7 +4,7 @@
 	<div class="p-2 active-cont mt-5">
 		<h1 class="mb-3 text-center section-title">Strategy List (Short)</h1>
 		@if(session()->has("error"))
-			<div class="error mb-3">{!!session()->get("error")!!}</div>
+			<div class="error mb-3 p-3">{!!session()->get("error")!!}</div>
 		@endif
 		<table class="table mx-auto text-center">
 			<thead>
