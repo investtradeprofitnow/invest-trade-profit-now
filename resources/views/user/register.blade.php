@@ -67,9 +67,9 @@
                         </div>
                     @endif
                     @if(session()->get("error"))
-                        <div class="error mb-3">{!!session()->get("error")!!}</div>
+                        <div class="error mb-3 p-3">{!!session()->get("error")!!}</div>
                     @elseif(session("successResend"))
-                        <div class="success mb-3">{{session("successResend")}}</div>
+                        <div class="success mb-3 p-3">{{session("successResend")}}</div>
                     @endif
 					<form id="otp-form" method="post" action="{{route('verify-otp')}}">
             			{{ csrf_field() }}

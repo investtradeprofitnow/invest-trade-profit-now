@@ -7,7 +7,7 @@
     <div class="container box">        
         <h1 class="mb-3 text-center"><strong><i>Change Password</i></strong></h1>
         @if(session("success"))
-            <div class="success mb-3">{{session("success")}}</div>
+            <div class="success mb-3 p-3">{{session("success")}}</div>
         @elseif(session("error"))
             <div class="error mb-3">{{session("error")}}</div>
         @endif

@@ -43,7 +43,7 @@
             <div class="modal-body">
                 <div class="form p-4">
                     @if(session("otpError"))
-                        <div class="error mb-3">{{session("otpError")}}</div>
+                        <div class="error mb-3 p-3">{{session("otpError")}}</div>
                     @endif
                     <form id="email-form" method="post" action="{{route('verify-email')}}">
                         {{ csrf_field() }}
@@ -81,9 +81,9 @@
                             </ul>
                         </div>
                     @elseif(session("otpError"))
-                        <div class="error mb-3">{{session("otpError")}}</div>
+                        <div class="error mb-3 p-3">{{session("otpError")}}</div>
                     @elseif(session("successResend"))
-                        <div class="success mb-3">{{session("successResend")}}</div>
+                        <div class="success mb-3 p-3">{{session("successResend")}}</div>
                     @endif
 					<form id="otp-email-form" method="post" action="{{route('verify-email-otp')}}">
             			{{ csrf_field() }}
@@ -114,7 +114,7 @@
             </div>
             <div class="modal-body">
                 <div class="form p-4">
-                    <div class="error mb-3">{{session("otpError")}}</div>
+                    <div class="error mb-3 p-3">{{session("otpError")}}</div>
 					<form id="change-photo-form" method="post" action="{{route('change-photo')}}" enctype="multipart/form-data">
             			{{ csrf_field() }}
 						<div class="form-group mt-3">
