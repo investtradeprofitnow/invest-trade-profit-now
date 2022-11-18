@@ -34,6 +34,7 @@ Route::get("/privacy-policy", [PagesController::class,"privacy"])->name("privacy
 Route::get("/disclaimer", [PagesController::class,"disclaimer"])->name("disclaimer");
 Route::get("/login", [PagesController::class,"login"])->name("login");
 Route::get("/register", [PagesController::class,"register"])->name("register");
+Route::get("/testimonials", [PagesController::class,"testimonials"])->name("testimonials");
 
 Route::post("/display-otp", [CustomersController::class,"displayOTP"])->name("display-otp");
 Route::post("/verify-otp", [CustomersController::class,"verifyOtp"])->name("verify-otp");
@@ -45,6 +46,8 @@ Route::get("/reset-password/{token}", [CustomersController::class,"resetPassword
 Route::get("/display-change-password", [CustomersController::class,"displayChangePassword"])->name("display-change-password");
 Route::post("/change-password", [CustomersController::class,"changePassword"])->name("change-password");
 Route::get("/profile", [CustomersController::class,"profile"])->name("profile");
+Route::get("/feedback", [CustomersController::class,"feedback"])->name("feedback");
+Route::post("/save-feedback", [CustomersController::class,"saveFeedback"])->name("save-feedback");
 Route::post("/update-name", [CustomersController::class,"updateName"])->name("update-name");
 Route::post("/verify-email", [CustomersController::class,"verifyEmail"])->name("verify-email");
 Route::post("/verify-email-otp", [CustomersController::class,"verifyEmailOtp"])->name("verify-email-otp");

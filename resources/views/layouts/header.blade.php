@@ -35,6 +35,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" type="button" href="{{route('profile')}}">My Profile</a></li>
+                            <li><a class="dropdown-item" type="button" href="{{route('feedback')}}">Feedback</a></li>
                             <li><a class="dropdown-item" type="button" href="{{route('display-change-password')}}">Change Password</a></li>
                             <li><a class="dropdown-item" type="button" href="{{route('logout')}}">Logout</a></li>
                         </ul>

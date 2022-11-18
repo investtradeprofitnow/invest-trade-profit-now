@@ -165,7 +165,6 @@ footer{
 
 .customer-reviews{
     color: #34BBE3;
-    font-weight: bold;
 }
 
 .customer-reviews a{
@@ -173,9 +172,20 @@ footer{
     color: #34BBE3;
 }
 
+.star {
+    font-size: 3vw;
+    color: gold;
+}
+
 .review-box{
     background-color: #F5FCFE;
     border: 1px solid #34BBE3;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.review-box img{
+    border-radius: 10px;
 }
 
 .hidden{
@@ -226,7 +236,7 @@ footer{
     font-size: 30px;
   }
 
-  .btn-outline, .btn-outline:hover{
+.btn-outline, .btn-outline:hover{
     border: 2px solid #C4DC6A;
     padding: 5px 20px; 
     border-radius: 20px;

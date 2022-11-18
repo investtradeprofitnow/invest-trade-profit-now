@@ -25,6 +25,7 @@ use App\Models\StrategyBrief;
 use App\Models\UserStrategy;
 use App\Models\ResetPassword;
 use App\Models\Refunds;
+use App\Models\Feedbacks;
 
 use App\Http\Controllers;
 
@@ -81,7 +82,7 @@ class CustomersController extends Controller
         ]);
         $customer = Session::get("customer");
         $email = $customer["email"];
-        $otpEmail = request ("email-otp");
+        $otpEmail = request("email-otp");
         $rowEmail = Otp::where("type", $email)->where("otp", $otpEmail)->first();
         $error="";
 
@@ -386,6 +387,48 @@ class CustomersController extends Controller
     public function logout(){
         Session::flush();
         return redirect("/");
+    }
+
+    public function feedback(){
+        if((new PagesController)->checkSession()){
+            return view("user.feedback");
+        }
+        else{
+            return redirect("/login");
+        }
+    }
+
+    public function saveFeedback(Request $request){
+        $this->validate($request, [
+            "feedback" => "required"
+        ]);
+        $feedback = new Feedbacks();
+        $email = Session::get("email");
+        $userId = Customers::where("email",$email)->first()->value("customer_id");
+        $feedback = Feedbacks::where("user_id",$userId)->first();
+        $exists = true;
+        if($feedback==null){
+            $feedback = new Feedbacks();
+            $exists = false;
+        }
+        $feedback->user_id = $userId;
+        $feedback->rating = $request->input("star-rating")==null ? 5 : (int)$request->input("star-rating");
+        $feedback->feedback = $request->input("feedback");
+        if($request->input("anonymous")=="on"){
+            $feedback->anonymous = "yes";
+        }
+        else{
+            $feedback->anonymous = "no";
+        }
+        if($exists){
+            $feedback->update();
+        }
+        else{
+            $feedback->save();
+        }
+        $feedbacks = Feedbacks::join("customers","feedbacks.user_id","=","customers.customer_id")->orderBy("feedbacks.rating","desc")->orderBy("feedbacks.updated_at","desc")->get(["customers.name","customers.photo","feedbacks.updated_at","feedbacks.rating","feedbacks.feedback","feedbacks.anonymous","feedbacks.updated_at"]);
+        Session::put("feedbacks",$feedbacks);
+        return redirect()->back()->with("success","Thank you for providing your feedback.");
     }
 
     public function updateRole($id){

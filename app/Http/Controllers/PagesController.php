@@ -12,10 +12,15 @@ use App\Mail\QueryMail;
 
 use App\Models\StrategyShort;
 use App\Models\Customers;
+use App\Models\Feedbacks;
 
 class PagesController extends Controller
 {
     public function index(){
+        if(!Session::has("feedbacks")){
+            $feedbacks = Feedbacks::join("customers","feedbacks.user_id","=","customers.customer_id")->orderBy("feedbacks.rating","desc")->orderBy("feedbacks.updated_at","desc")->get(["customers.name","customers.photo","feedbacks.updated_at","feedbacks.rating","feedbacks.feedback","feedbacks.anonymous","feedbacks.updated_at"]);
+            Session::put("feedbacks",$feedbacks);
+        }
         return view("index");
     }
 
@@ -63,6 +68,14 @@ class PagesController extends Controller
 
     public function register(){
         return view("user.register");
+    }
+
+    public function testimonials(){
+        if(!Session::has("feedbacks")){
+            $feedbacks = Feedbacks::join("customers","feedbacks.user_id","=","customers.customer_id")->orderBy("feedbacks.rating","desc")->orderBy("feedbacks.updated_at","desc")->get(["customers.name","customers.photo","feedbacks.updated_at","feedbacks.rating","feedbacks.feedback","feedbacks.anonymous","feedbacks.updated_at"]);
+            Session::put("feedbacks",$feedbacks);
+        }
+        return view("company.testimonials");
     }
 
     public function checkSession(){

@@ -136,6 +136,64 @@
 	</div>
 	<!-- Why ITPN End -->
 
+	<!-- Customer Feedbacks Start -->
+	@php
+		$feedbacks = Session::get("feedbacks");
+	@endphp
+	@if(count($feedbacks)>0)
+		<div class="customer-reviews container pb-5">
+			<div class="row">
+				<div class="col-12">
+					<h1 class="mb-3 text-center section-title">From Our Customers...</h1>
+				</div>
+				@if(count($feedbacks)>3)
+					<div class="col-12">
+						<a href="{{route('testimonials')}}"><p class="text-end"><b>Read More>></b></p></a>
+					</div>
+				@endif
+			</div>
+			<div class="row">
+				
+				@foreach($feedbacks as $feedback)
+					@php
+						$rating = $feedback->rating;
+						$anonymous = $feedback->anonymous;
+						$name = $feedback->name;
+						if($anonymous=="yes"){
+							$image = "A.png";
+							$name = "Anonymous";
+						}
+						else if(is_null($feedback->photo) || empty($feedback->photo)){
+							$image = strtoupper($feedback->name[0]).".png";
+						}
+						else{
+							$image = $feedback->photo;
+						}
+					@endphp
+					<div class="col-md-4 col-sm-6 col-12 mt-4">
+						<div class="p-3 review-box">
+							<div class="row">
+								<div class="col-3">
+									<img src="{{asset('images/customer-images/'.$image)}}" width="70"class="pb-2" alt="Customer"/>
+								</div>
+								<div class="col-9">
+									<h1 class="star text-right">
+										@for($i=1;$i<=$rating;$i++)
+											&#9733;
+										@endfor
+									</h1>
+								</div>
+							</div>
+							<p class="text-center"><b>{{$name}}</b></p>
+							<p class="text-left">"{{$feedback->feedback}}"</p>
+						</div>
+					</div>
+				@endforeach
+			</div>
+		</div>
+	@endif
+	<!-- Customer Feedbacks End -->
+
 	<!-- Disclaimer Start -->
 	<div class="container pb-5">
 		<div class="row">
