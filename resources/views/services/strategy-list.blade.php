@@ -100,7 +100,7 @@
                     $photo = $strategy->photo;
                     $type = strtolower($strategy->type);
                 @endphp
-                <div class="col-md-6 col-12 mt-4 all {{$type}}">
+                <div class="col-md-6 col-12 mt-4 all {{$type}} mt-5">
                     <div class="p-4 border text-center service-box bg-light">
                         <h3 class="my-2"><i>{{$strategy->name}}</i></h3><br/>
                         @if($photo!=null)
@@ -134,6 +134,10 @@
             $btn = confirm("This will take you to a third-party site to view the content. Do you wish to continue?");
             if(!$btn){
                 e.preventDefault();
+            }
+            else{
+                window.open($(this).attr("href"),"_blank"); 
+                window.location = "/feedback";
             }
         });
     </script>

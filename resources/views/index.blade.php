@@ -153,7 +153,6 @@
 				@endif
 			</div>
 			<div class="row">
-				
 				@foreach($feedbacks as $feedback)
 					@php
 						$rating = $feedback->rating;

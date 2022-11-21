@@ -391,7 +391,10 @@ class CustomersController extends Controller
 
     public function feedback(){
         if((new PagesController)->checkSession()){
-            return view("user.feedback");
+            $email = Session::get("email");
+            $userId = Customers::where("email","$email")->first()->value("customer_id");
+            $feedback = Feedbacks::where("user_id",$userId)->first();
+            return view("user.feedback",["feedback"=>$feedback]);
         }
         else{
             return redirect("/login");
@@ -426,7 +429,8 @@ class CustomersController extends Controller
         else{
             $feedback->save();
         }
-        $feedbacks = Feedbacks::join("customers","feedbacks.user_id","=","customers.customer_id")->orderBy("feedbacks.rating","desc")->orderBy("feedbacks.updated_at","desc")->get(["customers.name","customers.photo","feedbacks.updated_at","feedbacks.rating","feedbacks.feedback","feedbacks.anonymous","feedbacks.updated_at"]);
+        $feedbacks = Feedbacks::join("customers","feedbacks.user_id","=","customers.customer_id")->
+                        whereIn("feedbacks.rating",array(4,5))->orderBy("feedbacks.rating","desc")->orderBy("feedbacks.updated_at","desc")->get(["customers.name","customers.photo","feedbacks.updated_at","feedbacks.rating","feedbacks.feedback","feedbacks.anonymous","feedbacks.updated_at"]);
         Session::put("feedbacks",$feedbacks);
         return redirect()->back()->with("success","Thank you for providing your feedback.");
     }
