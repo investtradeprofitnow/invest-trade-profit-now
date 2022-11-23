@@ -8,12 +8,12 @@
 			display: none;
 		}
 		.star {
-			-webkit-text-stroke: 2px black;
+			-webkit-text-stroke: 1px black;
 		}
 
 		.star-input:checked + .star ~ .star {
 			color: white;
-			-webkit-text-stroke: 2px black;
+			-webkit-text-stroke: 1px black;
 		}
 	</style>
 @stop
@@ -49,8 +49,8 @@
 		
         <input type="hidden" name="rating" id="rating" value="{{$rating}}"/>
         <h5 class="pt-4 pb-2"><b>Feedback:</b></h5>
-        <textarea id="feedback" name="feedback" rows="5" cols="60" required>{{$content}}</textarea>
-		<p class="text-right"><span id="count">{{$chars}}</span>/5000</p>
+        <textarea id="feedback" name="feedback" rows="5" cols="40" required>{{$content}}</textarea>
+		<p class="text-left"><span id="count">{{$chars}}</span>/5000</p>
 		<div class="form-check mt-3">
 			@if($anonymous=="yes")
             	<input class="form-check-input" type="checkbox" name="anonymous" id="anonymous" checked>

@@ -392,7 +392,7 @@ class CustomersController extends Controller
     public function feedback(){
         if((new PagesController)->checkSession()){
             $email = Session::get("email");
-            $userId = Customers::where("email","$email")->first()->value("customer_id");
+            $userId = Customers::where("email",$email)->first()->customer_id;
             $feedback = Feedbacks::where("user_id",$userId)->first();
             return view("user.feedback",["feedback"=>$feedback]);
         }
@@ -407,7 +407,7 @@ class CustomersController extends Controller
         ]);
         $feedback = new Feedbacks();
         $email = Session::get("email");
-        $userId = Customers::where("email",$email)->first()->value("customer_id");
+        $userId = Customers::where("email",$email)->first()->customer_id;
         $feedback = Feedbacks::where("user_id",$userId)->first();
         $exists = true;
         if($feedback==null){

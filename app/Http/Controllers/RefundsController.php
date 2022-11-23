@@ -17,7 +17,7 @@ class RefundsController extends Controller
         $refund = Refunds::find($id);
         $email = $refund->email;
         $refundAmount = $refund->amount;
-        $name = Customers::where("email",$email)->first()->value("name");
+        $name = Customers::where("email",$email)->first()->name;
         $refund->status=$status;
         $refund->updated_at=Carbon::now();
         $refund->update();
