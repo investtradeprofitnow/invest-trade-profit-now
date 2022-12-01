@@ -34,13 +34,14 @@
 								<a href="{{route('disclaimer')}}" class="footer-links<?php echo Route::currentRouteName()=='disclaimer'?' links-active':''?>">Disclaimer</a>
 							</p>
 						</div>
-					</div>
-					
-					
+					</div>				
 				</div>
 			</div>
 		</div>
 	</section>
+	<div class="text-center">
+		<a href="https://www.youtube.com/channel/UCdxlCsrcCD0aJxaHlMuM3cg" target="_blank" class="btn-social btn-youtube"><i class="fa fa-youtube"></i></a>
+	</div>
 	<div class="text-center p-2">
 		Copyright © <?php echo date("Y"); ?>. All Rights Reserved
 	</div>
