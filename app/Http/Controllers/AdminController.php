@@ -51,7 +51,7 @@ class AdminController extends Controller
                 $error="User does not exists. Please register first.";
             }
             else if (password_verify($password,$user->password)){
-                if($user->role="Admin"){
+                if($user->role=="Admin"){
                     Session::put("email",$email);
                     Session::put("role","Admin");
                     return redirect("/admin/home");
