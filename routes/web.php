@@ -13,6 +13,7 @@ use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\RefundsController;
 use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\SMSController;
+use App\Http\Controllers\ChristmasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,3 +76,11 @@ Route::get("/admin/delete-strategy-short/{id}", [StrategyShortController::class,
 
 Route::get("/send-email", [SendEmailController::class, "index"]);
 Route::get("/sms", [SMSController::class, "sendSMS"]);
+
+Route::get("/crossword", [ChristmasController::class,"crossword"])->name("crossword");
+Route::get("/riddles", [ChristmasController::class,"riddles"])->name("riddles");
+Route::post("/send-riddles-mail", [ChristmasController::class,"sendRiddlesMail"])->name("send-riddles-mail");
+Route::get("/jumble-words", [ChristmasController::class,"jumbleWords"])->name("jumble-words");
+Route::post("/send-jumble-words-mail", [ChristmasController::class,"sendJumbleWordsMail"])->name("send-jumble-words-mail");
+Route::get("/quiz", [ChristmasController::class,"quiz"])->name("quiz");
+Route::post("/send-quiz-mail", [ChristmasController::class,"sendQuizMail"])->name("send-quiz-mail");
