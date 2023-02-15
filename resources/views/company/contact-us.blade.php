@@ -12,7 +12,7 @@
 
         .mail-link{
             padding-left: 60px;
-            color: #34BBE3;
+            color: black;
             text-decoration: none;
             font-weight: bolder;
         }

@@ -1,5 +1,86 @@
 @extends('layouts.app')
 @section('pageTitle','Home')
+@section('css')
+	<style type="text/css">	   
+		.magic-box-cover, .magic-box-content{
+			background-color: #E7F1C3;
+			color: #34BBE3;
+		}
+
+		.horizontal-flip .magic-box{
+			color: #fff;
+			-webkit-perspective: 1000;
+			perspective: 1000;
+			overflow: hidden;
+			margin-bottom: 30px;
+			-webkit-transition: -webkit-transform 1s;
+			transition: -webkit-transform 1s;
+			transition: transform 1s;
+			transition: transform 1s, -webkit-transform 1s;
+		}
+
+		.horizontal-flip .magic-box, .horizontal-flip .magic-box .magic-box-content, .horizontal-flip .magic-box .magic-box-cover{ height: 297px; }
+		.horizontal-flip .magic-box-content, .horizontal-flip .magic-box-cover{
+			width:100%;
+			padding:10px;
+		}
+
+		.horizontal-flip .magic-box.active>.flipper, .horizontal-flip .magic-box.active>.flipper, .horizontal-flip .magic-box:hover>.flipper {
+			-webkit-transform: rotateY(180deg);
+					transform: rotateY(180deg);
+			-webkit-transition: -webkit-transform 1s;
+			transition: -webkit-transform 1s;
+			transition: transform 1s;
+			transition: transform 1s, -webkit-transform 1s;
+		}
+
+		.horizontal-flip .magic-box-cover{
+			display:table;
+			vertical-align:middle;
+			z-index: 2;
+			/* for firefox 31 */
+			-webkit-transform: rotateY(0deg);
+			transform: rotateY(0deg);
+		}
+
+		.horizontal-flip .magic-box-content {
+			-webkit-transform: rotateY(180deg);
+			transform: rotateY(180deg);
+			display:table;
+		}
+
+		.horizontal-flip .industry img{
+			display:block;
+			margin:0 auto;
+		}
+
+		.horizontal-flip .magic-box-content .industry{
+			display: table-cell;
+			vertical-align: middle;
+		}
+
+		.horizontal-flip .magic-box-cover .industry{
+			display:table-cell; 
+			vertical-align:middle;
+		}
+		
+		.horizontal-flip .flipper{
+			-webkit-transition: 0.6s;
+			transition: 0.6s;
+			-webkit-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+			position: relative;
+		}
+
+		.horizontal-flip .magic-box-cover, .horizontal-flip .magic-box-content{
+			-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	</style>
+@stop
 @section('content')
     @if(session()->has("days"))
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -41,7 +122,7 @@
             @endif			
 		</div>
 	</div>
-	<!-- Slide Tags End -->
+	<!-- Slide Tags End -->      
 
 	<!-- What We Do Start -->
 	<div class="container py-5">
@@ -57,40 +138,79 @@
 	<!-- What We Do End -->
 
 	<!-- Services Start -->
-	<div class="container pb-5">
+	<div class="container pb-5 two-row-4-col-logos-with-text horizontal-flip text-black">
 		<h1 class="mb-3 text-center section-title">To Start With, Subscribe To Our Services</h1>
-		<div class="row">
-			<div class="col-md-6 col-12 mt-4">
-				<div class="p-4 border text-center service-box">
-					<img src="{{asset('images/intraday-icon.png')}}" class="py-4" alt="Intraday"/>
-					<h4><strong>Intraday</strong></h4>
-					<p>Buy and Sell on the <strong>SAME DAY</strong></p>
-				</div>
-			</div>
-			<div class="col-md-6 col-12 mt-4">
-				<div class="p-4 border text-center service-box">
-					<img src="{{asset('images/intraday-icon.png')}}" class="py-4" alt="Intraday"/>
-					<h4><strong>BTST</strong></h4>
-					<p>Buy it today and sell it tomorrow</p>
-				</div>
-			</div>
-			<div class="col-md-6 col-12 mt-4">
-				<div class="p-4 border text-center service-box">
-					<img src="{{asset('images/positional-icon.png')}}" class="py-4" alt="Intraday"/>
-					<h4><strong>Positional</strong></h4>
-					<p>This contains of Short Terms (buy and sell after more than a day upto <strong>A MONTH or 3 MONTHS</strong>) or Long Term (buy and sell after more than<strong>3 MONTHS upto 1 YEAR</strong>)</p>
-				</div>
-			</div>
-			<div class="col-md-6 col-12 mt-4">
-				<div class="p-4 border text-center service-box">
-					<img src="{{asset('images/investment-icon.png')}}" class="py-4" alt="Intraday"/>
-					<h4><strong>Investment</strong></h4>
-					<p>Buy and Sell for <strong>3 to 5 YEARS</strong></p>
-				</div>
-			</div>
-		</div>
-		<p class="text-right mt-4"><a role="button" class="btn btn-success" href="{{route('strategy-list')}}">Buy Strategies</a></p>	
-	</div>
+	    <div class="row">
+      		<div class="span3 col-md-3 col-12 mt-4">
+        		<div class="magic-box">
+					<div class="flipper">
+            			<div class="magic-box-cover">
+              				<div class="industry">
+							  	<img src="{{asset('images/intraday-icon.png')}}" class="py-4" alt="Intraday"/>
+								<h4 class="text-center"><strong>Intraday</strong></h4>
+              				</div>
+            			</div>
+						<div class="magic-box-content">
+							<div class="industry">
+								<p class="text-center">Buy and Sell on the <strong>SAME DAY</strong></p>
+							</div>
+						</div>
+          			</div>
+        		</div>        
+      		</div>
+      		<div class="span3 col-md-3 col-12 mt-4">
+        		<div class="magic-box">
+					<div class="flipper">
+            			<div class="magic-box-cover">
+              				<div class="industry">
+							  	<img src="{{asset('images/intraday-icon.png')}}" class="py-4" alt="BTST"/>
+								<h4 class="text-center"><strong>BTST</strong></h4>
+              				</div>
+            			</div>
+						<div class="magic-box-content">
+							<div class="industry">
+								<p class="text-center">Buy it today and sell it tomorrow</p>
+							</div>
+						</div>
+          			</div>
+        		</div>        
+      		</div>
+      		<div class="span3 col-md-3 col-12 mt-4">
+        		<div class="magic-box">
+					<div class="flipper">
+            			<div class="magic-box-cover">
+              				<div class="industry">
+							  	<img src="{{asset('images/positional-icon.png')}}" class="py-4" alt="Positional"/>
+								<h4 class="text-center"><strong>Positional</strong></h4>
+              				</div>
+            			</div>
+						<div class="magic-box-content">
+							<div class="industry">
+								<p class="text-center">This contains of Short Terms (buy and sell after more than a day upto <strong>A MONTH or 3 MONTHS</strong>) or Long Term (buy and sell after more than<strong>3 MONTHS upto 1 YEAR</strong>)</p>
+							</div>
+						</div>
+          			</div>
+        		</div>        
+      		</div>
+      		<div class="span3 col-md-3 col-12 mt-4">
+        		<div class="magic-box">
+					<div class="flipper">
+            			<div class="magic-box-cover">
+              				<div class="industry">
+							  	<img src="{{asset('images/investment-icon.png')}}" class="py-4" alt="Investment"/>
+								<h4 class="text-center"><strong>Investment</strong></h4>
+              				</div>
+            			</div>
+						<div class="magic-box-content">
+							<div class="industry">
+								<p class="text-center">Buy and Sell for <strong>3 to 5 YEARS</strong></p>
+							</div>
+						</div>
+          			</div>
+        		</div>        
+      		</div>
+        </div>
+    </div>
 	<!-- Services End -->
 
 	<!-- About Us Start -->

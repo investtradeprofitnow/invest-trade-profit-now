@@ -3,9 +3,13 @@ body{
 }
 
 .nav-link{
-    font-size: 2vw;
+    font-size: 1.5vw;
     font-weight: bolder;
     color: black !important;
+}
+
+.navbar{
+    padding-bottom: 0;
 }
 
 .dropdown-toggle{
@@ -53,7 +57,6 @@ footer{
 
 .links-active{
     font-weight: bold;
-    color: white;
 }
 
 .d-block{

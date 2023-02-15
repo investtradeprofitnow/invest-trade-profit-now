@@ -32,10 +32,6 @@
             background: linear-gradient(#AEE4F4, #E7F1C3);
         }
 
-        .row{
-            color: #0A252D;
-        }
-
         .red{
             color: red;
         }
@@ -67,7 +63,7 @@
             font-weight: bold;
         }
 
-        p, ul{
+        ul{
             margin-bottom: 0 !important;
         }
 
@@ -109,7 +105,7 @@
                             </p>
                         @endif
                         <br/><h6 class="text-left">Description of the Strategy:</h6>
-                        <p class="text-left">{!! nl2br($strategy->description) !!}</p>                        
+                        <p class="text-left">{!! ($strategy->description) !!}</p>                        
                         <a href="{{$strategy->link}}" target="_blank" class="btn buy-now mt-3" role="button">Buy Now</a>
                     </div>                      
                 </div>
