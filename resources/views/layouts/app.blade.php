@@ -56,13 +56,13 @@
 
 			.btn-youtube
 			{
-				background-color: #e52d27;
+				background-color: #E52D27;
 				font-size: 30px;
 			}
 
 			.btn-youtube:hover
 			{
-				background-color: #ea5955;
+				background-color: #EA5955;
 			}
 		</style>
 		<title>@yield('pageTitle')</title>

@@ -5,7 +5,7 @@
 
 .sect-title::before {
     content: "\2022";
-    color: #8ccd30;
+    color: #8CCD30;
     font-weight: 700;
     display: inline-block;
     font-size: 25px;
