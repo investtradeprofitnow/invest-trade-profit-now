@@ -33,6 +33,7 @@
             $update = $customerObj->updateProfile($name, $email, $customer_id);
             if($update==1){
                 $json["status"] = "success";
+                $json["message"] = "Profile Updated Successfully.";
                 $json["name"] = $name;
                 $json["email"] = $email;
             }
