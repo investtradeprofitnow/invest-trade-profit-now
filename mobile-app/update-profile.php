@@ -27,7 +27,7 @@
         }        
         if($isExists){
             $json["status"] = "error";
-            $json["message"] = "This email id already exists. Please use the forgot password to change the password of the account";
+            $json["message"] = "This email id already exists. Please use the forgot password to change the password of the account.";
         }
         else{
             $update = $customerObj->updateProfile($name, $email, $customer_id);
