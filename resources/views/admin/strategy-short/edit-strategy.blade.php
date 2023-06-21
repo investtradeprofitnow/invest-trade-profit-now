@@ -41,6 +41,22 @@
                 <label for="link" class="form-label">Purchase Link:</label>
                 <input type="text" class="form-control" name="link" id="link" value="{{$strategy->link}}">
             </div>
+            <div class="form-group mt-3">
+                <label for="active" class="form-label">Active:</label>
+                <br/>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="active" id="active_yes" value="Yes" {{$strategy->active=="Yes"?"checked":""}}>
+                    <label class="form-check-label" for="active_yes">
+                        Yes
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="active" id="active_no" value="No" {{$strategy->active=="No"?"checked":""}}>
+                    <label class="form-check-label" for="active_no">
+                        No
+                    </label>
+                </div>
+            </div>
             <div>
                 <input type="hidden" name="id" value="{{$strategy->strategy_short_id}}"/>
             </div>

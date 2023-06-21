@@ -27,7 +27,7 @@ class CartController extends Controller
                 Session::put("id",$customer->customer_id);
             }
             $custId = Session::get("id");
-            $strategies = StrategyShort::all()->sortByDesc("updated_at");
+            $strategies = StrategyShort::all()->where("active","Yes")->sortByDesc("updated_at");
             return view("services.strategy-list",["strategies"=>$strategies]);
         }
         else{

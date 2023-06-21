@@ -15,6 +15,7 @@
 					<th scope="col">Type</th>
 					<th scope="col">Photo</th>
 					<th scope="col">Purchase Link</th>
+					<th scope="col">Active</th>
 					<th scope="col">Operation</th>
 				</tr>
 			</thead>
@@ -39,6 +40,7 @@
 						<td id="{{'type'.$index}}">{{$strategy->type}}</td>
 						<td id="{{'type'.$index}}">{{$strategy->photo}}</td>
 						<td id="{{'link'.$index}}">{{$strategy->link}}</td>
+						<td id="{{'active'.$index}}">{{$strategy->active}}</td>
 						<td class="text-center">
 							<a class="btn btn-outline" id="{{'edit'.$index}}" href="{{route('edit-strategy-short',$index)}}">
 								Edit

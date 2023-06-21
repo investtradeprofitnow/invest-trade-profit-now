@@ -71,6 +71,7 @@ class StrategyShortController extends Controller
         $strategy->description = request("description");
         $strategy->type = request("type");
         $strategy->link = request("link");
+        $strategy->active = request("active");
         if($files=$request->file("photo")){
             $fileName=$files->getClientOriginalName();  
             $files->move("strategy/short",$fileName);

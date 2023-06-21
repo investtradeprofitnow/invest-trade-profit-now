@@ -12,7 +12,7 @@
 
         public function getStrategies(){
             $json = array();
-            $query = "select * from ".$this->$dbTable." order by updated_at desc";
+            $query = "select * from ".$this->$dbTable." where active='Yes' order by updated_at desc";
             $result = mysqli_query($this->conn, $query);
             while($row =mysqli_fetch_assoc($result)){
                 $json[] = $row;
