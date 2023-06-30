@@ -4,6 +4,7 @@
     $email="";
     $name="";
     $current_email="";
+    $photo="";
 
     if(isset($_POST['email'])){        
         $email = $_POST['email'];
@@ -16,6 +17,9 @@
     }    
     if(isset($_POST['customerId'])){        
         $customer_id = (int)$_POST['customerId'];
+    }    
+    if(isset($_POST['photo'])){        
+        $photo = $_POST['photo'];
     }
 
 	if(!empty($email) && !empty($name) && !empty($customer_id)){
@@ -30,17 +34,7 @@
             $json["message"] = "This email id already exists. Please use the forgot password to change the password of the account.";
         }
         else{
-            $update = $customerObj->updateProfile($name, $email, $customer_id);
-            if($update==1){
-                $json["status"] = "success";
-                $json["message"] = "Profile Updated Successfully.";
-                $json["name"] = $name;
-                $json["email"] = $email;
-            }
-            else{
-                $json["status"] = "error";
-                $json["message"] = "Profile details couldn't be updated";
-            }
+            $json = $customerObj->updateProfile($name, $email, $customer_id, $photo);            
         }        
         echo json_encode($json);
     }

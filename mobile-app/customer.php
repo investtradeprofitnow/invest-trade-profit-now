@@ -89,10 +89,70 @@
             }
         }
 
-        public function updateProfile($name, $email, $customer_id){
-            $query = "update ".$this->$dbTable." set name = '".$name."', email = '".$email."' where customer_id = '".$customer_id."'";
+        public function updateProfile($name, $email, $customer_id, $photo){
+            $json = array();
+            $filename=null;
+            if($photo!="No"){
+                $filename = date("d-m-y-").str_replace(" ","-",$name).".jpg";
+                $path = "images/customer-images/".date("d-m-y-").str_replace(" ","-",$name).".jpg";
+                if(file_put_contents($path,base64_decode($photo))){
+                    $query = "select * from ".$this->$dbTable." where customer_id = '.$id.' limit 1";
+                    $result = mysqli_query($this->conn, $query);
+                    if(!is_null($result->photo) || !strcmp($result->photo,"")){
+                        $this->deletePhoto($result->photo);
+                        $query = "update ".$this->$dbTable." set name = '".$name."', email = '".$email."', photo = '".$filename."' where customer_id = '".$customer_id."'";
+                    }                    
+                }
+                else{
+                    $json["status"] = "error";
+                    $json["message"] = "Profile photo couldn't be updated";
+                    return $json;
+                }
+            }
+            else{
+                $query = "update ".$this->$dbTable." set name = '".$name."', email = '".$email."' where customer_id = '".$customer_id."'";
+            }
             $update = mysqli_query($this->conn,$query);
-            return $update;
+            if($update==1){
+                $json["status"] = "success";
+                $json["message"] = "Profile Updated Successfully.";
+                $json["name"] = $name;
+                $json["email"] = $email;
+                if(is_null($filename)){
+                    $json["photo"] = null;
+                }
+                else{
+                    $json["photo"] = $filename;
+                }
+            }
+            else{
+                $json["status"] = "error";
+                $json["message"] = "Profile details couldn't be updated";
+            }
+            return $json;
+        }
+
+        public function deletePhoto($name){
+            $path = "images/customer-images/".$name;
+            if(file_exists($path)){
+                unlink($path);
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        public function updatePhotoNull($customer_id){
+            $query = "update ".$this->$dbTable." set photo = null where customer_id = ".$customer_id;
+            mysqli_query($this->conn,$query);
+        }
+
+        public function getCustomerDetails($customer_id){
+            $query = "select * from ".$this->$dbTable." where customer_id = ".$customer_id." limit 1";
+            $result = mysqli_query($this->conn,$query);
+            $customer = $result->fetch_assoc();
+            return $customer;
         }
     }
 ?>
